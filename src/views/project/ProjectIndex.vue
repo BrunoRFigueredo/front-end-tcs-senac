@@ -1,8 +1,7 @@
 <template>
   <div id="index-project" class="container">
     <h2>Project</h2>
-    <p>TESTE</p>
-    <p>TESTE</p>
+    <h2>RETIRAR</h2>
   </div>
 </template>
 
