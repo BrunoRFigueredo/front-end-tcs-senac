@@ -4,7 +4,7 @@
       <h3 class="text-center pb-4"><strong>Cadastrar usuário</strong></h3>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Seu nome</label>
-        <input type="text" class="form-control" v-model="user.name">
+        <input type="text" class="form-control" v-model="user.nome">
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -38,13 +38,13 @@ export default {
     return{
       errors: [],
       user: {
-        name: '',
+        nome: '',
         email: '',
         password: '',
         confirmPassword: '',
-        dh_cadastro: Date.now(),
-        status: true,
-        id_perfil_permissao: 1
+        dataHoraCadastro: Date.now(),
+        status: 'ATIVO',
+        permissao: ["1"]
       }
     }
   },

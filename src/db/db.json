@@ -49,6 +49,18 @@
       "status": true,
       "id_perfil_permissao": 1,
       "id": 11
+    },
+    {
+      "nome": "Felipe",
+      "email": "felipe-daros@hotmail.com",
+      "password": "123",
+      "confirmPassword": "123",
+      "dataHoraCadastro": 1650541595146,
+      "status": "ATIVO",
+      "permissao": [
+        "1"
+      ],
+      "id": 12
     }
   ],
   "institutions": [
