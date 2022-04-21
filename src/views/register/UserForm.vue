@@ -58,8 +58,10 @@ export default {
       }
     },
     created(){
-      api.post("/users", this.user).then((r) => {
+      api.post("/usuario", this.user).then((r) => {
         console.log(this.user, r)
+      }).catch(err => {
+        console.log(err.message);
       })
     }
   },

@@ -6,7 +6,7 @@
           <h5 class="card-title">{{user.name}}</h5>
           <p class="card-text">{{user.email}}</p>
           <p class="card-text">{{user.status}}</p>
-          <button class="botao" @click="deleted(user.id)">Excluir</button>
+          
         </div>
       </div>
     </div>
@@ -24,22 +24,22 @@ export default {
     }
   },
   mounted(){
-    api.get("/users").then((r) => {
+    api.get("/usuario").then((r) => {
       this.users = r.data;
       console.log(this.users);
     })
   },
   methods: {
-    deleted(id){
-      api.delete(`/users/${id}`).then(r => {
-        api.get("/users").then((r) => {
+    /*deleted(id){
+      api.delete(`/usuario/${id}`).then(r => {
+        api.get("/usuario").then((r) => {
       this.users = r.data;
       console.log(this.users);
     })
       }).catch(err => {
         console.log(err)
       })
-    }
+    }*/
   }
 }
 </script>
@@ -51,6 +51,9 @@ export default {
     color: #fff;
     font-weight: bold;
     background-color: #504B43;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px;
   }
 
   .card{

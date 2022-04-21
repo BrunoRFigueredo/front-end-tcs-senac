@@ -4,6 +4,7 @@ import IndexUsers from "../views/users/IndexUsers.vue";
 import UserForm from "../views/register/UserForm.vue";
 import LoginIndex from "../views/login/LoginIndex.vue";
 import IndexInstituition from "../views/institution/InstitutionIndex.vue";
+import SelectInstituition from "../views/institution/InstitutionSelect.vue";
 import IndexProject from "../views/project/ProjectIndex.vue";
 
 const routes = [
@@ -33,10 +34,15 @@ const routes = [
     component: IndexInstituition
   },
   {
+    path: "/instituition/:id",
+    name: "select-instituition",
+    component: SelectInstituition
+  },
+  {
     path: "/project",
     name: "index-project",
     component: IndexProject
-  }
+  },
 ]
 
 const router = createRouter({
