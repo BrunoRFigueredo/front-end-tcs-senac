@@ -6,8 +6,10 @@ import LoginIndex from "../views/login/LoginIndex.vue";
 import IndexInstituition from "../views/institution/InstitutionIndex.vue";
 import SelectInstituition from "../views/institution/InstitutionSelect.vue";
 import IndexProject from "../views/project/ProjectIndex.vue";
-import indexInsumo from "../views/insumos/indexInsumo.vue"
-import IndexCategory from "../views/insumos/IndexCategory.vue"
+import indexInsumo from "../views/insumos/indexInsumo.vue";
+import IndexCategory from "../views/insumos/IndexCategory.vue";
+import IndexVoluntary from "../views/voluntary/IndexVoluntary.vue";
+import VoluntaryForm from "../views/voluntary/VoluntaryForm.vue";
 
 const routes = [
   {
@@ -54,6 +56,16 @@ const routes = [
     path: "/category",
     name: "index-category",
     component: IndexCategory
+  },
+  {
+    path: "/voluntary",
+    name: "index-voluntary",
+    component: IndexVoluntary
+  },
+  {
+    path: "/voluntary-register",
+    name: "form-voluntary",
+    component: VoluntaryForm
   }
 ]
 

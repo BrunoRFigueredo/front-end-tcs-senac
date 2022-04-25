@@ -7,6 +7,7 @@
       <router-link to="/project" class="m-2">Projetos</router-link>  
       <router-link to="/category" v-if="user.perfilPermissao == 3" class="m-2">Categorias</router-link>
       <router-link to="/insumo" v-if="user.perfilPermissao == 3" class="m-2">Insumos</router-link>
+      <router-link to="/voluntary" v-if="user.perfilPermissao == 3" class="m-2">Voluntários</router-link>
     </div>
     <div class="usuario">
       <div><strong style="color: #504B43">{{user.nome}}</strong></div>
