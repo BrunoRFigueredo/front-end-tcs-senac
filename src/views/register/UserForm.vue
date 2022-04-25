@@ -4,27 +4,21 @@
       <h3 class="text-center pb-4"><strong>Cadastrar usuário</strong></h3>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Seu nome</label>
-        <input type="text" class="form-control" v-model="user.nome">
+        <input type="text" class="form-control" v-model="usuario.nome">
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input type="email" class="form-control" v-model="user.email">
+        <input type="email" class="form-control" v-model="usuario.email">
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Senha</label>
-        <input type="password" class="form-control" v-model="user.password">
+        <input type="password" class="form-control" v-model="usuario.password">
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Confirmar senha</label>
-        <input type="password" class="form-control" v-model="user.confirmPassword">
+        <input type="password" class="form-control" v-model="usuario.confirmPassword">
       </div>
-      <button type="submit" class="btn btn-success" @click="created">Cadastrar</button>
-      <p v-if="errors.length">
-        <b>Campos obrigatórios</b>
-        <ul>
-          <li v-for="error in errors" :key="error">{{ error }}</li>
-        </ul>
-      </p>
+      <button type="submit" class="btn btn-success" @click="cadastrar">Cadastrar</button>
     </form>
   </dir>
 </template>
@@ -36,32 +30,23 @@ export default {
   name: "user-form",
   data(){
     return{
-      errors: [],
-      user: {
+      usuario: {
         nome: '',
         email: '',
         password: '',
         confirmPassword: '',
         dataHoraCadastro: Date.now(),
         status: 'a',
-        permissao: 1
+        perfilPermissao: 1
       }
     }
   },
   methods: {
-    checkForm: function (e){
-      this.errors = [];
-
-      if(!this.name || !this.email || !this.password || !this.confirmPassword){
-        this.errors.push("Todos os campos são obrigatório");
-        return
-      }
-    },
-    created(){
-      api.post("/usuario", this.user).then((r) => {
-        console.log(this.user, r)
+    cadastrar(){
+      api.post("/usuario", this.usuario).then((r) => {
+        console.log(this.usuario, r)
       }).catch(err => {
-        console.log(err.message);
+        console.log(err);
       })
     }
   },

@@ -11,7 +11,8 @@
     <div class="usuario">
       <div><strong style="color: #504B43">{{user.nome}}</strong></div>
       <div>
-        <router-link to="/#" class="text-usuario" v-if="!user.nome" @click="logar()">Acessar conta</router-link>
+        <router-link to="/#" class="text-usuario" v-if="!user.nome" @click="logar()">Acessar conta</router-link> | 
+        <router-link to="/user-register" class="text-usuario" v-if="!user.nome">Cadastrar</router-link>
         <button @click="deslogar()" v-if="user.nome" class="botaoDesconectar">Desconectar</button>
       </div>
     </div>
