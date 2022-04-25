@@ -6,7 +6,7 @@
           <h5 class="card-title">{{user.name}}</h5>
           <p class="card-text">{{user.email}}</p>
           <p class="card-text">{{user.status}}</p>
-          
+          <button @click="editar(user)"></button>
         </div>
       </div>
     </div>
@@ -40,6 +40,12 @@ export default {
         console.log(err)
       })
     }*/
+    edit(user){
+      this.users = user;
+      api.post("/usuario", user).then(r => {
+        console.log(user);
+      })
+    }
   }
 }
 </script>

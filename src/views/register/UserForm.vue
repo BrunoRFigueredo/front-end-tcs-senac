@@ -43,8 +43,8 @@ export default {
         password: '',
         confirmPassword: '',
         dataHoraCadastro: Date.now(),
-        status: 'ATIVO',
-        permissao: ["1"]
+        status: 'a',
+        permissao: 1
       }
     }
   },

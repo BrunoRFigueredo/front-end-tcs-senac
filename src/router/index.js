@@ -6,6 +6,8 @@ import LoginIndex from "../views/login/LoginIndex.vue";
 import IndexInstituition from "../views/institution/InstitutionIndex.vue";
 import SelectInstituition from "../views/institution/InstitutionSelect.vue";
 import IndexProject from "../views/project/ProjectIndex.vue";
+import indexInsumo from "../views/insumos/indexInsumo.vue"
+import IndexCategory from "../views/insumos/IndexCategory.vue"
 
 const routes = [
   {
@@ -43,6 +45,16 @@ const routes = [
     name: "index-project",
     component: IndexProject
   },
+  {
+    path: "/insumo",
+    name: 'index-insumo',
+    component: indexInsumo
+  },
+  {
+    path: "/category",
+    name: "index-category",
+    component: IndexCategory
+  }
 ]
 
 const router = createRouter({

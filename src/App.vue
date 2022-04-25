@@ -1,15 +1,18 @@
 <template>
   <nav>
-    <div class="link">
-      <router-link to="/">Início</router-link> | 
-      <router-link to="/users">Voluntários</router-link> |
-      <router-link to="/instituition">Instituições</router-link> |
-      <router-link to="/project">Projetos</router-link>
+    <div class="link" v-if="user.nome">
+      <router-link to="/" class="m-2">Início</router-link>
+      <router-link to="/users" class="m-2" v-if="user.perfilPermissao == 3">Usuários</router-link> 
+      <router-link to="/instituition" class="m-2">Instituições</router-link> 
+      <router-link to="/project" class="m-2">Projetos</router-link>  
+      <router-link to="/category" v-if="user.perfilPermissao == 3" class="m-2">Categorias</router-link>
+      <router-link to="/insumo" v-if="user.perfilPermissao == 3" class="m-2">Insumos</router-link>
     </div>
     <div class="usuario">
-      <div><strong style="color: #504B43">NOME USUÁRIO</strong></div>
+      <div><strong style="color: #504B43">{{user.nome}}</strong></div>
       <div>
-        <router-link to="/user-login" class="text-usuario">Login</router-link>
+        <router-link to="/#" class="text-usuario" v-if="!user.nome" @click="logar()">Acessar conta</router-link>
+        <button @click="deslogar()" v-if="user.nome" class="botaoDesconectar">Desconectar</button>
       </div>
     </div>
   </nav>
@@ -18,7 +21,28 @@
 
 <script>
 export default {
-  
+    data(){
+      return{
+        user: {
+          id: 1,
+          nome: "Felipe",
+          email: "felipe-daros@hotmail.com",
+          password: '123',
+          confirmPassword: '123',
+          dataHoraCadastro: Date.now(),
+          status: 1,
+          perfilPermissao: 3
+        }
+      }
+    },
+    methods:{
+      logar(){
+        this.user.nome = "Felipe"
+      },
+      deslogar(){
+        this.user.nome = null
+      }
+    }
 }
 </script>
 
@@ -63,5 +87,16 @@ nav a:hover{
   font-size: 10px;
   text-align: center;
   padding-top: 5%;
+}
+
+.botaoDesconectar{
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #504B43;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px;
+  font-size: 10px;
 }
 </style>
