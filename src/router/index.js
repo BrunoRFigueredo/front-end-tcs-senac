@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import IndexUsers from "../views/users/IndexUsers.vue";
 import UserForm from "../views/register/UserForm.vue";
 import LoginIndex from "../views/login/LoginIndex.vue";
 import IndexInstituition from "../views/institution/InstitutionIndex.vue";
@@ -16,11 +15,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
-  },
-  {
-    path: '/users',
-    name: 'indexUsers',
-    component: IndexUsers
   },
   {
     path: "/user-register",

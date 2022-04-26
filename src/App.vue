@@ -2,7 +2,6 @@
   <nav>
     <div class="link" v-if="user.nome">
       <router-link to="/" class="m-2">Início</router-link>
-      <router-link to="/users" class="m-2" v-if="user.perfilPermissao == 3">Usuários</router-link> 
       <router-link to="/instituition" class="m-2">Instituições</router-link> 
       <router-link to="/project" class="m-2">Projetos</router-link>  
       <router-link to="/category" v-if="user.perfilPermissao == 3" class="m-2">Categorias</router-link>
