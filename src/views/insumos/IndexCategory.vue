@@ -4,11 +4,11 @@
       <h3 class="text-center pb-4"><strong>Cadastrar Categoria</strong></h3>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Nome da categoria</label>
-        <input type="text" class="form-control" v-model="categoria.nome">
+        <input type="text" class="form-control" v-model="categoria.nome" required>
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Descrição</label>
-        <input type="text" class="form-control" v-model="categoria.descricao">
+        <input type="text" class="form-control" v-model="categoria.descricao" required>
       </div>
       <button class="btn btn-success" @click="cadastro">Cadastrar</button>
     </form>

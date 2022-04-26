@@ -4,18 +4,18 @@
       <h3 class="text-center pb-4"><strong>Cadastrar Insumo</strong></h3>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Nome da insumo</label>
-        <input type="text" class="form-control" v-model="insumo.nome">
+        <input type="text" class="form-control" v-model="insumo.nome" required>
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Descrição</label>
-        <input type="text" class="form-control" v-model="insumo.descricao">
+        <input type="text" class="form-control" v-model="insumo.descricao" required>
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Und medida</label>
-        <input type="text" class="form-control" v-model="insumo.unidadeMedida">
+        <input type="text" class="form-control" v-model="insumo.unidadeMedida" required>
       </div>
       <div class="mb-3">
-        <select v-model="insumo.id_categoria" class="w-25">
+        <select v-model="insumo.id_categoria" class="w-25" required>
           <option v-for="cat in categorias.conteudo" :key="cat.id" v-bind:value="cat.id">{{cat.nome}}</option>
         </select>
         

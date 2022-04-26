@@ -19,6 +19,12 @@
         <input type="password" class="form-control" v-model="usuario.confirmPassword" required>
       </div>
       <button type="submit" class="btn btn-success" @click="cadastrar">Cadastrar</button>
+      <p v-if="errors.length" class="mt-2">
+      <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+      <ul>
+        <li v-for="error in errors" :key="error" class="text-danger" style="list-style: none;">{{ error }}</li>
+      </ul>
+      </p>
     </form>
   </dir>
 </template>
@@ -30,6 +36,7 @@ export default {
   name: "user-form",
   data(){
     return{
+      errors: [],
       usuario: {
         nome: '',
         email: '',
@@ -42,15 +49,41 @@ export default {
     }
   },
   methods: {
+    checkForm: function (e) {
+      if (this.usuario.nome) {
+        return true;
+      }
+
+      this.errors = [];
+
+      if (!this.usuario.nome) {
+        this.errors.push('O nome é obrigatório.');
+      }
+
+      if (!this.usuario.email) {
+        this.errors.push('O email é obrigatório.');
+      }
+      
+      if (!this.usuario.password) {
+        this.errors.push('A senha é obrigatório.');
+      }
+
+      if(!this.usuario.confirmPassword){
+        this.errors.push('A confirmação da senha é obrigatória');
+      }
+
+      if(this.usuario.password != this.usuario.confirmPassword){
+        this.errors.push(e.error.message);
+      }
+
+      e.preventDefault();
+    },
     cadastrar(){
       if(this.password === this.confirmPassword){
         api.post("/usuario", this.usuario).then((r) => {
         console.log(this.usuario, r)
-      }).catch(err => {
-        console.log(err);
       })
       }
-      
     }
   },
   

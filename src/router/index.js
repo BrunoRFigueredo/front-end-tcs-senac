@@ -9,6 +9,8 @@ import indexInsumo from "../views/insumos/indexInsumo.vue";
 import IndexCategory from "../views/insumos/IndexCategory.vue";
 import IndexVoluntary from "../views/voluntary/IndexVoluntary.vue";
 import VoluntaryForm from "../views/voluntary/VoluntaryForm.vue";
+import IndexService from "../views/service/IndexService.vue";
+import ServiceForm from "../views/service/ServiceForm.vue";
 
 const routes = [
   {
@@ -60,6 +62,16 @@ const routes = [
     path: "/voluntary-register",
     name: "form-voluntary",
     component: VoluntaryForm
+  },
+  {
+    path: "/services",
+    name: "index-service",
+    component: IndexService
+  },
+  {
+    path: "/services-register",
+    name: "form-service",
+    component: ServiceForm
   }
 ]
 
