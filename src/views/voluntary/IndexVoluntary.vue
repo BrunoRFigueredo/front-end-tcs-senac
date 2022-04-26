@@ -14,7 +14,7 @@
           </div>
           <p class="col">CEP: {{volunter.cep}}</p>
           <p class="col">Contato: {{volunter.telefone}}</p>
-          <button class="botao">Visualziar</button>
+          <button class="botao">Visualizar</button>
         </div>
       </div>
     </div>
