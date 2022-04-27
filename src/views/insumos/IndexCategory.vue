@@ -38,31 +38,28 @@ export default {
     
   },
   mounted(){
-    api.get("/categoria/").then(r => {
-      this.categorias = r.data;
-      console.log(this.categorias.conteudo)
-    })
+    this.listar()
   },
   methods:{
+    listar(){
+      api.get("/categoria/").then(r => {
+      this.categorias = r.data;
+      console.log(this.categorias.conteudo)
+      })
+    },
     cadastro(){
       api.post("/categoria/", this.categoria).then(r => {
-        api.get("/categoria/").then(r => {
-          this.categorias = r.data;
-        });
+        this.listar()
       })
     },
     deletar(id){
       api.delete(`/categoria/${id}`).then(
-        api.get("/categoria/").then(r => {
-        this.categorias = r.data;
-    }),
+        this.listar()
       );
     },
     atualizar(id, cate){
       api.put(`/categoria/${id}`, cate).then(r => {
-        api.get("/categoria/").then(r => {
-          this.categorias = r.data;
-        })
+        this.listar()
       }).catch(err => {
         console.log(err)
       });
