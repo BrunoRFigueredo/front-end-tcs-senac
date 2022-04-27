@@ -1,18 +1,18 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import UserForm from "../views/register/UserForm.vue";
-import UserDetail from "../views/user/UserDetail.vue"
+import UsuarioForm from "../views/register/UsuarioForm.vue";
+import UsuarioDetail from "../views/usuario/UsuarioDetail.vue"
 import LoginIndex from "../views/login/LoginIndex.vue";
-import IndexInstituition from "../views/institution/InstitutionIndex.vue";
-import SelectInstituition from "../views/institution/InstitutionSelect.vue";
-import IndexProject from "../views/project/ProjectIndex.vue";
-import indexInsumo from "../views/insumos/indexInsumo.vue";
-import IndexCategory from "../views/insumos/IndexCategory.vue";
-import IndexVoluntary from "../views/voluntary/IndexVoluntary.vue";
-import VoluntaryForm from "../views/voluntary/VoluntaryForm.vue";
-import IndexService from "../views/service/IndexService.vue";
-import ServiceForm from "../views/service/ServiceForm.vue";
-import ServiceSelect from "../views/service/ServiceSelect.vue";
+import IndexInstituicao from "../views/instituicao/InstituicaoIndex.vue";
+import SelectInstituicao from "../views/instituicao/InstituicaoIndex.vue";
+import IndexProjeto from "../views/projeto/ProjetoIndex.vue";
+import indexInsumo from "../views/insumo/InsumoIndex.vue";
+import IndexCategoria from "../views/insumo/CategoriaIndex.vue";
+import IndexVoluntario from "../views/voluntario/IndexVoluntario.vue";
+import VoluntarioForm from "../views/voluntario/VoluntarioForm.vue";
+import IndexServico from "../views/servico/IndexServico.vue";
+import ServicoForm from "../views/servico/ServicoForm.vue";
+import ServicoSelect from "../views/servico/ServicoForm.vue";
 
 const routes = [
   {
@@ -21,35 +21,35 @@ const routes = [
     component: HomeView
   },
   {
-    path: "/user-register",
-    name: "user-form",
-    component: UserForm
+    path: "/usuario-register",
+    name: "usuario-form",
+    component: UsuarioForm
   },
   {
-    path: "/user-login",
-    name: "user-login",
+    path: "/usuario-login",
+    name: "usuario-login",
     component: LoginIndex 
   },
   {
-    path: "/user-detail/:id",
+    path: "/usuario-detail/:id",
     props: true,
-    name: "user-detail",
-    component: UserDetail 
+    name: "usuario-detail",
+    component: UsuarioDetail 
   },
   {
-    path: "/instituition",
-    name: "index-instituition",
-    component: IndexInstituition
+    path: "/Instituicao",
+    name: "index-Instituicao",
+    component: IndexInstituicao
   },
   {
-    path: "/instituition/:id",
-    name: "select-instituition",
-    component: SelectInstituition
+    path: "/Instituicao/:id",
+    name: "select-Instituicao",
+    component: SelectInstituicao
   },
   {
-    path: "/project",
-    name: "index-project",
-    component: IndexProject
+    path: "/projeto",
+    name: "index-projeto",
+    component: IndexProjeto
   },
   {
     path: "/insumo",
@@ -57,35 +57,35 @@ const routes = [
     component: indexInsumo
   },
   {
-    path: "/category",
-    name: "index-category",
-    component: IndexCategory
+    path: "/categoria",
+    name: "index-categoria",
+    component: IndexCategoria
   },
   {
-    path: "/voluntary",
-    name: "index-voluntary",
-    component: IndexVoluntary
+    path: "/voluntario",
+    name: "index-voluntario",
+    component: IndexVoluntario
   },
   {
-    path: "/voluntary-register",
-    name: "form-voluntary",
-    component: VoluntaryForm
+    path: "/voluntario-register",
+    name: "form-voluntario",
+    component: VoluntarioForm
   },
   {
-    path: "/services",
-    name: "index-service",
-    component: IndexService
+    path: "/servicos",
+    name: "index-servico",
+    component: IndexServico
   },
   {
-    path: "/services-register",
-    name: "form-service",
-    component: ServiceForm
+    path: "/servicos-register",
+    name: "form-servico",
+    component: ServicoForm
   },
   {
-    path: "/services/:id",
+    path: "/servicos/:id",
     props: true,
-    name: "service-select",
-    component: ServiceSelect
+    name: "servico-select",
+    component: ServicoSelect
   }
 ]
 

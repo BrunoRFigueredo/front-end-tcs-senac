@@ -1,5 +1,5 @@
 <template>
-  <div id="index-instituition">
+  <div id="select-instituition">
     <div class="container">
       <div class="row">
         <div class="card" style="width: 18rem;" v-for="inst in institutions" :key="inst.id">
@@ -8,7 +8,7 @@
             <h5 class="card-title">{{inst.name}}</h5>
             <p class="card-text">{{inst.cnpj}}</p>
             <p class="card-text">{{inst.pix}}</p>
-            <router-link to="" class="botao">Visualizar</router-link>
+            <button class="botao">Visualizar</button>
           </div>
         </div>
       </div>
@@ -19,13 +19,14 @@
 <script>
 import api from "../../services/api";
 export default {
+  name: "select-instituition",
   data(){
     return{
       institutions: [],
     }
   },
   mounted(){
-    api.get("/institutions").then(r => {
+    api.get("/instituicao/").then(r => {
       this.institutions = r.data;
       console.log(this.institutions);
     })
@@ -40,9 +41,6 @@ export default {
     color: #fff;
     font-weight: bold;
     background-color: #504B43;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px;
   }
 
   .card{

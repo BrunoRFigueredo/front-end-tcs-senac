@@ -10,7 +10,7 @@
             <h4 class="text-center fw-bold">{{servico.nome}}</h4>
               <p>{{servico.id}}</p>
               <p>{{servico.nome}}</p>
-              <router-link tag="button" class="botao" :to="`/services/${servico.id}`">Visualizar</router-link>
+              <router-link tag="button" class="botao" :to="`/servico/${servico.id}`">Visualizar</router-link>
           </div>
         </div>
       </div>
