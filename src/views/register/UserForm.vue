@@ -1,6 +1,6 @@
 <template>
   <dir id="user-form">
-    <form action="" class="w-50" id="formulario" @submit="checkForm">
+    <form action="" class="w-50" id="formulario">
       <h3 class="text-center pb-4"><strong>Cadastrar usuário</strong></h3>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Seu nome</label>
@@ -18,13 +18,7 @@
         <label for="exampleInputEmail1" class="form-label">Confirmar senha</label>
         <input type="password" class="form-control" v-model="usuario.confirmPassword" required>
       </div>
-      <button type="submit" class="btn btn-success" @click="cadastrar">Cadastrar</button>
-      <p v-if="errors.length" class="mt-2">
-      <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-      <ul>
-        <li v-for="error in errors" :key="error" class="text-danger" style="list-style: none;">{{ error }}</li>
-      </ul>
-      </p>
+      <button type="submit" class="btn btn-success"  :disabled="disabled()" @click="cadastrar">Cadastrar</button>
     </form>
   </dir>
 </template>
@@ -38,10 +32,10 @@ export default {
     return{
       errors: [],
       usuario: {
-        nome: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
+        nome: 'pedro lucas',
+        email: 'pedro@hotmail.com',
+        password: '12345',
+        confirmPassword: '12345',
         dataHoraCadastro: Date.now(),
         status: 'a',
         perfilPermissao: 1
@@ -49,45 +43,27 @@ export default {
     }
   },
   methods: {
-    checkForm: function (e) {
-      if (this.usuario.nome) {
-        return true;
-      }
-
-      this.errors = [];
-
-      if (!this.usuario.nome) {
-        this.errors.push('O nome é obrigatório.');
-      }
-
-      if (!this.usuario.email) {
-        this.errors.push('O email é obrigatório.');
-      }
-      
-      if (!this.usuario.password) {
-        this.errors.push('A senha é obrigatório.');
-      }
-
-      if(!this.usuario.confirmPassword){
-        this.errors.push('A confirmação da senha é obrigatória');
-      }
-
-      if(this.usuario.password != this.usuario.confirmPassword){
-        this.errors.push(e.error.message);
-      }
-
-      e.preventDefault();
+    disabled(){
+      return (!this.usuario.nome || this.usuario.nome.length > 100) || 
+             (!this.usuario.email || this.usuario.email.length > 150 || !this.usuario.email.includes('@')) || 
+             (!this.usuario.password || this.usuario.password.length > 100) || 
+             (!this.usuario.confirmPassword || this.usuario.confirmPassword.length > 100);
     },
     cadastrar(){
-      if(this.password === this.confirmPassword){
-        api.post("/usuario", this.usuario).then((r) => {
-        console.log(this.usuario, r)
+      if(this.usuario.password != this.usuario.confirmPassword){
+        alert('As senhas não conferem, verifique!');
+      }else{
+        api.post("/usuario/", this.usuario)
+        .then(() => {
+          alert('Usuário cadastrado com sucesso!');
+          window.location.reload();
       })
+      .catch(e => {
+        alert('Erro ao gravar usuário: ' + e.response.data.message);
+      });
       }
     }
   },
-  
-  
 }
 </script>
 
