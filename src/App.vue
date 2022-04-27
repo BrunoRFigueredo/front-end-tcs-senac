@@ -10,7 +10,7 @@
       <router-link to="/services" v-if="user.perfilPermissao == 3" class="m-2">Serviços</router-link>
     </div>
     <div class="usuario">
-      <div><strong style="color: #504B43">{{user.nome}}</strong></div>
+      <router-link :to="`/user-detail/${user.id}`">{{user.nome}}</router-link>
       <div>
         <router-link to="/#" class="text-usuario" v-if="!user.nome" @click="logar()">Acessar conta</router-link> | 
         <router-link to="/user-register" class="text-usuario" v-if="!user.nome">Cadastrar</router-link>

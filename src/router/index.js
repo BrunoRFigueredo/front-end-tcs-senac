@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import UserForm from "../views/register/UserForm.vue";
+import UserDetail from "../views/user/UserDetail.vue"
 import LoginIndex from "../views/login/LoginIndex.vue";
 import IndexInstituition from "../views/institution/InstitutionIndex.vue";
 import SelectInstituition from "../views/institution/InstitutionSelect.vue";
@@ -11,6 +12,7 @@ import IndexVoluntary from "../views/voluntary/IndexVoluntary.vue";
 import VoluntaryForm from "../views/voluntary/VoluntaryForm.vue";
 import IndexService from "../views/service/IndexService.vue";
 import ServiceForm from "../views/service/ServiceForm.vue";
+import ServiceSelect from "../views/service/ServiceSelect.vue";
 
 const routes = [
   {
@@ -27,6 +29,12 @@ const routes = [
     path: "/user-login",
     name: "user-login",
     component: LoginIndex 
+  },
+  {
+    path: "/user-detail/:id",
+    props: true,
+    name: "user-detail",
+    component: UserDetail 
   },
   {
     path: "/instituition",
@@ -72,6 +80,12 @@ const routes = [
     path: "/services-register",
     name: "form-service",
     component: ServiceForm
+  },
+  {
+    path: "/services/:id",
+    props: true,
+    name: "service-select",
+    component: ServiceSelect
   }
 ]
 

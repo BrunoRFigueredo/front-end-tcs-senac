@@ -19,3 +19,5 @@ npm run build
 ``
 npm run json-server
 ``
+
+:to="`url/${objeto.id}`"

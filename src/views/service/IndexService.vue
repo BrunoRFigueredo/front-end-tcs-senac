@@ -4,9 +4,16 @@
       <router-link to="/services-register">Cadastrar um serviço</router-link>
     </div>
     <div>
-      <ul class="list-group w-50">
-        <li class="list-group-item" v-for="servico in servicos.conteudo" :key="servico.id">{{servico}}</li>
-      </ul>
+      <div class="row" id="cardCenter">
+        <div class="card m-3" style="width: 18rem;" v-for="servico in servicos.conteudo" :key="servico.id">
+          <div class="card-body">
+            <h4 class="text-center fw-bold">{{servico.nome}}</h4>
+              <p>{{servico.id}}</p>
+              <p>{{servico.nome}}</p>
+              <router-link tag="button" class="botao" :to="`/services/${servico.id}`">Visualizar</router-link>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,27 +27,11 @@ export default {
       servicos: []
     }
   },
-  mounted(){
-    api.get("/servico/").then(r => {
+  async created(){
+    await api.get("/servico/").then(r => {
       this.servicos = r.data;
       console.log(this.servicos)
     });
   }
 }
 </script>
-
-<style scoped>
-  form{
-    margin: 0 auto;
-  }
-  .botao{
-    width: 150px;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: bold;
-    background-color: #504B43;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px;
-  }
-</style>
