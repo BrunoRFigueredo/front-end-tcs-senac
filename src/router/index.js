@@ -1,18 +1,18 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import UsuarioForm from "../views/register/UsuarioForm.vue";
-import UsuarioDetail from "../views/usuario/UsuarioDetail.vue"
-import LoginIndex from "../views/login/LoginIndex.vue";
-import IndexInstituicao from "../views/instituicao/InstituicaoIndex.vue";
-import SelectInstituicao from "../views/instituicao/InstituicaoIndex.vue";
-import IndexProjeto from "../views/projeto/ProjetoIndex.vue";
-import indexInsumo from "../views/insumo/InsumoIndex.vue";
-import IndexCategoria from "../views/insumo/CategoriaIndex.vue";
-import IndexVoluntario from "../views/voluntario/IndexVoluntario.vue";
-import VoluntarioForm from "../views/voluntario/VoluntarioForm.vue";
-import IndexServico from "../views/servico/IndexServico.vue";
-import ServicoForm from "../views/servico/ServicoForm.vue";
-import ServicoSelect from "../views/servico/ServicoForm.vue";
+import UsuarioForm from "../views/register/Form.vue";
+import UsuarioDetail from "../views/usuario/Detail.vue"
+import LoginIndex from "../views/login/Index.vue";
+import IndexInstituicao from "../views/instituicao/Index.vue";
+import SelectInstituicao from "../components/InstituicaoSelect.vue";
+import IndexProjeto from "../views/projeto/Index.vue";
+import indexInsumo from "../views/insumo/Index.vue";
+import IndexCategoria from "../views/insumo/categoria/Index.vue";
+import IndexVoluntario from "../views/voluntario/Index.vue";
+import VoluntarioForm from "../views/voluntario/Form.vue";
+import IndexServico from "../views/servico/Index.vue";
+import ServicoForm from "../views/servico/Form.vue";
+import ServicoSelect from "../components/ServicoSelect.vue";
 
 const routes = [
   {
