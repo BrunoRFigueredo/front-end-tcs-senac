@@ -21,13 +21,13 @@
         
       </div>
       <span>{{insumo.id}}</span>
-      <button class="btn btn-success" @click="cadastro">Cadastrar</button>
+      <button class="btn btn-success" @click="cadastro(insumo)">Cadastrar</button>
     </form>
   </div>
 </template>
 
 <script>
-import api from "../../services/api";
+import CrudService from '../../services/crud';
 export default {
   name: "index-insumo",
   data(){
@@ -42,22 +42,36 @@ export default {
       }
     }
   },
-  mounted(){
-    api.get("/insumos/").then(r => {
-      this.insumos = r.data;
-    });
-    api.get("/categoria/").then(r => {
-      this.categorias = r.data;
-    })
+  async mounted(){
+
+    /*this.$crudInsumo = new CrudService('/insumo/')
+    this.carregarInsumo();*/
+
+    this.$crudCategoria = new CrudService('/categoria/')
+    this.carregarCategoria();
   },
   methods: {
-    cadastro(){
-      //api.post("/insumos/", this.insumo);
-      this.insumos.push(this.insumo);
-      console.log(this.insumos);
-      this.insumo.nome = "",
-      this.insumo.descricao = "";
-      this.insumo.id_categoria = "";
+
+    /*async cadastro(insumo){
+       const crudInsumo = new CrudService("/insumos/");
+       await crudInsumo.save(insumo);
+    },*/
+
+    /*async carregarInsumo(){
+      const {data} = this.$crudInsumo.findAll({
+        tamanhoPagina: this.tamanhoPagina,
+        paginaDesejada: this.paginaDesejada
+      })
+      console.log(data);
+    },*/
+
+    async carregarCategoria(){
+      const {data} = await this.$crudCategoria.findAll({
+        tamanhoPagina: this.tamanhoPagina,
+        paginaDesejada: this.paginaDesejada
+      })
+      console.log(data);
+      this.categorias = data;
     }
   }
 }

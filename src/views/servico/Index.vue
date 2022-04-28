@@ -5,12 +5,12 @@
     </div>
     <div>
       <div class="row" id="cardCenter">
-        <div class="card m-3" style="width: 18rem;" v-for="servico in servicos.conteudo" :key="servico.id">
+        <div class="card m-3" style="width: 18rem;" v-for="servico in servicos" :key="servico.id">
           <div class="card-body">
             <h4 class="text-center fw-bold">{{servico.nome}}</h4>
               <p>{{servico.id}}</p>
               <p>{{servico.nome}}</p>
-              <router-link tag="button" class="botao" :to="`/servico/${servico.id}`">Visualizar</router-link>
+              <!--<router-link tag="button" class="botao" :to="`/servico/${servico.id}`">Visualizar</router-link>-->
           </div>
         </div>
       </div>
@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import api from "../../services/api";
+import CrudService from '@/services/crud'
+
 export default {
   name: "index-service",
   data(){
@@ -27,11 +28,20 @@ export default {
       servicos: []
     }
   },
-  async created(){
-    await api.get("/servico/").then(r => {
-      this.servicos = r.data;
-      console.log(this.servicos)
-    });
+  mounted(){
+    this.$crudServico = new CrudService('/servico/')
+    this.carregarServico();
+  },
+  methods:{
+    async carregarServico(){
+      const {data} = await this.$crudServico.findAll({
+        tamanhoPagina: this.tamanhoPagina,
+        paginaDesejada: this.paginaDesejada
+      })
+      console.log(data);
+      this.servicos = data;
+      
+    }
   }
 }
 </script>
