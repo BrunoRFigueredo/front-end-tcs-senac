@@ -10,7 +10,7 @@
         <label for="descricaoCategoria" class="form-label">Descrição</label>
         <input type="text" class="form-control" v-model="categoria.descricao" required>
       </div>
-      <button class="btn btn-success" @click="cadastro">Cadastrar</button>
+      <button class="btn btn-success" @click="cadastroCategoria(categoria)">Cadastrar</button>
     </form>
     <ul class="list-group w-25 mt-4">
       <li v-for="cate in categorias" :key="cate.id" class="list-group-item">
@@ -43,9 +43,9 @@ export default {
     }
 
   },
-  mounted() {
+  async mounted() {
     this.$service = new CrudService('/categoria/')
-    this.carregaCadastro();
+    await this.carregaCadastro();
   },
   watch: {
     page() {
@@ -67,8 +67,9 @@ export default {
     // }),
     //   );
     // },
-    async save(cate){
-      const {data} = await this.$service.save(cate);
+    async cadastroCategoria(categoria){
+      const {data} = await this.$service.save(categoria);
+      this.carregaCadastro();
     },
     async carregaCadastro() {
       const {data} = await this.$service.findAll({

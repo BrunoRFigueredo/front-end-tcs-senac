@@ -13,12 +13,13 @@
           <input type="text" class="form-control" v-model="servico.descricao" required>
         </div>
       </div>
-      <button class="botao mt-2" @click="cadastrar">Cadastrar</button>
+      <button class="botao mt-2" @click="cadastrar(servico)">Cadastrar</button>
     </form>
   </div>
 </template>
 
 <script>
+import CrudService from '@/services/crud';
 import api from "../../services/api";
 export default {
   name: "form-service",
@@ -31,9 +32,13 @@ export default {
       }
     }
   },
+  mounted(){
+    this.$crudServico = new CrudService('/servico/');
+  },
   methods: {
-    cadastrar(){
-      api.post("/servico/", this.servico);
+    async cadastrar(servico){
+      await this.$crudServico.save(servico);
+      console.log(servico);
     }
   }
 }
