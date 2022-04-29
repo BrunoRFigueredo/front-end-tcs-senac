@@ -20,7 +20,6 @@
 
 <script>
 import CrudService from '@/services/crud';
-import api from "../../services/api";
 export default {
   name: "form-service",
   data(){
@@ -47,15 +46,5 @@ export default {
 <style scoped>
   form{
     margin: 0 auto;
-  }
-  .botao{
-    width: 150px;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: bold;
-    background-color: #504B43;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px;
   }
 </style>

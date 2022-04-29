@@ -12,14 +12,14 @@
       </div>
       <button class="btn btn-success" @click="cadastroCategoria(categoria)">Cadastrar</button>
     </form>
-    <ul class="list-group w-25 mt-4">
-      <li v-for="cate in categorias" :key="cate.id" class="list-group-item">
-        <input type="text" v-model="cate.nome">
-        <input type="text" v-model="cate.descricao">
-        <button class="btn btn-danger m-1" @click="deletar(cate.id)">X</button>
-        <button class="btn btn-danger m-1" @click="atualizar(cate.id, cate)">✔</button>
-      </li>
-    </ul>
+    <h4 class="text-center mt-4 fw-bold">Lista das categorias</h4>
+    <div class="row mt-4" style="margin: 0 auto;">
+      <div class="card m-2 w-25" style="width: 18rem;" v-for="cate in categorias" :key="cate.id">
+        <div class="card-body">
+          <p class="text-center fw-bold">{{cate.nome}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
