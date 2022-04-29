@@ -1,15 +1,15 @@
 <template>
   <div id="index-service" class="container">
     <div>
-      <router-link to="/services-register">Cadastrar um serviço</router-link>
+      <router-link to="/servicos-register" class="botao">Cadastrar um serviço</router-link>
     </div>
     <div>
-      <div class="row" id="cardCenter">
-        <div class="card m-3" style="width: 18rem;" v-for="servico in servicos" :key="servico.id">
+      <div class="row mt-5" id="cardCenter">
+        <div class="card m-3" style="width: 18rem;" v-for="servico in servicos.conteudo" :key="servico.id">
           <div class="card-body">
-            <h4 class="text-center fw-bold">{{servico.nome}}</h4>
-              <p>{{servico.id}}</p>
-              <p>{{servico.nome}}</p>
+            <h5 class="text-center">Serviço</h5>
+            <p class="text-center fw-bold mt-2">{{servico.nome}}</p>
+            
               <!--<router-link tag="button" class="botao" :to="`/servico/${servico.id}`">Visualizar</router-link>-->
           </div>
         </div>
