@@ -1,49 +1,56 @@
 <template>
-  <div id="select-instituition">
+  <div id="index-instituition">
     <div class="container">
-      <div class="row">
-        <div class="card" style="width: 18rem;" v-for="inst in institutions" :key="inst.id">
-          <img src="#" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{inst.name}}</h5>
-            <p class="card-text">{{inst.cnpj}}</p>
-            <p class="card-text">{{inst.pix}}</p>
-            <button class="botao">Visualizar</button>
+      <h3 class="text-center fw-bold">Instituições</h3>
+    <div class="row">
+      <div class="card m-2" style="width: 18rem;" v-for="instituicao in instituicoes" :key="instituicao.id">
+        <div class="card-body">
+          
+          <h5 class="text-center fw-bold">{{instituicao.nome}}</h5>
+          <span>{{instituicao.status}}</span>
+          <div class="row mt-4">
+            <p class="col">Cidade: {{instituicao.cidade}}</p>
+            <p class="col">Estado: {{instituicao.uf}}</p>
           </div>
+          <p class="col">CNPJ: {{instituicao.cnpj}}</p>
+          <p class="col">CEP: {{instituicao.cep}}</p>
+          <router-link class="botao" :to="`/instituicao/${instituicao.id}`">Visualizar</router-link>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
-import api from "../services/api";
 export default {
-  name: "select-instituition",
+  props: ['id'],
   data(){
     return{
-      institutions: [],
+      instituicao:
+      {
+          id:1,
+          nome: "teste",
+          cidade: "Içara",
+          uf: "SC",
+          cnpj: 232312100,
+          cep: 832818312,
+          status: true
+        }
     }
   },
   mounted(){
-    api.get("/instituicao/").then(r => {
-      this.institutions = r.data;
-      console.log(this.institutions);
-    })
+    
+  },
+  methods: {
+    
+
   }
 }
 </script>
 
 <style scoped>
-  .botao{
-    width: 150px;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: bold;
-    background-color: #504B43;
-  }
-
-  .card{
-    margin: 10px auto;
-  }
+p{
+  font-size: 12px;
+}
 </style>
