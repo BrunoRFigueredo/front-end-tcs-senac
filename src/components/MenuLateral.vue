@@ -2,7 +2,7 @@
   <div class="area"></div><nav class="main-menu">
     <ul>
         <li class="">
-            <router-link to="/projeto">
+            <router-link to="/instituicao">
                 <i class="fa fa-home fa-2x bg-dark text-white"></i>
                 <span class="nav-text bg-dark text-white">
                     Instituições
