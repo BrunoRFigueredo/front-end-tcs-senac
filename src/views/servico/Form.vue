@@ -13,7 +13,7 @@
           <input type="text" class="form-control" v-model="servico.descricao" required>
         </div>
       </div>
-      <button class="botao mt-2" @click="cadastrar(servico)">Cadastrar</button>
+      <button type="submit" class="btn btn-success" @click="cadastrar(servico)">Cadastrar</button>
     </form>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
       servico:{
         nome: '',
         descricao: '',
-        status: 's'
+        status: 1
       }
     }
   },
@@ -36,9 +36,13 @@ export default {
   },
   methods: {
     async cadastrar(servico){
-      await this.$crudServico.save(servico);
-      console.log(servico);
-    }
+        await this.$crudServico.save(servico);
+        //window.location.reload();
+    },
+    desabilitar(){
+      return ((!this.servico.nome || this.servico.nome.length > 45) ||
+             (!this.servico.descricao || this.servico.descricao.length > 200))
+    } 
   }
 }
 </script>

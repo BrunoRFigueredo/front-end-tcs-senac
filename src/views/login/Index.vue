@@ -2,24 +2,47 @@
   <div id="user-login">
     <div class="container">
       <h2>NAP</h2>
-      <form action="" method="post">
         <p>Email</p>
-        <input type="text">
+        <input type="email" name="email" v-model="usuario.email" required>
         <p>Senha</p>
-        <input type="password" name="senha">
+        <input type="password" name="senha" v-model="usuario.senha" required>
         <br>
-        <button type="submit" class="botao">Entrar</button>
-      </form>
+        <label class="bootstrap-show-notification" for="">{{error}}</label>
+        <button @click="logar()" type="submit" class="botao">Entrar</button>
       <div class="text-center mt-5">
-        <router-link to="/user-register">Não possui um cadastro ? Clique aqui</router-link>
+        <router-link to="/usuario-register">Não possui um cadastro ? Clique aqui</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { login } from '@/services/auth'
+
 export default {
-  name: 'user-login'
+  name: 'user-login',
+  data(){
+    return{
+      usuario:{
+        email: '',
+        senha: ''
+      },
+      error: ''
+    }
+  },
+  methods:{
+    async logar(){
+      this.error = '';
+      try{
+        await login(this.usuario.email, this.usuario.senha);
+        this.$router.push('/index');
+        window.location.reload();
+      }catch(error){
+        console.log(error);
+        this.error = error.response.data.message;
+      }
+    }
+  }
 }
 </script>
 

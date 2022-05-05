@@ -50,18 +50,17 @@ export default {
         api.post("/usuario/criar-usuario", this.usuario)
         .then((r) => {
             alert('Usuário criado com sucesso');
-            window.location.reload();
+            this.$router.push('/usuario-login');
         }).catch(error => {
             alert('Erro ao criar usuário ' + error.response.data.message);
         })
       }
     },
     desabilitar(){
-      console.log(this.usuario.nome + ' xx ' + this.usuario.email + ' xx ' + this.usuario.senha + ' xx ' + this.usuario.confirmarSenha);
-      return (!this.usuario.nome || this.usuario.nome > 100) ||
-             (!this.usuario.email || this.usuario.email > 150) ||
-             (!this.usuario.senha || this.usuario.senha > 100) ||
-             (!this.usuario.confirmarSenha || this.usuario.confirmarSenha > 100);
+      return (!this.usuario.nome || this.usuario.nome.length > 100) ||
+             (!this.usuario.email || this.usuario.email.length > 150) ||
+             (!this.usuario.senha || this.usuario.senha.length > 100) ||
+             (!this.usuario.confirmarSenha || this.usuario.confirmarSenha.length > 100);
     }
   },
 }

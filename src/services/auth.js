@@ -2,12 +2,13 @@ import { getClient } from './http'
 
 export async function login (email, password) {
   const client = getClient()
-  const { data } = await client.post('/auth/signin', {
+  const { data } = await client.post('/login/', {
     email,
     password
   })
   if (data.token) {
     localStorage.setItem('token', data.token)
+    localStorage.setItem('permissoes', data.roles)
   }
 }
 
@@ -16,7 +17,7 @@ export function getToken() {
 }
 
 export async function saveProfile (profile) {
-  const { data } = await getClient().put('/@me', profile)
+  const { data } = await getClient().post('/usuario/criar-usuario', profile)
   return data
 }
 export async function updatePassword (passwords) {
@@ -25,12 +26,13 @@ export async function updatePassword (passwords) {
 }
 
 export async function getProfile() {
-  const { data } = await getClient().get('/auth/@me')
+  const { data } = await getClient().get('/usuario/')
   return data
 }
 
 export function logout (callback) {
   localStorage.removeItem('token')
+  localStorage.removeItem('permissoes')
   if (callback) {
     callback ()
   }
