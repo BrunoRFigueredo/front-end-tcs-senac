@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-12">
     <div class="container">
-      <form class="form-group">
+      <!--<form class="form-group">-->
         <h2>Bem vindo!</h2>
           <label for="email" class="form-label">Email</label>
           <div class="col-md-6">
@@ -19,7 +19,7 @@
           <div class="text-center mt-5">
           <router-link to="/usuario-register">Não possui um cadastro ? Clique aqui</router-link>
         </div>
-      </form>
+     <!-- </form>-->
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
       try{
         await login(this.usuario.email, this.usuario.senha);
         this.$router.push('/index');
-        window.location.reload();
+       // window.location.reload();
       }catch(error){
         console.log(error);
         this.error = error.response.data.message;

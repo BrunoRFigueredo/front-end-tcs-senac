@@ -13,6 +13,7 @@
           <input type="text" class="form-control" v-model="servico.descricao" required>
         </div>
       </div>
+      <span v-if="error" class="alert alert-warning" for="">{{error}}</span>
       <button type="submit" class="btn btn-success" @click="cadastrar(servico)">Cadastrar</button>
     </form>
   </div>
@@ -28,7 +29,8 @@ export default {
         nome: '',
         descricao: '',
         status: 1
-      }
+      },
+      erro: ''
     }
   },
   mounted(){
@@ -36,8 +38,13 @@ export default {
   },
   methods: {
     async cadastrar(servico){
+      try {
         await this.$crudServico.save(servico);
-        //window.location.reload();
+        this.$router.push('/');
+      } catch(erro){
+         console.log(erro);
+         this.erro = erro.response.data.message;
+      }
     },
     desabilitar(){
       return ((!this.servico.nome || this.servico.nome.length > 45) ||
