@@ -1,17 +1,25 @@
 <template>
-  <div id="user-login">
+  <div class="col-md-12">
     <div class="container">
-      <h2>NAP</h2>
-        <p>Email</p>
-        <input type="email" name="email" v-model="usuario.email" required>
-        <p>Senha</p>
-        <input type="password" name="senha" v-model="usuario.senha" required>
-        <br>
-        <label class="bootstrap-show-notification" for="">{{error}}</label>
-        <button @click="logar()" type="submit" class="botao">Entrar</button>
-      <div class="text-center mt-5">
-        <router-link to="/usuario-register">Não possui um cadastro ? Clique aqui</router-link>
-      </div>
+      <form class="form-group">
+        <h2>Bem vindo!</h2>
+          <label for="email" class="form-label">Email</label>
+          <div class="col-md-6">
+            <input type="email" name="email" class="form-control" v-model="usuario.email" required>
+          </div>
+          <br>
+          <label for="senha" class="form-label">Senha</label>
+          <div class="col-md-6">
+            <input type="password" name="senha" class="form-control" v-model="usuario.senha" required>
+          </div>
+          <span v-if="error" class="alert alert-warning" for="">{{error}}</span>
+          <div>
+            <button @click="logar()" type="submit" class="btn btn-success">Entrar</button>
+          </div>
+          <div class="text-center mt-5">
+          <router-link to="/usuario-register">Não possui um cadastro ? Clique aqui</router-link>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -54,7 +62,7 @@ export default {
     align-items: center;
   }
 
-  input{
+  /*/input{
     margin-top: 10px;
     border-radius: 10px;
     background-color: #504B43;
@@ -62,7 +70,7 @@ export default {
     border: none;
     text-align: center;
     width: 25%;
-  }
+  }*/
 
   p{
     font-weight: bold;
@@ -70,13 +78,13 @@ export default {
     font-size: 20px;
   }
 
-  .botao{
+  /*.botao{
     width: 120px;
     border-radius: 10px;
     color: #fff;
     font-weight: bold;
     background-color: #504B43;
-  }
+  }*/
 
   a{
     text-align: center;
@@ -92,5 +100,11 @@ export default {
     text-align: center;
     font-size: 45px;
   }
-  
+  span{
+    margin: 10px;
+  }
+  button{
+    margin-top: 30px;
+    /*justify-content: center;*/
+  }
 </style>
