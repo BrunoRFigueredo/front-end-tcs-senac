@@ -43,7 +43,6 @@
                 </router-link>
             </li>
         </ul>
-
         <ul class="logout">
             <li>
               <i class="fa fa-power-off fa-2x bg-dark text-white"></i>

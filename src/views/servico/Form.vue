@@ -21,11 +21,12 @@
 
 <script>
 import CrudService from '@/services/crud';
+
 export default {
   name: "form-service",
-  data(){
-    return{
-      servico:{
+  data() {
+    return {
+      servico: {
         nome: '',
         descricao: '',
         status: 1
@@ -33,8 +34,19 @@ export default {
       erro: ''
     }
   },
-  mounted(){
+  async mounted() {
     this.$crudServico = new CrudService('/servico/');
+    if (this.$route.params.id) {
+      const {data} = await this.$crudServico.findById(this.$route.params.id);
+      this.servico = data;
+    }
+  },
+  computed: {
+    title() {
+      return this.$route.params.id
+          ? 'Editar serviço'
+          : 'Novo serviço'
+    }
   },
   methods: {
     async cadastrar(servico){
@@ -55,7 +67,7 @@ export default {
 </script>
 
 <style scoped>
-  form{
-    margin: 0 auto;
-  }
+form {
+  margin: 0 auto;
+}
 </style>

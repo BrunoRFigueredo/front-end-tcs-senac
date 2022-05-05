@@ -6,23 +6,23 @@ class CrudService {
     this.path = path
   }
 
-  findAll({ page=1, limit=10, filter='' }) {
-    return getClient().get(`${this.path}?page=${page}&limit=${limit}&filter=${filter}`)
+  findAll({ paginaDesejada=0, tamanhoPagina=10, filter='' }) {
+    return getClient().get(`${this.path}?paginaDesejada=${paginaDesejada}&tamanhoPagina=${tamanhoPagina}&filter=${filter}`)
   }
 
   findById(id) {
-    return getClient().get(`${this.path}/${id}`)
+    return getClient().get(`${this.path}${id}`)
   }
 
   save(record) {
     if (record.id) {
-      return getClient().put(`${this.path}/${record.id}`, record)
+      return getClient().put(`${this.path}${record.id}`, record)
     }
     return getClient().post(this.path, record)
   }
 
   remove(id) {
-    return getClient().delete(`${this.path}/${id}`)
+    return getClient().delete(`${this.path}${id}`)
   }
 }
 

@@ -13,22 +13,27 @@
     <div class="usuario">
       <router-link :to="`/usuario-detail/${user.id}`">{{user.nome}}</router-link>
       <div>
-        <router-link to="/#" class="text-usuario" v-if="!user.nome" @click="logar()">Acessar conta</router-link> | 
+        <router-link to="/#" class="text-usuario" v-if="!user.nome" @click="logar()">Acessar conta</router-link> |
         <router-link to="/usuario-register" class="text-usuario" v-if="!user.nome">Cadastrar</router-link>
         <button @click="deslogar()" v-if="user.nome" class="botaoDesconectar">Desconectar</button>
       </div>
     </div>
   </nav>-->
   <MenuLateral/>
+  <v-pagination/>
   <router-view class="mt-5 "/>
   </div>
 </template>
 
 <script>
 import MenuLateral from "../src/components/MenuLateral.vue";
+import VPagination from "@hennge/vue3-pagination";
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+
 export default {
   components: {
-    MenuLateral
+    MenuLateral,
+    VPagination
   },
     data(){
       return{
