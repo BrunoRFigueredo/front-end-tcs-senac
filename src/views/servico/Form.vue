@@ -20,31 +20,49 @@
 
 <script>
 import CrudService from '@/services/crud';
+
 export default {
   name: "form-service",
-  data(){
-    return{
-      servico:{
+  data() {
+    return {
+      servico: {
         nome: '',
         descricao: '',
         status: 's'
       }
     }
   },
-  mounted(){
+  async mounted() {
     this.$crudServico = new CrudService('/servico/');
+    if (this.$route.params.id) {
+      const {data} = await this.$crudServico.findById(this.$route.params.id);
+      this.servico = data;
+    }
+  },
+  computed: {
+    title() {
+      return this.$route.params.id
+          ? 'Editar serviço'
+          : 'Novo serviço'
+    }
   },
   methods: {
-    async cadastrar(servico){
-      await this.$crudServico.save(servico);
-      console.log(servico);
+    async cadastrar(servico) {
+      try {
+        await this.$crudServico.save(servico)
+        // success message
+        this.$router.replace('servicos')
+
+      } catch (err) {
+        alert(err.response.data.message);
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-  form{
-    margin: 0 auto;
-  }
+form {
+  margin: 0 auto;
+}
 </style>

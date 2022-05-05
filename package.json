@@ -8,11 +8,14 @@
     "json-server": "json-server --watch ./src/db/db.json"
   },
   "dependencies": {
+    "@hennge/vue3-pagination": "^1.0.17",
     "axios": "^0.26.1",
+    "bootstrap-icons": "^1.8.1",
     "core-js": "^3.8.3",
     "json-server": "^0.17.0",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "vuejs-paginate-next": "^1.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
