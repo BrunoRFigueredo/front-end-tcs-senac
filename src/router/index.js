@@ -84,7 +84,7 @@ const routes = [
     component: IndexServico
   },
   {
-    path: "/servicos-register",
+    path: "/cadastrar-servico",
     name: "form-servico",
     component: ServicoForm
   },
