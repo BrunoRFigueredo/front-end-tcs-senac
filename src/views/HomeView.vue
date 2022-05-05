@@ -1,5 +1,12 @@
 <template>
   <div id="home" class="container">
+    <div>
+      <router-link to="/usuario-login">
+        <button class="btn btn-primary">
+            Logar
+        </button>    
+      </router-link>
+    </div>
     <div class="row">
       <div class="col-sm-6">
         <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" alt="">
@@ -17,8 +24,6 @@
 
 export default {
   name: 'HomeView',
-  components: {
-  },
 };
 </script>
 

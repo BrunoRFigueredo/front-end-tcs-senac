@@ -1,66 +1,80 @@
-<template>
-  <div class="area"></div><nav class="main-menu">
-    <ul>
-        <li class="">
-            <router-link to="/instituicao">
-                <i class="fa fa-home fa-2x bg-dark text-white"></i>
-                <span class="nav-text bg-dark text-white">
-                    Instituições
-                </span>
-            </router-link>
-          
-        </li>
-        <li class="has-subnav ">
-            <router-link to="/projeto">
-                <i class="fa fa-laptop fa-2x bg-dark text-white"></i>
-                <span class="nav-text bg-dark text-white">
-                    Projetos
-                </span>
-            </router-link>
-        </li>
-        <li class="has-subnav ">
-            <router-link to="/servicos">
-               <i class="fa fa-list fa-2x bg-dark text-white"></i>
-                <span class="nav-text bg-dark text-white">
-                    Serviços
-                </span>
-            </router-link>
-        </li>
-        <li class="has-subnav ">
-            <router-link to="/voluntario">
-               <i class="fa fa-list fa-2x bg-dark text-white"></i>
-                <span class="nav-text bg-dark text-white">
-                    Voluntários
-                </span>
-            </router-link>
-        </li>
-        <li class="has-subnav ">
-            <router-link to="/categoria">
-               <i class="fa fa-list fa-2x bg-dark text-white"></i>
-                <span class="nav-text bg-dark text-white">
-                    Categoria
-                </span>
-            </router-link>
-        </li>
-    </ul>
-
-    <ul class="logout">
-        <li>
-           <router-link to="/projeto">
-                 <i class="fa fa-power-off fa-2x bg-dark text-white"></i>
-                <span class="nav-text bg-dark text-white">
-                    Logout
-                </span>
-            </router-link>
-        </li>  
-    </ul>
-</nav>
+<template >
+  <div class="area" v-if="estaLogado()">
+    <nav class="main-menu">
+        <ul>
+            <li class="" v-if="permissao(['NORMAL', 'ADMIN'])">
+                <router-link to="/instituicao">
+                    <i class="fa fa-home fa-2x bg-dark text-white"></i>
+                    <span class="nav-text bg-dark text-white">
+                        Instituições
+                    </span>
+                </router-link>
+            </li>
+            <li class="has-subnav ">
+                <router-link to="/projeto">
+                    <i class="fa fa-laptop fa-2x bg-dark text-white"></i>
+                    <span class="nav-text bg-dark text-white">
+                        Projetos
+                    </span>
+                </router-link>
+            </li>
+            <li class="has-subnav " v-if="permissao(['ADMIN'])">
+                <router-link to="/servicos">
+                <i class="fa fa-list fa-2x bg-dark text-white"></i>
+                    <span class="nav-text bg-dark text-white">
+                        Serviços
+                    </span>
+                </router-link>
+            </li>
+            <li class="has-subnav ">
+                <router-link to="/voluntario">
+                <i class="fa fa-list fa-2x bg-dark text-white"></i>
+                    <span class="nav-text bg-dark text-white">
+                        Voluntários
+                    </span>
+                </router-link>
+            </li>
+            <li class="has-subnav ">
+                <router-link to="/categoria">
+                <i class="fa fa-list fa-2x bg-dark text-white"></i>
+                    <span class="nav-text bg-dark text-white">
+                        Categoria
+                    </span>
+                </router-link>
+            </li>
+        </ul>
+        <ul class="logout">
+            <li>
+              <i class="fa fa-power-off fa-2x bg-dark text-white"></i>
+              <span class="nav-text bg-dark text-white" @click="sair()">
+                Logout
+              </span>
+            </li>  
+        </ul>
+    </nav>
+  </div>
 </template>
 
 <script>
+import { permit } from "@/util/permit";
+import { isLogged, logout } from "@/services/auth";
+
 export default {
-  name: 'index-logado'
-}
+  name: "index-logado",
+  methods: {
+    permissao(roles) {
+      return permit(roles);
+    },
+    estaLogado() {
+      return isLogged();
+    },
+    sair(){
+      logout();
+      this.$router.push('/');
+      //window.location.reload();
+    }
+  },
+};
 </script>
 
 <style scoped>

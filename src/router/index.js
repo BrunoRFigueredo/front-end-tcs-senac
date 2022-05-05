@@ -18,7 +18,7 @@ import ServicoSelect from "../components/ServicoSelect.vue";
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'index',
     component: HomeView
   },
   {

@@ -13,7 +13,8 @@
           <input type="text" class="form-control" v-model="servico.descricao" required>
         </div>
       </div>
-      <button class="botao mt-2" @click="cadastrar(servico)">Cadastrar</button>
+      <span v-if="error" class="alert alert-warning" for="">{{error}}</span>
+      <button type="submit" class="btn btn-success" @click="cadastrar(servico)">Cadastrar</button>
     </form>
   </div>
 </template>
@@ -28,8 +29,9 @@ export default {
       servico: {
         nome: '',
         descricao: '',
-        status: 's'
-      }
+        status: 1
+      },
+      erro: ''
     }
   },
   async mounted() {
@@ -47,16 +49,19 @@ export default {
     }
   },
   methods: {
-    async cadastrar(servico) {
+    async cadastrar(servico){
       try {
-        await this.$crudServico.save(servico)
-        // success message
-        this.$router.replace('servicos')
-
-      } catch (err) {
-        alert(err.response.data.message);
+        await this.$crudServico.save(servico);
+        this.$router.push('/');
+      } catch(erro){
+         console.log(erro);
+         this.erro = erro.response.data.message;
       }
-    }
+    },
+    desabilitar(){
+      return ((!this.servico.nome || this.servico.nome.length > 45) ||
+             (!this.servico.descricao || this.servico.descricao.length > 200))
+    } 
   }
 }
 </script>
