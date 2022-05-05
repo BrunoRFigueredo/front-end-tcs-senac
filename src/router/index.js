@@ -43,13 +43,14 @@ const routes = [
     component: UsuarioDetail 
   },
   {
-    path: "/Instituicao",
-    name: "index-Instituicao",
+    path: "/instituicao",
+    name: "index-instituicao",
     component: IndexInstituicao
   },
   {
-    path: "/Instituicao/:id",
-    name: "select-Instituicao",
+    path: "/instituicao/:id",
+    props: true,
+    name: "select-instituicao",
     component: SelectInstituicao
   },
   {

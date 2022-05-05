@@ -1,71 +1,107 @@
 <template>
   <div id="index-instituition">
     <div class="container">
-      <div class="row">
-        <div class="card" style="width: 18rem;" v-for="inst in institutions" :key="inst.id">
-          <img src="#" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{inst.name}}</h5>
-            <p class="card-text">{{inst.cnpj}}</p>
-            <p class="card-text">{{inst.pix}}</p>
-            <router-link to="" class="botao">Visualizar</router-link>
+      <h3 class="text-center fw-bold">Instituições</h3>
+    <div class="row" style="max-width: 950px;max-height: 550px; overflow-y: scroll;">
+      <div class="card m-2" style="width: 18rem;" v-for="instituicao in instituicoes" :key="instituicao.id">
+        <div class="card-body">
+          <h5 class="text-center fw-bold">{{instituicao.nome}}</h5>
+          <span>{{instituicao.status}}</span>
+          <div>
+            <img src="https://www.eye-image.nl/assets/files/eye-image-homepage.1920x0x0x100.jpg" alt="imagem instituição" srcset="">
           </div>
+          <div class="row mt-4">
+            <p class="col">Cidade: {{instituicao.cidade}}</p>
+            <p class="col">Estado: {{instituicao.uf}}</p>
+          </div>
+          <button class="botao" :to="`/instituicao/${instituicao.id}`">Visualizar</button>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
-import api from "../../services/api";
 export default {
   data(){
     return{
-      institutions: [],
+      instituicoes: [
+        {
+          id:1,
+          nome: "teste",
+          cidade: "Içara",
+          uf: "SC",
+          status: true
+        },
+        {
+          id:2,
+          nome: "mercado",
+          cidade: "Criciúma",
+          uf: "SC",
+          status: false
+        },
+        {
+          id:1,
+          nome: "teste",
+          cidade: "Içara",
+          uf: "SC",
+          status: true
+        },
+        {
+          id:2,
+          nome: "mercado",
+          cidade: "Criciúma",
+          uf: "SC",
+          status: false
+        },
+        {
+          id:1,
+          nome: "teste",
+          cidade: "Içara",
+          uf: "SC",
+          status: true
+        },
+        {
+          id:2,
+          nome: "mercado",
+          cidade: "Criciúma",
+          uf: "SC",
+          status: false
+        }
+      ],
     }
   },
   mounted(){
-    this.$service = new CrudService('/instituicao');
-    this.load();
+    
   },
   methods: {
-    async remove ({ id }) {
-      // const value = await this.$confirm('Tem certeza que deseja excluir?', 'Esta ação não poderá ser desfeita!')
-      // if (value) {
-      //   try {
-      //     await this.$service.remove(id)
-      //     this.load()
-      //     this.$noty.success('Cliente excluído com sucesso!')
-      //   } catch (err) {
-      //     console.error(err)
-      //     this.$noty.error('Erro ao excluir o cliente!')
-      //   }
-      // }
-    },
-    async load() {
-      // const { data } = await this.$service.findAll({ limit: this.perPage, page: this.page, filter: this.filter })
-      // this.records = data.content.clientes;
-      // this.total = data.content.total;
-      // const calculoPaginacao = data.content.total / this.perPage;
-      // this.totalPage = calculoPaginacao === Math.floor(calculoPaginacao) ? calculoPaginacao : Math.floor(calculoPaginacao) + 1;
-    }
+    
+
   }
 }
 </script>
 
 <style scoped>
-  .botao{
-    width: 150px;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: bold;
-    background-color: #504B43;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px;
-  }
+p{
+  font-size: 12px;
+}
 
-  .card{
-    margin: 10px auto;
-  }
+img{
+  max-width: 250px;
+  widows: 250px;
+  height: auto;
+  margin: 0 auto;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+    width: 2px;
+    background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+    background: #dad7d7;
+}
 </style>
