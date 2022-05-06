@@ -1,5 +1,5 @@
 <template>
-  <div id="index-logado" class="container">
+  <div id="index-logado" class="container" v-if="estaLogado()">
     <div class="row">
       <div class="col">
         UMA IMAGEM
@@ -23,11 +23,22 @@
 </template>
 
 <script>
+import { isLogged } from '@/services/auth'
 export default {
   name: 'index-logado',
   data(){
     return{
 
+    }
+  },
+  mounted(){
+    if (!this.estaLogado()) {
+      this.$router.push('/');
+    }
+  },
+  methods:{
+    estaLogado(){
+      return isLogged();
     }
   }
 }

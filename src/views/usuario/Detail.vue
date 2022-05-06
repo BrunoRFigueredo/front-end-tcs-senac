@@ -1,5 +1,5 @@
 <template>
-  <div id="user-detail">
+  <div id="user-detail" v-if="estaLogado()">
     <div class="container">
       <h4 class="text-center fw-bold">{{usuario.nome}}</h4>
       <form action="" class="pt-5">
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { isLogged } from '@/services/auth';
 import api from "../../services/api";
 export default {
   name: "user-detail",
@@ -40,13 +41,21 @@ export default {
     }
   },
   async created(){
-    await api.get(`/usuario/${this.id}`).then(r => {
+    if (this.estaLogado()) {
+      await api.get(`/usuario/${this.id}`).then(r => {
       this.usuario = r.data;
-    })
+      })
+    } else {
+      this.$router.push('/');
+    }
+    
   },
   methods:{
     atualizar(id){
       api.put(`/usuario/${id}`, this.usuario);
+    },
+    estaLogado(){
+      return isLogged();
     }
   }
 }

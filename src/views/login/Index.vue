@@ -46,7 +46,6 @@ export default {
         this.$router.push('/index');
        // window.location.reload();
       }catch(error){
-        console.log(error);
         this.error = error.response.data.message;
       }
     }

@@ -14,9 +14,9 @@ export default {
     }
   },
   mounted(){
-    api.get("/projects").then(r => {
+    /*api.get("/projeto/").then(r => {
       this.projects = r.data;
-    })
+    })*/
   }
 }
 </script>

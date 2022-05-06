@@ -61,6 +61,7 @@ import { isLogged, logout } from "@/services/auth";
 
 export default {
   name: "index-logado",
+  
   methods: {
     permissao(roles) {
       return permit(roles);
@@ -73,12 +74,12 @@ export default {
       this.$router.push('/');
       //window.location.reload();
     }
-  },
+  }
 };
 </script>
 
 <style scoped>
-@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+  @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
   @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
   .fa-2x {
   font-size: 2em;
@@ -95,7 +96,7 @@ export default {
   
   
   .main-menu:hover,nav.main-menu.expanded {
-  width:250px;
+  width:135px;
   overflow:hidden;
   }
   

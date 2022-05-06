@@ -1,5 +1,5 @@
 <template>
-  <div id="form-service" class="container">
+  <div id="form-service" class="container" v-if="estaLogado()">
     <form action="" class="w-50">
       <div class="row mb-4">
         <div class="col">
@@ -21,6 +21,7 @@
 
 <script>
 import CrudService from '@/services/crud';
+import { isLogged } from '@/services/auth';
 
 export default {
   name: "form-service",
@@ -34,13 +35,6 @@ export default {
       erro: ''
     }
   },
-  async mounted() {
-    this.$crudServico = new CrudService('/servico/');
-    if (this.$route.params.id) {
-      const {data} = await this.$crudServico.findById(this.$route.params.id);
-      this.servico = data;
-    }
-  },
   computed: {
     title() {
       return this.$route.params.id
@@ -48,11 +42,16 @@ export default {
           : 'Novo serviço'
     }
   },
+  mounted(){
+    if (!this.estaLogado()) {
+      this.$router.push('/');
+    }
+  },
   methods: {
     async cadastrar(servico){
       try {
         await this.$crudServico.save(servico);
-        this.$router.push('/');
+        this.$router.push('/servicos');
       } catch(erro){
          console.log(erro);
          this.erro = erro.response.data.message;
@@ -61,7 +60,10 @@ export default {
     desabilitar(){
       return ((!this.servico.nome || this.servico.nome.length > 45) ||
              (!this.servico.descricao || this.servico.descricao.length > 200))
-    } 
+    },
+    estaLogado(){
+      return isLogged();
+    }
   }
 }
 </script>

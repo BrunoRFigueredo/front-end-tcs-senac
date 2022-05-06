@@ -1,5 +1,5 @@
 <template>
-  <div id="index-insumo" class="container">
+  <div id="index-insumo" class="container" v-if="estaLogado()">
     <form action="" class="w-50">
       <h3 class="text-center pb-4"><strong>Cadastrar Insumo</strong></h3>
       <div class="mb-3">
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { isLogged } from '@/services/auth';
 import CrudService from '../../services/crud';
 export default {
   name: "index-insumo",
@@ -43,13 +44,13 @@ export default {
     }
   },
   async mounted(){
-
-    /*this.$crudInsumo = new CrudService('/insumo/')
-    this.carregarInsumo();*/
-
-    this.$crudCategoria = new CrudService('/categoria/')
-    this.carregarCategoria();
-  },
+    if (this.estaLogado()) {
+      this.$crudCategoria = new CrudService('/categoria/')
+      this.carregarCategoria();
+    } else {
+      this.$router.push('/');
+    }
+      },
   methods: {
 
     /*async cadastro(insumo){
@@ -66,12 +67,17 @@ export default {
     },*/
 
     async carregarCategoria(){
-      const {data} = await this.$crudCategoria.findAll({
-        tamanhoPagina: this.tamanhoPagina,
-        paginaDesejada: this.paginaDesejada
-      })
-      console.log(data);
-      this.categorias = data;
+      if (this.estaLogado()) {
+          const {data} = await this.$crudCategoria.findAll({
+          tamanhoPagina: this.tamanhoPagina,
+          paginaDesejada: this.paginaDesejada
+        })
+        console.log(data);
+        this.categorias = data;
+      }
+    },
+    estaLogado(){
+      return isLogged();
     }
   }
 }

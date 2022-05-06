@@ -1,5 +1,5 @@
 <template>
-  <div id="index-service" class="container">
+  <div id="index-service" class="container"  v-if="estaLogado()">
         <h5 class="text-center">Serviços</h5>
         <div class="row">
           <div class="md-3">
@@ -55,6 +55,7 @@
 import CrudService from '@/services/crud';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+import { isLogged } from '@/services/auth';
 
 export default {
   components: {
@@ -71,8 +72,13 @@ export default {
     }
   },
   mounted() {
-    this.$crudServico = new CrudService('/servico/')
-    this.carregarServico();
+    if (this.estaLogado()){
+      this.$crudServico = new CrudService('/servico/')
+      this.carregarServico();
+    } else {
+      this.$router.push('/');
+    }
+    
   },
   methods: {
     async carregarServico() {
@@ -91,6 +97,9 @@ export default {
     async deletarServico(idServico) {
       await this.$crudServico.remove(idServico);
       this.carregarServico();
+    },
+    estaLogado(){
+      return isLogged();
     }
   }
 }
