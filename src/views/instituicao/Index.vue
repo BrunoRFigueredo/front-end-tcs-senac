@@ -2,19 +2,21 @@
   <div id="index-instituition">
     <div class="container">
       <h3 class="text-center fw-bold">Instituições</h3>
-    <div class="row" style="max-width: 950px;max-height: 550px; overflow-y: scroll;">
-      <div class="card m-2" style="width: 18rem;" v-for="instituicao in instituicoes" :key="instituicao.id">
+    <div class="row" style="max-width: 1050px;max-height: 500px; overflow-y: scroll;">
+      <div class="card m-2" style="width: 20rem;" v-for="instituicao in instituicoes.conteudo" :key="instituicao.id">
         <div class="card-body">
-          <h5 class="text-center fw-bold">{{instituicao.nome}}</h5>
+          <h5 class="fw-bold">{{instituicao.nome}}</h5>
           <span>{{instituicao.status}}</span>
-          <div>
-            <img src="https://www.eye-image.nl/assets/files/eye-image-homepage.1920x0x0x100.jpg" alt="imagem instituição" srcset="">
-          </div>
           <div class="row mt-4">
-            <p class="col">Cidade: {{instituicao.cidade}}</p>
-            <p class="col">Estado: {{instituicao.uf}}</p>
+            <p class="col">CNPJ: {{instituicao.cnpj}}</p>
+            <p class="col">PIX: {{instituicao.pix}}</p>
           </div>
-          <button class="botao" :to="`/instituicao/${instituicao.id}`">Visualizar</button>
+          <div class="row mt-2">
+            <p class="col">Telofone: {{instituicao.telefone}}</p>
+            <p class="col">Whatsapp: {{instituicao.whatsapp}}</p>
+          </div>
+          <p class="col">Estado: {{instituicao.email}}</p>
+          <button class="btn btn-success" :to="`/instituicao/${instituicao.id}`">Visualizar</button>
         </div>
       </div>
     </div>
@@ -23,60 +25,26 @@
 </template>
 
 <script>
+import CrudService from "@/services/crud"
 export default {
   data(){
     return{
-      instituicoes: [
-        {
-          id:1,
-          nome: "teste",
-          cidade: "Içara",
-          uf: "SC",
-          status: true
-        },
-        {
-          id:2,
-          nome: "mercado",
-          cidade: "Criciúma",
-          uf: "SC",
-          status: false
-        },
-        {
-          id:1,
-          nome: "teste",
-          cidade: "Içara",
-          uf: "SC",
-          status: true
-        },
-        {
-          id:2,
-          nome: "mercado",
-          cidade: "Criciúma",
-          uf: "SC",
-          status: false
-        },
-        {
-          id:1,
-          nome: "teste",
-          cidade: "Içara",
-          uf: "SC",
-          status: true
-        },
-        {
-          id:2,
-          nome: "mercado",
-          cidade: "Criciúma",
-          uf: "SC",
-          status: false
-        }
-      ],
+      instituicoes: []
     }
   },
-  mounted(){
-    
+  async mounted(){
+    this.$crudInstituicao = new CrudService('/instituicao/');
+    this.carregarInstituicoes();
   },
   methods: {
-    
+    async carregarInstituicoes(){
+      const {data} = await this.$crudInstituicao.findAll({
+        tamanhoPagina: this.tamanhoPagina,
+        paginaDesejada: this.paginaDesejada
+      })
+      this.instituicoes = data;
+      console.log(data);
+    }
 
   }
 }
@@ -85,13 +53,11 @@ export default {
 <style scoped>
 p{
   font-size: 12px;
+  color: #8391a2
 }
 
-img{
-  max-width: 250px;
-  widows: 250px;
-  height: auto;
-  margin: 0 auto;
+h3, h4, h5{
+  color: #535961
 }
 
 ::-webkit-scrollbar-track {
