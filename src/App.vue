@@ -20,7 +20,6 @@
     </div>
   </nav>-->
   <MenuLateral/>
-  <v-pagination/>
   <router-view class="mt-5 "/>
   </div>
 </template>
