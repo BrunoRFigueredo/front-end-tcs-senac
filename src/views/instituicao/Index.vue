@@ -16,7 +16,7 @@
             <p class="col">Whatsapp: {{instituicao.whatsapp}}</p>
           </div>
           <p class="col">Estado: {{instituicao.email}}</p>
-          <button class="btn btn-success" :to="`/instituicao/${instituicao.id}`">Visualizar</button>
+          <router-link class="btn btn-success" :to="`/instituicao/${instituicao.id}`">Visualizar</router-link>
         </div>
       </div>
     </div>
