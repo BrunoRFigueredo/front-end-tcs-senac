@@ -45,10 +45,12 @@
         </ul>
         <ul class="logout">
             <li>
-              <i class="fa fa-power-off fa-2x bg-dark text-white"></i>
-              <span class="nav-text bg-dark text-white" @click="sair()">
-                Logout
-              </span>
+              <router-link to="/">
+                <i class="fa fa-power-off fa-2x bg-dark text-white"></i>
+                <span class="nav-text bg-dark text-white" @click="sair()">
+                  Logout
+                </span>
+              </router-link>
             </li>  
         </ul>
     </nav>
