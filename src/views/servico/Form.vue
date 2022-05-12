@@ -13,7 +13,7 @@
           <input type="text" class="form-control" v-model="servico.descricao" required>
         </div>
       </div>
-      <span v-if="error" class="alert alert-warning" for="">{{error}}</span>
+      <span v-if="error" class="alert alert-warning" for="">{{ error }}</span>
       <button type="submit" class="btn btn-success" @click="cadastrar(servico)">Cadastrar</button>
     </form>
   </div>
@@ -21,7 +21,7 @@
 
 <script>
 import CrudService from '@/services/crud';
-import { isLogged } from '@/services/auth';
+import {isLogged} from '@/services/auth';
 
 export default {
   name: "form-service",
@@ -42,26 +42,35 @@ export default {
           : 'Novo serviço'
     }
   },
-  mounted(){
+  mounted() {
     if (!this.estaLogado()) {
       this.$router.push('/');
     }
+    this.$crudServico = new CrudService('/servico/');
+    if (this.$route.params.id) {
+      this.carregaServico(this.$route.params.id);
+    }
+
   },
   methods: {
-    async cadastrar(servico){
+    async cadastrar(servico) {
       try {
         await this.$crudServico.save(servico);
         this.$router.push('/servicos');
-      } catch(erro){
-         console.log(erro);
-         this.erro = erro.response.data.message;
+      } catch (erro) {
+        console.log(erro);
+        this.erro = erro.response.data.message;
       }
     },
-    desabilitar(){
-      return ((!this.servico.nome || this.servico.nome.length > 45) ||
-             (!this.servico.descricao || this.servico.descricao.length > 200))
+    async carregaServico(idServico) {
+      const {data} = await this.$crudServico.findById(idServico);
+      this.servico = data;
     },
-    estaLogado(){
+    desabilitar() {
+      return ((!this.servico.nome || this.servico.nome.length > 45) ||
+          (!this.servico.descricao || this.servico.descricao.length > 200))
+    },
+    estaLogado() {
       return isLogged();
     }
   }
