@@ -1,89 +1,99 @@
 <template>
-  <div id="index-category" class="container">
-    <form action="" class="w-50">
-      <h3 class="text-center pb-4"><strong>Cadastrar Categoria</strong></h3>
-      <div class="mb-3">
-        <label for="nomeCategoria" class="form-label">Nome da categoria</label>
-        <input type="text" class="form-control" v-model="categoria.nome" required>
-      </div>
-      <div class="mb-3">
-        <label for="descricaoCategoria" class="form-label">Descrição</label>
-        <input type="text" class="form-control" v-model="categoria.descricao" required>
-      </div>
-      <button class="btn btn-success" @click="cadastroCategoria(categoria)">Cadastrar</button>
-    </form>
-    <h4 class="text-center mt-4 fw-bold">Lista das categorias</h4>
-    <div class="row mt-4" style="margin: 0 auto;">
-      <div class="card m-2 w-25" style="width: 18rem;" v-for="cate in categorias" :key="cate.id">
-        <div class="card-body">
-          <p class="text-center fw-bold">{{cate.nome}}</p>
-        </div>
+  <div id="index-service" class="container" >
+    <h5 class="text-center">Serviços</h5>
+    <div class="row">
+      <div class="md-3">
+        <router-link type="button" to="/cadastrar-categoria" class="btn btn-success">Cadastrar</router-link>
       </div>
     </div>
+    <table class="table text-center">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="categoria in categorias" :key="categoria.id">
+        <th scope="row">{{ categoria.id }}</th>
+        <td>{{ categoria.nome }}</td>
+        <td>{{ categoria.descricao }}</td>
+        <td>
+          <router-link :to="{ name: 'form-categoria', params: { id: categoria.id }}" class="text-dark p-0 mx-1">
+            <i class="bi bi-pencil-square"></i>
+          </router-link>
+          <button @click="deletarCategoria(categoria.id)" class="btn">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="h5 col-md">
+        Página {{paginaDesejada}} de {{totalPagina}}
+      </div>
+      <div class="col-md">
+        <v-pagination
+            v-model="paginaDesejada"
+            :pages="totalPagina"
+            :range-size="tamanhoPagina"
+            :hideFirstButton="true"
+            :hideLastButton="true"
+            active-color="#DCEDFF"
+            @update:modelValue="carregarcategoria"
+        />
+      </div>
+    </div>
+    <!--<router-link tag="button" class="botao" :to="`/categoria/${categoria.id}`">Visualizar</router-link>-->
   </div>
 </template>
-
 <script>
 import CrudService from '@/services/crud'
+import VPagination from "@hennge/vue3-pagination";
+import {isLogged} from "@/services/auth";
 
 export default {
-  name: "index-category",
+  components: {
+    VPagination
+  },
+  name: "index-service",
   data() {
     return {
       categorias: [],
-      categoria: {
-        nome: '',
-        descricao: ''
-      },
-      // filter: '',
+      tamanhoPagina: 10,
       paginaDesejada: 1,
       total: 0,
-      totalPage: 0,
-      tamanhoPagina: 10
+      totalPagina: 0
     }
-
   },
-  async mounted() {
-    this.$service = new CrudService('/categoria/')
-    await this.carregaCadastro();
-  },
-  watch: {
-    page() {
-      this.carregaCadastro()
+  mounted() {
+    if (this.estaLogado()){
+      this.$crudCategoria = new CrudService('/categoria/')
+      this.carregarCategoria();
+    } else {
+      this.$router.push('/');
     }
   },
   methods: {
-    // cadastro(){
-    //   api.post("/categoria/", this.categoria).then(r => {
-    //     api.get("/categoria/").then(r => {
-    //       this.categorias = r.data;
-    //     });
-    //   })
-    // },
-    // deletar(id){
-    //   api.delete(`/categoria/${id}`).then(
-    //     api.get("/categoria/").then(r => {
-    //     this.categorias = r.data;
-    // }),
-    //   );
-    // },
-    async cadastroCategoria(categoria){
-      const {data} = await this.$service.save(categoria);
-      this.carregaCadastro();
-    },
-    async carregaCadastro() {
-      const {data} = await this.$service.findAll({
-        tamanhoPagina: this.tamanhoPagina,
-        paginaDesejada: this.paginaDesejada
-        // filter: this.filter
-      });
-      console.log(data);
-      console.log(data.conteudo);
+    async carregarCategoria() {
+      const {data} = await this.$crudCategoria.findAll({
+        paginaDesejada: this.paginaDesejada - 1,
+        tamanhoPagina: this.tamanhoPagina
+      })
       this.categorias = data.conteudo;
-      // this.categorias = data.content.clientes;
-      // this.total = data.content.total;
-      // const calculoPaginacao = data.content.total / this.tamanhoPagina;
-      // this.totalPage = calculoPaginacao === Math.floor(calculoPaginacao) ? calculoPaginacao : Math.floor(calculoPaginacao) + 1;
+      this.total = data.totalRegistros;
+      const calculoPaginacao = data.totalRegistros / this.tamanhoPagina;
+      this.totalPagina = calculoPaginacao === Math.floor(calculoPaginacao) ? calculoPaginacao : Math.floor(calculoPaginacao) + 1;
+    },
+    async deletarCategoria(idCategoria) {
+      await this.$crudCategoria.remove(idCategoria);
+      this.carregarCategoria();
+    },
+    estaLogado(){
+      return isLogged();
     }
   }
 }
