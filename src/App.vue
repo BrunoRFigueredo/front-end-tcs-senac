@@ -19,7 +19,8 @@
       </div>
     </div>
   </nav>-->
-  <MenuLateral/>
+  <MenuSuperior v-if="!estaLogado()"/>
+  <MenuLateral  v-if="estaLogado()"/>
   <router-view class="mt-5 "/>
   </div>
 </template>
@@ -28,14 +29,28 @@
 import MenuLateral from "../src/components/MenuLateral.vue";
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+import MenuSuperior from "./components/MenuSuperior.vue";
+import { isLogged } from "./services/auth";
 
 export default {
   components: {
     MenuLateral,
-    VPagination
-  },
+    VPagination,
+    MenuSuperior
+},
     data(){
       return{
+      }
+    },
+    mounted(){
+      if(!this.estaLogado()){
+        
+      }
+    },
+    methods: {
+      estaLogado(){
+        
+        return isLogged();
       }
     },
 }
