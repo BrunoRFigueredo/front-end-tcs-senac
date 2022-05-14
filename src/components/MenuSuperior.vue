@@ -5,7 +5,9 @@
         <router-link to="/" class="m-4">Página Inicial</router-link>
         <router-link to="/instituicao" class="m-4">Instituições</router-link>
         <router-link to="/projeto" class="m-4">Projetos Sociais</router-link>
+        <router-link to="/usuario-login" class="float-end btn btn-success text-white" style="margin-right: 20px;">Login</router-link>
       </ul>
+      
     </nav>
   </div>
 </template>
