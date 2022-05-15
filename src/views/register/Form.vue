@@ -3,13 +3,14 @@
     <div class="form">
       <div class="header">
           <p>Cadastro de Usuário</p>
-      </div>
+      </div>        <img id="blah" :src="url" alt="Sua imagem de perfil" width="200" height="200" style="align-content: center" />
+
       <form class="login">
-        <div class="mb-12" >
-          <img id="blah" :src="url" alt="your image" width="200" height="200" style="align-content: center" />
+        <div class="label">
+          <label for="imagem" class="form-label">Imagem de perfil</label>
         </div>
-        <div class="mb-3">
-          <input accept="image/*" type="file" class="form-control" @change="onFileChange" id="customFile"/>
+        <div class="form-group">
+          <input accept="image/*" type="file" class="form-control" @change="onFileChange" id="imagem"/>
         </div>
         <div class="label">
           <label for="nome" class="form-label">Nome</label>
@@ -76,10 +77,9 @@ export default {
         try {
           if (this.files) {
             const imagem = await this.$crudImagem.saveImagem(this.files);
-            console.log(imagem);
             this.usuario.imagem = imagem.data.idImagem;
           }
-          await this.$service.save(usuario)
+          await this.$crudUsuario.save(usuario)
           alert('Usuário criado com sucesso, redirecionando...');
           this.$router.push('/usuario-login');
         } catch(erro) {
