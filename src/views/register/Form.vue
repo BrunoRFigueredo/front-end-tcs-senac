@@ -1,34 +1,46 @@
 <template>
-  <!-- <dir id="user-form"> -->
-  <form action="" class="col-md-8" id="formulario" @submit="checkForm">
-    <h3 class="text-center pb-4"><strong>Cadastrar usuário</strong></h3>
-    <div class="mb-12" >
-    <img id="blah" :src="url" alt="your image" width="200" height="200" style="align-content: center" />
+  <div class="login-page">
+    <div class="form">
+      <div class="header">
+          <p>Cadastro de Usuário</p>
+      </div>
+      <form class="login">
+        <div class="mb-12" >
+          <img id="blah" :src="url" alt="your image" width="200" height="200" style="align-content: center" />
+        </div>
+        <div class="mb-3">
+          <input accept="image/*" type="file" class="form-control" @change="onFileChange" id="customFile"/>
+        </div>
+        <div class="label">
+          <label for="nome" class="form-label">Nome</label>
+        </div>
+        <div class="form-group">
+          <input id="nome" type="text" class="form-control" v-model="usuario.nome" required>
+        </div>
+        <div class="label">
+          <label for="email" class="form-label">Email</label>
+        </div>
+        <div class="form-group">
+          <input id="email" type="email" class="form-control" v-model="usuario.email" required>
+        </div>
+        <div class="label">
+          <label for="senha" class="form-label">Senha</label>
+        </div>
+        <div class="form-group">
+          <input id="senha" type="password" class="form-control" v-model="usuario.senha" required>
+        </div>
+        <div class="label">
+          <label for="exampleInputEmail1" class="form-label">Confirmar senha</label>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" v-model="usuario.confirmarSenha" required>
+        </div>
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-success" :disabled="desabilitar()" @click="cadastrar(usuario)">Cadastrar</button>
+        </div>
+      </form>
     </div>
-    <div class="mb-3">
-      <input accept="image/*" type="file" class="form-control" @change="onFileChange" id="customFile"/>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Seu nome</label>
-      <input type="text" class="form-control" v-model="usuario.nome" required>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email</label>
-      <input type="email" class="form-control" v-model="usuario.email" required>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Senha</label>
-      <input type="password" class="form-control" v-model="usuario.senha" required>
-    </div>
-    <label for="exampleInputEmail1" class="form-label">Confirmar senha</label>
-    <div class="mb-3">
-      <input type="password" class="form-control" v-model="usuario.confirmarSenha" required>
-    </div>
-    <div class="col-md-12">
-      <button type="submit" class="btn btn-success" :disabled="desabilitar()" @click="cadastrar">Cadastrar</button>
-    </div>
-  </form>
-  <!-- </dir> -->
+  </div>
 </template>
 
 <script>
@@ -46,9 +58,9 @@ export default {
         confirmarSenha: '',
         dataHoraCadastro: Date.now(),
         status: 1,
-        perfilPermissao: 1,
-        imagem: ''
-      }
+        perfilPermissao: 1
+      },
+      erro: ''
     }
   },
   mounted() {
@@ -56,21 +68,24 @@ export default {
     this.$crudImagem = new CrudService('/imagem/');
   },
   methods: {
-    async cadastrar() {
-      if (this.usuario.senha != this.usuario.confirmarSenha) {
+    async cadastrar(usuario){
+      this.erro = '';
+      if (this.usuario.senha != this.usuario.confirmarSenha){
         alert('A senha não confere com a confirmaçao');
       } else {
-        if (this.files) {
-          const imagem = await this.$crudImagem.saveImagem(this.files);
-          console.log(imagem);
-          this.usuario.imagem = imagem.data.idImagem;
-        }
-        this.$crudUsuario.save(this.usuario).then((r) => {
-          alert('Usuário criado com sucesso');
+        try {
+          if (this.files) {
+            const imagem = await this.$crudImagem.saveImagem(this.files);
+            console.log(imagem);
+            this.usuario.imagem = imagem.data.idImagem;
+          }
+          await this.$service.save(usuario)
+          alert('Usuário criado com sucesso, redirecionando...');
           this.$router.push('/usuario-login');
-        }).catch(error => {
-          alert('Erro ao criar usuário ' + error.response.data.message);
-        })
+        } catch(erro) {
+          this.erro = erro.response.data.message;
+          alert(this.erro);
+        }
       }
     },
     desabilitar() {
@@ -93,7 +108,69 @@ export default {
 </script>
 
 <style scoped>
-#formulario {
-  margin: 0 auto;
+.login-page {
+  margin: 0;
 }
+.header{
+  color: black;
+  font-size: 30px;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 850px;
+  margin: 0 auto 100px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  margin: auto;
+  border-radius: 10px;
+}
+.label {
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
+}
+
 </style>
