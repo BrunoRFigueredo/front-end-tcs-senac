@@ -3,8 +3,15 @@
     <div class="form">
       <div class="header">
           <p>Cadastro de Usuário</p>
-      </div>  
-      <form class="login">  
+      </div>        <img id="blah" :src="url" alt="Sua imagem de perfil" width="200" height="200" style="align-content: center" />
+
+      <form class="login">
+        <div class="label">
+          <label for="imagem" class="form-label">Imagem de perfil</label>
+        </div>
+        <div class="form-group">
+          <input accept="image/*" type="file" class="form-control" @change="onFileChange" id="imagem"/>
+        </div>
         <div class="label">
           <label for="nome" class="form-label">Nome</label>
         </div>
@@ -38,13 +45,13 @@
 </template>
 
 <script>
-import api from "../../services/api";
-import CrudService from '@/services/crud';
+import CrudService from "@/services/crud";
 
 export default {
-  name: "user-form",
-  data(){
-    return{
+  name: "form-usuario",
+  data() {
+    return {
+      url: null,
       usuario: {
         nome: '',
         email: '',
@@ -57,8 +64,9 @@ export default {
       erro: ''
     }
   },
-  async mounted(){
-    this.$service = new CrudService('/usuario/criar-usuario');
+  mounted() {
+    this.$crudUsuario = new CrudService('/usuario/');
+    this.$crudImagem = new CrudService('/imagem/');
   },
   methods: {
     async cadastrar(usuario){
@@ -67,7 +75,11 @@ export default {
         alert('A senha não confere com a confirmaçao');
       } else {
         try {
-          await this.$service.save(usuario)
+          if (this.files) {
+            const imagem = await this.$crudImagem.saveImagem(this.files);
+            this.usuario.imagem = imagem.data.idImagem;
+          }
+          await this.$crudUsuario.save(usuario)
           alert('Usuário criado com sucesso, redirecionando...');
           this.$router.push('/usuario-login');
         } catch(erro) {
@@ -76,11 +88,20 @@ export default {
         }
       }
     },
-    desabilitar(){
+    desabilitar() {
       return (!this.usuario.nome || this.usuario.nome.length > 100) ||
-             (!this.usuario.email || this.usuario.email.length > 150) ||
-             (!this.usuario.senha || this.usuario.senha.length > 100) ||
-             (!this.usuario.confirmarSenha || this.usuario.confirmarSenha.length > 100);
+          (!this.usuario.email || this.usuario.email.length > 150) ||
+          (!this.usuario.senha || this.usuario.senha.length > 100) ||
+          (!this.usuario.confirmarSenha || this.usuario.confirmarSenha.length > 100);
+    },
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.url = URL.createObjectURL(file);
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) {
+        return;
+      }
+      this.files = files[0];
     }
   },
 }
