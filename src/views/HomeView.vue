@@ -40,6 +40,9 @@
 
 export default {
   name: 'HomeView',
+  mounted(){
+    this.$emit('logado');
+  }
 };
 </script>
 

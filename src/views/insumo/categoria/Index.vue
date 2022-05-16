@@ -73,6 +73,7 @@ export default {
     if (this.estaLogado()){
       this.$crudCategoria = new CrudService('/categoria/')
       this.carregarCategoria();
+      this.$emit('logado');
     } else {
       this.$router.push('/');
     }

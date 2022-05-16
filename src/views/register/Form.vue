@@ -92,7 +92,10 @@ export default {
       return (!this.usuario.nome || this.usuario.nome.length > 100) ||
           (!this.usuario.email || this.usuario.email.length > 150) ||
           (!this.usuario.senha || this.usuario.senha.length > 100) ||
-          (!this.usuario.confirmarSenha || this.usuario.confirmarSenha.length > 100);
+          (!this.usuario.confirmarSenha || this.usuario.confirmarSenha.length > 100) ||
+          (this.usuario.senha.length < 6) ||
+          (this.usuario.confirmarSenha.length < 6) ||
+          (!this.files);
     },
     onFileChange(e) {
       const file = e.target.files[0];

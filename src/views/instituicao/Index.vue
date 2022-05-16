@@ -35,6 +35,7 @@ export default {
   async mounted(){
     this.$crudInstituicao = new CrudService('/instituicao/');
     this.carregarInstituicoes();
+    this.$emit('logado');
   },
   methods: {
     async carregarInstituicoes(){

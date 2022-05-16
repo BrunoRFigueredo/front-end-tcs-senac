@@ -17,6 +17,7 @@ export default {
     /*api.get("/projeto/").then(r => {
       this.projects = r.data;
     })*/
+    this.$emit('logado');
   }
 }
 </script>

@@ -1,27 +1,8 @@
 <template>
 <div id="app">
-  <!--<nav>
-    <div class="link" v-if="user.nome">
-      <router-link to="/" class="m-2">Início</router-link>
-      <router-link to="/instituicao" class="m-2">Instituições</router-link>
-      <router-link to="/projeto" class="m-2">Projetos</router-link>
-      <router-link to="/categoria" v-if="user.perfilPermissao == 3" class="m-2">Categorias</router-link>
-      <router-link to="/insumo" v-if="user.perfilPermissao == 3" class="m-2">Insumos</router-link>
-      <router-link to="/voluntario" v-if="user.perfilPermissao == 3" class="m-2">Voluntários</router-link>
-      <router-link to="/servico" v-if="user.perfilPermissao == 3" class="m-2">Serviços</router-link>
-    </div>
-    <div class="usuario">
-      <router-link :to="`/usuario-detail/${user.id}`">{{user.nome}}</router-link>
-      <div>
-        <router-link to="/#" class="text-usuario" v-if="!user.nome" @click="logar()">Acessar conta</router-link> |
-        <router-link to="/usuario-register" class="text-usuario" v-if="!user.nome">Cadastrar</router-link>
-        <button @click="deslogar()" v-if="user.nome" class="botaoDesconectar">Desconectar</button>
-      </div>
-    </div>
-  </nav>-->
-  <MenuSuperior v-if="!estaLogado()"/>
-  <MenuLateral  v-if="estaLogado()"/>
-  <router-view class="mt-5 "/>
+  <MenuSuperior v-if="this.superiorVisivel"/>
+  <MenuLateral  v-if="this.lateralVisivel" @deslogado="this.verificaVisibilidade(this.estaLogado())"/>
+  <router-view class="mt-5" @logado="this.verificaVisibilidade(this.estaLogado())"/>
   </div>
 </template>
 
@@ -40,6 +21,8 @@ export default {
 },
     data(){
       return{
+        superiorVisivel: true,
+        lateralVisivel: false
       }
     },
     mounted(){
@@ -51,6 +34,17 @@ export default {
       estaLogado(){
         
         return isLogged();
+      },
+      verificaVisibilidade(logado){
+        if (logado){
+          console.log('logado')
+          this.superiorVisivel = false;
+          this.lateralVisivel = true;
+        } else {
+          console.log('deslogado')
+          this.superiorVisivel = true;
+          this.lateralVisivel = false;
+        }
       }
     },
 }

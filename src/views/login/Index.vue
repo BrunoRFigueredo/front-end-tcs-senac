@@ -46,10 +46,14 @@ export default {
         alert('Informe a senha do usuário');
         return;
       }
+      if (this.usuario.senha.length < 6){
+        alert('A senha deve conter 6 caracteres');
+        return;
+      }
       try{
         await login(this.usuario.email, this.usuario.senha);
+        this.$emit('logado');
         this.$router.push('/index');
-        //
       }catch(error){
         this.error = error.response.data.message;
         alert(this.error);

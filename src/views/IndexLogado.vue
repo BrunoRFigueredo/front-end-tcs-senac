@@ -1,6 +1,6 @@
 <template>
 
-  <div id="index-logado" class="container" v-if="estaLogado()">
+  <div id="index-logado" class="container" v-if="this.estaLogado()">
     
     <div class="row">
       <div class="col">
@@ -25,8 +25,21 @@
 </template>
 
 <script>
+import { isLogged } from '@/services/auth'
 export default {
   name: 'index-logado',
+  methods:{
+    estaLogado(){
+      return isLogged();
+    },
+  },
+  mounted(){
+    this.$emit('logado');
+    
+    if (!this.estaLogado()){
+      this.$router.push("/")
+    }
+  }
 }
 </script>
 

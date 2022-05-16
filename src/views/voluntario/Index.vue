@@ -52,6 +52,9 @@ export default {
     cadastrar(){
       api.post("/voluntarios/", this.voluntary);
     }
+  },
+  mounted(){
+    this.$emit('logado');
   }
 }
 </script>

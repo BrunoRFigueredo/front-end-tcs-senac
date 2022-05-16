@@ -1,5 +1,5 @@
 <template >
-  <div class="area" v-if="estaLogado()">
+  <div class="area">
     <nav class="main-menu">
         <ul>
             <li class="" v-if="permissao(['NORMAL', 'ADMIN'])">
@@ -73,8 +73,8 @@ export default {
     },
     sair(){
       logout();
+      this.$emit('deslogado');
       this.$router.push('/');
-      //window.location.reload();
     }
   }
 };
