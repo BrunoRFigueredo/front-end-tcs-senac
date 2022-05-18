@@ -6,6 +6,7 @@ import LoginIndex from "../views/login/Index.vue";
 import IndexLogado from "../views/IndexLogado.vue";
 import IndexInstituicao from "../views/instituicao/Index.vue";
 import SelectInstituicao from "../components/InstituicaoSelect.vue";
+import InstituicaoForm from "../views/instituicao/Form.vue";
 import IndexProjeto from "../views/projeto/Index.vue";
 import indexInsumo from "../views/insumo/Index.vue";
 import IndexCategoria from "../views/insumo/categoria/Index.vue";
@@ -47,6 +48,11 @@ const routes = [
     path: "/instituicao",
     name: "index-instituicao",
     component: IndexInstituicao
+  },
+  {
+    path: "/instituicao-register",
+    nome: 'instituicao-form',
+    component: InstituicaoForm
   },
   {
     path: "/instituicao/:id",
