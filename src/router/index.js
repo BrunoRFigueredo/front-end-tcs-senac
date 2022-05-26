@@ -8,6 +8,7 @@ import IndexInstituicao from "../views/instituicao/Index.vue";
 import SelectInstituicao from "../components/InstituicaoSelect.vue";
 import InstituicaoForm from "../views/instituicao/Form.vue";
 import IndexProjeto from "../views/projeto/Index.vue";
+import ProjetoSelect from "../components/ProjetoSelect.vue";
 import indexInsumo from "../views/insumo/Index.vue";
 import IndexCategoria from "../views/insumo/categoria/Index.vue";
 import IndexVoluntario from "../views/voluntario/Index.vue";
@@ -70,6 +71,12 @@ const routes = [
     path: "/cadastrar-projeto",
     name: "cadastrar-projeto",
     component: ProjetoForm
+  },
+  {
+    path: "/projeto/:id",
+    props: true,
+    name: "projeto-select",
+    component: ProjetoSelect
   },
   {
     path: "/insumo",
