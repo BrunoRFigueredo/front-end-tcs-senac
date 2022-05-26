@@ -16,6 +16,7 @@ import IndexServico from "../views/servico/Index.vue";
 import ServicoForm from "../views/servico/Form.vue";
 import ServicoSelect from "../components/ServicoSelect.vue";
 import FormCategoria from "../views/insumo/categoria/Form.vue";
+import ProjetoForm from "../views/projeto/Form.vue";
 
 const routes = [
   {
@@ -64,6 +65,11 @@ const routes = [
     path: "/projeto",
     name: "index-projeto",
     component: IndexProjeto
+  },
+  {
+    path: "/cadastrar-projeto",
+    name: "cadastrar-projeto",
+    component: ProjetoForm
   },
   {
     path: "/insumo",
