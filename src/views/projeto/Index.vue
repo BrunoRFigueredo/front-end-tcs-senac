@@ -34,6 +34,16 @@
           </div>
         </div>
   </div>
+
+  <!-- botões apenas para testes, manter mas adequar conforme novo layout da pagina -->
+  <button>Meus Projetos - Teste</button>
+
+    <router-link to="/cadastrar-projeto">
+      <button>
+        Cadastrar Projeto - Teste
+      </button>              
+    </router-link>
+    
 </template>
 
 <script>

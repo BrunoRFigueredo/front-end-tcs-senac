@@ -9,11 +9,16 @@ export async function login (email, password) {
   if (data.token) {
     localStorage.setItem('token', data.token)
     localStorage.setItem('permissoes', data.roles)
+    localStorage.setItem('id', data.usuario.id)
   }
 }
 
 export function getToken() {
   return localStorage.getItem('token')
+}
+
+export function getLogado(){
+  return localStorage.getItem('id')
 }
 
 export async function saveProfile (profile) {
@@ -33,8 +38,9 @@ export async function getProfile() {
 export function logout (callback) {
   localStorage.removeItem('token')
   localStorage.removeItem('permissoes')
+  localStorage.removeItem('id')
   if (callback) {
-    callback ()
+    callback()
   }
 }
 
