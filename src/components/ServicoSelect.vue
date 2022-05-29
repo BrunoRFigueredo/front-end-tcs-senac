@@ -1,26 +1,26 @@
 <template>
-  <div id="service-select">
-    <ul>
-      <li>{{service}}</li>
-    </ul>
-  </div>
+  <select v-model="selected" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+    <option v-for="servico in data" :value="servico.id">
+      {{ servico.nome }}
+    </option>
+  </select>
 </template>
-
 <script>
-import api from "../services/api";
+
+import CrudService from "@/services/crud";
+
 export default {
-  name: "sevice-select",
-  props: ["id"],
-  data(){
-    return{
-      service: {}
+  props: ['value'],
+  data() {
+    return {
+      selected: 0,
+      data: []
     }
   },
-  async created(){
-    await api.get(`/servico/${this.id}`).then(r => {
-      this.service = r.data;
-      console.log(r);
-    })
+  async mounted() {
+    this.$crudServico = new CrudService('/servico/');
+    const {data} = await this.$crudServico.findAll({});
+    this.data = data.conteudo;
   }
 }
 </script>

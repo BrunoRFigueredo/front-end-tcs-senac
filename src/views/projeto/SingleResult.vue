@@ -8,8 +8,8 @@
       <p>Início: {{usuario.dataInicio}}</p>
       <p>Finaliza: {{usuario.dataFinal}}</p>
       <p>CNPJ: {{projeto.cnpj}}</p>
-      <button type="button" class="btn btn-primary" @click="showModal=true">
-        Open a modal
+      <button type="button" class="btn btn-success" @click="showModal=true">
+        Cadastrar serviço
       </button>
     </div>
   </div>
@@ -24,7 +24,8 @@
             <label for="datainicio" class="form-label">Data Início</label>
           </div>
           <div>
-            <input @keyup="" id="datainicio" type="date" class="form-control" required>
+            <input @keyup="formatarData(projeto_servico.dataFinal)" id="datainicio" type="date" class="form-control"
+                   v-model="projeto_servico.dataInicio" required>
           </div>
         </div>
 
@@ -33,7 +34,8 @@
             <label for="datainicio" class="form-label">Data Final</label>
           </div>
           <div>
-            <input id="datafim" type="date" class="form-control"  @keyup="">
+            <input id="datafim" type="date" class="form-control" @keyup="formatarData(projeto_servico.dataFinal)"
+            v-model="projeto_servico.dataFinal">
           </div>
         </div>
       </div>
@@ -44,13 +46,13 @@
             <label class="form-label">Serviço</label>
           </div>
           <div>
-            <ServicoSelect v-model="servico" />
+            <ServicoSelect v-model="projeto_servico.servico" required />
           </div>
         </div>
       </div>
 
       <div class="col-md-12">
-        <button type="submit" class="btn btn-success" @click="">
+        <button type="submit" class="btn btn-success" @click="saveProjetoServico(this.projeto_servico)">
           Cadastrar
         </button>
       </div>
@@ -61,7 +63,8 @@
 <script>
 import CrudService from '@/services/crud';
 import VueModal from "@kouts/vue-modal";
-import VueModal from "@kouts/vue-modal";
+import ServicoSelect from "@/components/ServicoSelect.vue";
+import dayjs from "dayjs";
 
 export default {
   components:{
@@ -73,23 +76,47 @@ export default {
   data(){
     return{
       projeto: {},
+      projeto_servico: {
+        dataInicio: '',
+        dataFinal: '',
+        voluntario: '',
+        projeto: '',
+        servico: ''
+      },
       usuario: {},
-      servico: '',
       showModal: false
     }
   },
   mounted() {
     this.$crudProjetos = new CrudService('/projeto/');
+    this.$crudProjetoServico = new CrudService('/projeto-servico/');
     this.carregarProjeto(this.id);
     this.$emit('logado');
   },
   methods: {
     async carregarProjeto(id){
       const {data} = await this.$crudProjetos.findById(id);
+      this.projeto_servico.projeto = id;
       this.projeto = data.instituicao;
       this.usuario = data;
       console.log(data);
-    }
+    },
+    async saveProjetoServico(projetoServico){
+      const {data} = await this.$crudProjetoServico.save(projetoServico);
+      console.log(data);
+    },
+    formatarData(dataInicio, dataFim){
+      if (dataInicio.lenght = 8) {
+        const dataIni = dayjs(dataInicio);
+        const dataInicioFormatada = dataF.format('YYYY-MM-DD');
+        this.projeto.dataInicio = dataInicioFormatada;
+      }
+      if (dataFim.lenght = 8){
+        const dataF = dayjs(dataFim);
+        const dataFinalFormatada = dataIni.format('YYYY-MM-DD');
+        this.projeto.dataFinal = dataFinalFormatada;
+      }
+    },
   }
 }
 </script>
