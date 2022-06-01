@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8f98f80f-1665-47ef-ba22-fc4b236e894f" name="Changes" comment="Criando upload de imagem para o usuário(voluntário/instituição)">
-      <change afterPath="$PROJECT_DIR$/src/views/projeto/SingleResult.vue" afterDir="false" />
+    <list default="true" id="8f98f80f-1665-47ef-ba22-fc4b236e894f" name="Changes" comment="Realizando implementação do projeto-servico">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProjetoSelect.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProjetoSelect.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ServicoSelect.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ServicoSelect.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/projeto/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/projeto/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/projeto/SingleResult.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/projeto/SingleResult.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +54,18 @@
       <updated>1652021453671</updated>
       <workItem from="1652021460396" duration="573000" />
       <workItem from="1652022303610" duration="2681000" />
-      <workItem from="1653837395158" duration="9638000" />
+      <workItem from="1653837395158" duration="10428000" />
+      <workItem from="1653948091120" duration="2831000" />
+      <workItem from="1654012145553" duration="1372000" />
     </task>
+    <task id="LOCAL-00001" summary="Realizando implementação do projeto-servico">
+      <created>1653863091176</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1653863091176</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -79,5 +82,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Realizando implementação do projeto-servico" />
+    <option name="LAST_COMMIT_MESSAGE" value="Realizando implementação do projeto-servico" />
   </component>
 </project>

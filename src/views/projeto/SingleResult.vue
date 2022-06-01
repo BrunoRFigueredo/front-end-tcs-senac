@@ -1,13 +1,13 @@
 <template>
   <div id="projeto-select" class="container">
     <router-link to="/projeto" class="btn btn-success">Voltar</router-link>
-    <div class="w-50 divDados"> 
-      <h4 class="text-center mt-2 mb-5">{{usuario.nome}}</h4>
-      <p>Instituição responsável: {{projeto.nome}}</p>
-      <p>Descrição: {{usuario.descricao}}</p>
-      <p>Início: {{usuario.dataInicio}}</p>
-      <p>Finaliza: {{usuario.dataFinal}}</p>
-      <p>CNPJ: {{projeto.cnpj}}</p>
+    <div class="w-50 divDados">
+      <h4 class="text-center mt-2 mb-5">{{ usuario.nome }}</h4>
+      <p>Instituição responsável: {{ projeto.nome }}</p>
+      <p>Descrição: {{ usuario.descricao }}</p>
+      <p>Início: {{ usuario.dataInicio }}</p>
+      <p>Finaliza: {{ usuario.dataFinal }}</p>
+      <p>CNPJ: {{ projeto.cnpj }}</p>
       <button type="button" class="btn btn-success" @click="showModal=true">
         Cadastrar serviço
       </button>
@@ -35,7 +35,7 @@
           </div>
           <div>
             <input id="datafim" type="date" class="form-control" @keyup="formatarData(projeto_servico.dataFinal)"
-            v-model="projeto_servico.dataFinal">
+                   v-model="projeto_servico.dataFinal">
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
             <label class="form-label">Serviço</label>
           </div>
           <div>
-            <ServicoSelect v-model="projeto_servico.servico" required />
+            <ServicoSelect v-model="projeto_servico.servico" required/>
           </div>
         </div>
       </div>
@@ -65,16 +65,17 @@ import CrudService from '@/services/crud';
 import VueModal from "@kouts/vue-modal";
 import ServicoSelect from "@/components/ServicoSelect.vue";
 import dayjs from "dayjs";
+import {login} from "@/services/auth";
 
 export default {
-  components:{
+  components: {
     ServicoSelect,
     'Modal': VueModal
   },
   name: 'projeto-select',
   props: ['id'],
-  data(){
-    return{
+  data() {
+    return {
       projeto: {},
       projeto_servico: {
         dataInicio: '',
@@ -94,24 +95,34 @@ export default {
     this.$emit('logado');
   },
   methods: {
-    async carregarProjeto(id){
+    async carregarProjeto(id) {
       const {data} = await this.$crudProjetos.findById(id);
       this.projeto_servico.projeto = id;
       this.projeto = data.instituicao;
       this.usuario = data;
       console.log(data);
     },
-    async saveProjetoServico(projetoServico){
-      const {data} = await this.$crudProjetoServico.save(projetoServico);
-      console.log(data);
+    async saveProjetoServico(projetoServico) {
+      try {
+        await this.$crudProjetoServico.save(projetoServico);
+        this.showModal = false;
+        this.projeto_servico.dataFinal = '';
+        this.projeto_servico.dataInicio = '';
+        this.projeto_servico.voluntario = '';
+        this.projeto_servico.projeto = '';
+        this.projeto_servico.servico = '';
+      } catch (error) {
+        this.error = error.response.data.message;
+        alert(this.error);
+      }
     },
-    formatarData(dataInicio, dataFim){
+    formatarData(dataInicio, dataFim) {
       if (dataInicio.lenght = 8) {
         const dataIni = dayjs(dataInicio);
         const dataInicioFormatada = dataF.format('YYYY-MM-DD');
         this.projeto.dataInicio = dataInicioFormatada;
       }
-      if (dataFim.lenght = 8){
+      if (dataFim.lenght = 8) {
         const dataF = dayjs(dataFim);
         const dataFinalFormatada = dataIni.format('YYYY-MM-DD');
         this.projeto.dataFinal = dataFinalFormatada;
@@ -122,10 +133,10 @@ export default {
 </script>
 
 <style scoped>
-.divDados{
+.divDados {
   margin: 0 auto;
   padding: 20px;
-  background-color: #fff; 
+  background-color: #fff;
   border-radius: 10px;
 }
 </style>
