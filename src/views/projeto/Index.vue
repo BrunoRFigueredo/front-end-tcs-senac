@@ -37,9 +37,8 @@
   </div>
 
   <!-- botões apenas para testes, manter mas adequar conforme novo layout da pagina -->
-  <button>Meus Projetos - Teste</button>
 
-  <router-link to="/cadastrar-projeto">
+  <router-link to="/cadastrar-projeto" class="p-5">
     <button>
       Cadastrar Projeto - Teste
     </button>
@@ -60,7 +59,7 @@ export default {
   data() {
     return {
       projetos: [],
-      tamanhoPagina: 2,
+      tamanhoPagina: 3,
       paginaDesejada: 1,
       total: 0,
       totalPagina: 0
