@@ -37,17 +37,22 @@
   </div>
 
   <!-- botões apenas para testes, manter mas adequar conforme novo layout da pagina -->
-
-  <router-link to="/cadastrar-projeto" class="p-5">
-    <button>
-      Cadastrar Projeto - Teste
-    </button>
-  </router-link>
-
+  <div v-if="this.verificaLogado()">
+    <button>Meus Projetos - Teste</button>
+  </div>
+  
+  <div v-if="this.verificaLogado()">
+    <router-link to="/cadastrar-projeto">
+      <button>
+        Cadastrar Projeto
+      </button>
+    </router-link>    
+  </div>
 
 </template>
 
 <script>
+import { isLogged } from '@/services/auth';
 import CrudService from '@/services/crud';
 import VPagination from "@hennge/vue3-pagination";
 
@@ -59,7 +64,7 @@ export default {
   data() {
     return {
       projetos: [],
-      tamanhoPagina: 3,
+      tamanhoPagina: 2,
       paginaDesejada: 1,
       total: 0,
       totalPagina: 0
@@ -80,7 +85,10 @@ export default {
       this.total = data.totalRegistros;
       const calculoPaginacao = data.totalRegistros / this.tamanhoPagina;
       this.totalPagina = calculoPaginacao === Math.floor(calculoPaginacao) ? calculoPaginacao : Math.floor(calculoPaginacao) + 1;
-    }
+    },
+    verificaLogado(){
+      return isLogged();
+    },
   }
 }
 </script>

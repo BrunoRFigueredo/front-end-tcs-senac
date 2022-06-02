@@ -43,7 +43,7 @@
                             <label for="datainicio" class="form-label">Data Final</label>
                         </div>
                         <div>
-                            <input id="datafim" type="date" class="form-control"  @keyup="formatarData(projeto.dataInicio)" v-model="projeto.dataFinal">
+                            <input @keyup="formatarData(projeto.dataInicio)" id="datafim" type="date" class="form-control"  v-model="projeto.dataFinal">
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
 <script>
     import CrudService from '@/services/crud';
     import dayjs from 'dayjs';
-    import { getLogado } from '@/services/auth';
+    import { getLogado, isLogged } from '@/services/auth';
     import axios from 'axios';
 
     export default {
@@ -91,9 +91,13 @@
             }
         },
         mounted(){
-            this.$crudProjeto = new CrudService('/projeto/');
-            this.$crudInstituicao = new CrudService('/instituicao/');
-            this.buscaLogado();
+            if (!this.verificaLogado()){
+                this.$router.push('/projeto');
+            } else {
+                this.$crudProjeto = new CrudService('/projeto/');
+                this.$crudInstituicao = new CrudService('/instituicao/');
+                this.buscaUsuario();
+            }
             this.$emit('logado');
         },
         methods: {
@@ -118,18 +122,21 @@
                     this.projeto.dataFinal = dataFinalFormatada;
                 }
             },
-            buscaLogado(){           
+            buscaUsuario(){           
                 axios
                 .get('http://localhost:8080/instituicao/usuario/'+ getLogado())
                 .then(response => {
                     this.instituicao = response.data.nome;
                     this.idInstituicao = response.data.id;
-                    
                     this.nomeInstituicao = this.instituicao;
                     this.projeto.instituicao = this.idInstituicao;
                 }).catch(error => {
-                    alert(error.response.data.message);
+                    alert('Usuário não está vinculado a uma instituição!');
+                    this.$router.push('/projeto');
                 })
+            },
+            verificaLogado(){
+                return isLogged();
             }    
         },
     }

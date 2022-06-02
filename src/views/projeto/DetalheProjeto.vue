@@ -1,5 +1,5 @@
 <template>
-  <div id="projeto-select" class="container">
+  <div id="detalhe-projeto" class="container">
     <router-link to="/projeto" class="btn btn-success">Voltar</router-link>
     <div class="w-50 divDados">
       <h4 class="text-center mt-2 mb-5">{{ projeto.nome }}</h4>
@@ -149,7 +149,7 @@ export default {
     ServicoSelect,
     'Modal': VueModal
   },
-  name: 'projeto-select',
+  name: 'detalhe-projeto',
   props: ['id'],
   data() {
     return {

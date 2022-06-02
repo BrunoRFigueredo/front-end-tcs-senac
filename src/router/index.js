@@ -5,10 +5,10 @@ import UsuarioDetail from "../views/usuario/Detail.vue"
 import LoginIndex from "../views/login/Index.vue";
 import IndexLogado from "../views/IndexLogado.vue";
 import IndexInstituicao from "../views/instituicao/Index.vue";
-import SelectInstituicao from "../components/InstituicaoSelect.vue";
+import DetalheInstituicao from "../views/instituicao/DetalheInstituicao.vue";
 import InstituicaoForm from "../views/instituicao/Form.vue";
 import IndexProjeto from "../views/projeto/Index.vue";
-import SingleResult from "../views/projeto/SingleResult.vue";
+import DetalheProjeto from "../views/projeto/DetalheProjeto.vue";
 import indexInsumo from "../views/insumo/Index.vue";
 import IndexCategoria from "../views/insumo/categoria/Index.vue";
 import IndexVoluntario from "../views/voluntario/Index.vue";
@@ -52,15 +52,15 @@ const routes = [
     component: IndexInstituicao
   },
   {
-    path: "/instituicao-register",
+    path: "/cadastro-instituicao",
     nome: 'instituicao-form',
     component: InstituicaoForm
   },
   {
     path: "/instituicao/:id",
     props: true,
-    name: "select-instituicao",
-    component: SelectInstituicao
+    name: "detalhe-instituicao",
+    component: DetalheInstituicao
   },
   {
     path: "/projeto",
@@ -76,7 +76,7 @@ const routes = [
     path: "/projeto/:id",
     props: true,
     name: "projeto-select",
-    component: SingleResult
+    component: DetalheProjeto
   },
   {
     path: "/insumo",

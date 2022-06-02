@@ -1,11 +1,12 @@
 <template>
-  <div id="index-instituition">
+  <div id="index-instituition" v-if="empty">
     <div class="container w-50 cardCenter">
     <h3 class="text-center pt-2">{{instituicao.nome}}</h3>
-      <div>
-        <img src="https://fotografiamais.com.br/wp-content/uploads/2018/11/composicao-de-imagem-galeria-1.jpg" class="w-50">
+      <div class="img-card">
+        <img :src="'data:image.'+ instituicao.usuario?.imagem?.fileType.split('/')[1] +';base64,' + instituicao.usuario?.imagem?.file" alt="Logo">
       </div>
-      <div class="row mt-4">
+
+    <div class="row mt-4">
         <div class="col">
           <p>Estado: {{instituicao.estado}}</p>
           <p>Cidade: {{instituicao.cidade}}</p>
@@ -43,12 +44,18 @@
 </template>
 
 <script>
-import CrudService from '@/services/crud'
+import CrudService from '@/services/crud';
+import VueModal from "@kouts/vue-modal";
+
 export default {
   props: ['id'],
+  components:{
+    'Modal': VueModal,
+  },
   data(){
     return{
-      instituicao:{}
+      instituicao:{},
+      empty: false,
     }
   },
   async mounted(){
@@ -59,7 +66,7 @@ export default {
     async carregarInstituicao(id){
       const { data } = await this.$crudInstituicao.findById(id);
       this.instituicao = data;
-      console.log(this.instituicao)
+      this.empty = true; 
     }
   }
 }
@@ -93,4 +100,19 @@ h3, h4, h5{
 .cardCenter{
   background-color: #f4f4f4; text-align: center; border-radius: 10px;
 }
+  .img-card {
+    width: 400px;
+    height:400px;
+    margin-left: 280px;
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+    display:block;
+    overflow: hidden;
+  }
+  .img-card img{
+    width: 400px;
+    height: 400px;
+    object-fit:cover; 
+    transition: all .25s ease;
+  } 
 </style>
