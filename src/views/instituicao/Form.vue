@@ -6,114 +6,119 @@
       </div>  
       <form class="login">  
         <div class="row">
-          <div class="col">
+          <div class="form-group col-md-12 col-sm-12">
             <div class="label">
-          <label for="nome" class="form-label">Nome</label>
-          </div>
-          <div class="form-group">
-            <input id="nome" type="text" class="form-control" v-model="instituicao.nome" required>
-          </div>
-          </div>
-          <div class="col">
-          <div class="label">
-            <label for="cnpj" class="form-label">CNPJ</label>
-          </div>
-          <div class="form-group">
-            <input id="cnpj" type="text" class="form-control" v-model="instituicao.cnpj" required>
-          </div>
+              <label for="nome" class="form-label">Nome</label>
+              <input id="nome" type="text" class="form-control" v-model="instituicao.nome" required>
+            </div>
           </div>
         </div>
+  
         <div class="row">
-          <div class="col">
-            <div class="label">
-              <label for="senha" class="form-label">PIX</label>
-            </div>
-            <div class="form-group">
-              <input id="pix" type="text" class="form-control" v-model="instituicao.pix" required>
-            </div>
-          </div>
-          <div class="col">
+          <div class="form-group col-md-6 col-sm-12">
             <div class="label">
               <label for="email" class="form-label">Email</label>
-            </div>
-            <div class="form-group">
               <input id="email" type="email" class="form-control" v-model="instituicao.email" required>
-            </div>
+            </div>  
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
+
+          <div class="form-group col-md-6 col-sm-12">
             <div class="label">
-              <label for="telefone" class="form-label">telefone</label>
+              <label for="telefone" class="form-label">Telefone</label>
             </div>
             <div class="form-group">
               <input id="telefone" type="number" class="form-control" v-model="instituicao.telefone" required>
             </div>
           </div>
-          <div class="col">
-            <div class="label">
-              <label for="whatsapp" class="form-label">Whatsapp</label>
-            </div>
-            <div class="form-group">
-              <input id="whatsapp" type="number" class="form-control" v-model="instituicao.whatsapp" required>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="label">
-              <label for="pais" class="form-label">pais</label>
-            </div>
-            <div class="form-group">
-              <input id="pais" type="text" class="form-control" placeholder="Exemplo: BR" :maxlength="maxEstado" v-model="instituicao.pais" required>
-            </div>
-          </div>
-          <div class="col">
-            <div class="label">
-              <label for="estado" class="form-label">estado</label>
-            </div>
-            <div class="form-group">
-              <input id="estado" type="text" class="form-control" placeholder="Exemplo: SC" :maxlength="maxEstado" v-model="instituicao.estado" required>
-            </div>
-          </div>
         </div>
         
         <div class="row">
-          <div class="col">
+          <div class="form-group col-md-6 col-sm-12">
             <div class="label">
-              <label for="cidade" class="form-label">Cidade</label>
-            </div>
-            <div class="form-group">
-              <input id="cidade" type="text" class="form-control" v-model="instituicao.cidade" required>
+              <label for="cnpj" class="form-label">CNPJ</label>
+              <input id="cnpj" type="text" class="form-control" v-model="instituicao.cnpj" required>
             </div>
           </div>
-          <div class="col">
+
+          <div class="form-group col-md-6 col-sm-12">
             <div class="label">
-              <label for="logradouro" class="form-label">Logradouro</label>
-            </div>
-            <div class="form-group">
-              <input id="logradouro" type="text" class="form-control" v-model="instituicao.logradouro" required>
+              <label for="senha" class="form-label">PIX</label>
+              <input id="pix" type="text" class="form-control" v-model="instituicao.pix" required>
             </div>
           </div>
         </div>
+
         <div class="row">
-          <div class="col">
-            <div class="label">
-              <label for="numero" class="form-label">Número</label>
-            </div>
-            <div class="form-group">
-              <input id="numero" type="number" class="form-control w-50" v-model="instituicao.numero" required>
-            </div>
-          </div>
-          <div class="col">
+          <div class="form-group col-md-4 col-sm-12">
             <div class="label">
               <label for="cep" class="form-label">Cep</label>
             </div>
             <div class="form-group">
-              <input id="cep" type="number"  class="form-control w-50" v-model="instituicao.cep" required>
+              <input id="cep" type="number" @keyup="this.buscaEndereco(this.instituicao.cep)" class="form-control" v-model="instituicao.cep" required>
+            </div>
+          </div>
+          
+          <div class="form-group col-md-4 col-sm-12">
+            <div class="label">
+              <label for="pais" class="form-label">Pais</label>
+            </div>
+            <div class="form-group">
+              <input id="pais" type="text" class="form-control" disabled placeholder="Exemplo: BR" :maxlength="maxEstado" v-model="instituicao.pais" required>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4 col-sm-12">
+            <div class="label">
+              <label for="estado" class="form-label">Estado</label>
+            </div>
+            <div class="form-group">
+              <input id="estado" type="text" class="form-control" disabled placeholder="Exemplo: SC" :maxlength="maxEstado" v-model="instituicao.estado" required>
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12">
+            <div class="label">
+              <label for="cidade" class="form-label">Cidade</label>
+            </div>
+            <div class="form-group">
+              <input id="cidade" type="text" class="form-control" disabled v-model="instituicao.cidade" required>
+            </div>
+          </div>
+
+            <div class="form-group col-md-6 col-sm-12">
+              <div class="col">
+                <div class="label">
+                  <label for="bairro" class="form-label">Bairro</label>
+                </div>
+                 <div class="form-group">
+                  <input id="bairro" type="text" class="form-control" disabled v-model="instituicao.bairro" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="row">
+          <div class="form-group col-md-10">
+            <div class="label">
+              <label for="logradouro" class="form-label">Logradouro</label>
+            </div>
+            <div class="form-group">
+              <input id="logradouro" type="text" class="form-control" disabled v-model="instituicao.logradouro" required>
+            </div>
+          </div>
+
+          <div class="form-group col-md-2">
+            <div class="label">
+              <label for="numero" class="form-label">Número</label>
+            </div>
+            <div class="form-group">
+              <input id="numero" type="number" class="form-control" v-model="instituicao.numero" required>
+            </div>
+          </div>
+        </div>
+        
         <div class="row">
           <div class="col">
             <div class="label">
@@ -129,122 +134,138 @@
     </div>
   </div>
 </template>
-<script>
-import CrudService from "@/services/crud";
-export default{
-  name: 'instituicao-form',
-  data(){
-    return{
-      instituicao: {
-        nome: '',
-        descricao: '',
-        cnpj: '',
-        pix: '',
-        email: '',
-        telefone: '',
-        bairro:'Não há',
-        whatsapp: '',
-        pais: '',
-        estado: '',
-        cidade: '',
-        logradouro: '',
-        numero: '',
-        cep: '',
-        usuario: 1,
-      },
-      maxEstado: 2,
-    }
-  },
-  mounted(){
-    this.$service = new CrudService('/instituicao/');
 
-    
-  },
-  methods: {
-    async cadastrar(instituicao){
-      await this.$service.save(instituicao);
-      /*this.erro = '';
-      if(this.instituicao == null){
-        alert('Todos os campos são obrigatórios para cadastrar uma instituição');
-      }else{
-      try{
-        await this.$service.save(instituicao)
-        //this.$router.push('/instituicao');
-        console.log(instituicao)
-      }catch(err){
-        this.erro = erro.response.data.message;
-        alert(this.erro);
-      }*/
+<script>
+  import { getLogado, isLogged } from "@/services/auth";
+import CrudService from "@/services/crud";
+import axios from "axios";
+  export default{
+    name: 'instituicao-form',
+    data(){
+      return{
+        instituicao: {
+          nome: '',
+          descricao: '',
+          cnpj: '',
+          pix: '',
+          email: '',
+          telefone: '',
+          bairro: '',
+          pais: '',
+          estado: '',
+          cidade: '',
+          logradouro: '',
+          numero: '',
+          cep: '',
+          usuario: getLogado(),
+        },
+        maxEstado: 2,
+        data: null,
+      }
+    },
+    mounted(){
+      if (!this.verificaLogado()){
+        this.$router.push('/instituicao');
+      } else {
+        this.$crudInstituicao = new CrudService('/instituicao/');      
+      }
+    },
+    methods: {
+      async cadastrar(instituicao){
+        try{
+          await this.$crudInstituicao.save(instituicao)
+          this.$router.push('/instituicao');
+          alert('Instituição cadastrada com sucesso!');
+        }catch(erro){
+          this.erro = erro.response.data.message;
+          alert(this.erro);
+        }
+      },
+      buscaEndereco(cep){
+        if (cep.toString().length >= 8){
+          axios.get('https://viacep.com.br/ws/'+cep+'/json/')
+          .then(retorno =>{(
+            this.instituicao.estado = retorno.data.uf,
+            this.instituicao.cidade = retorno.data.localidade,
+            this.instituicao.logradouro = retorno.data.logradouro,
+            this.instituicao.pais = 'BRASIL',
+            this.instituicao.bairro = retorno.data.bairro
+          )})
+          .catch(erro => {(
+            alert('Erro ao carregar dados do endereço ' + erro.response.data.message)
+          )})
+        }
+      },
+      verificaLogado(){
+        return isLogged();
+      }
     }
-  
   }
-}
 </script>
 
 <style scoped>
-.login-page {
-  margin: 0;
-}
-.header{
-  color: black;
-  font-size: 30px;
-}
-.form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 850px;
-  margin: 0 auto 100px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  margin: auto;
-  border-radius: 10px;
-}
-.label {
-  text-align: left;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-}
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-.form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-.form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
-}
-.form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-.form .message a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-.form .register-form {
-  display: none;
-}
-
+  .login-page {
+    margin: 20px;
+  }
+  .header{
+    color: black;
+    font-size: 30px;
+  }
+  .form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 850px;
+    margin: 0 auto 100px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    margin: auto;
+    border-radius: 10px;
+  }
+  .label {
+    text-align: left;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+  }
+  .form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  .form button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+  .form button:hover,.form button:active,.form button:focus {
+    background: #43A047;
+  }
+  .form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+  }
+  .form .message a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  .form .register-form {
+    display: none;
+  }
 </style>

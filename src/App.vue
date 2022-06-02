@@ -37,11 +37,9 @@ export default {
       },
       verificaVisibilidade(logado){
         if (logado){
-          console.log('logado')
           this.superiorVisivel = false;
           this.lateralVisivel = true;
         } else {
-          console.log('deslogado')
           this.superiorVisivel = true;
           this.lateralVisivel = false;
         }
