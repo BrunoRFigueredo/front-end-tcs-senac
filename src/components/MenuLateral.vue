@@ -1,5 +1,5 @@
 <template >
-  <div class="area">
+  <!--<div class="area">
     <nav class="main-menu">
         <ul>
             <li class="" v-if="permissao(['NORMAL', 'ADMIN'])">
@@ -54,6 +54,38 @@
             </li>  
         </ul>
     </nav>
+  </div>-->
+  <input type="checkbox" id="check">
+      <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>
+      </label>
+  <div class="sidebar">
+    <header>Menu</header>
+    <router-link to="/instituicao" class="active" v-if="permissao(['NORMAL', 'ADMIN'])">
+      <i class="fas fa-qrcode p-2"></i>
+      <span>Instituição</span>
+    </router-link>
+    <router-link to="/projeto" class="active">
+      <i class="fas fa-qrcode p-2"></i>
+      <span>Projetos</span>
+    </router-link>
+    <router-link to="/servicos" class="active" v-if="permissao(['ADMIN'])">
+      <i class="fas fa-qrcode p-2"></i>
+      <span>Serviços</span>
+    </router-link>
+    <router-link to="/voluntario" class="active">
+      <i class="fas fa-qrcode p-2"></i>
+      <span>Voluntario</span>
+    </router-link>
+    <router-link to="/categoria" class="active">
+      <i class="fas fa-qrcode p-2"></i>
+      <span>Categoria</span>
+    </router-link>
+    <router-link to="/" class="active" @click="sair()">
+      <i class="fa fa-power-off p-2"></i>
+      <span>Logout</span>
+    </router-link>
   </div>
 </template>
 
@@ -81,132 +113,129 @@ export default {
 </script>
 
 <style scoped>
-  @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-  @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
-  .fa-2x {
-  font-size: 2em;
+  .sidebar{
+    top: 0;
+    position: fixed;
+    width: 240px;
+    left: -240px;
+    height: 100%;
+    background: #1e1e1e;
+    transition: all .5s ease;
+    z-index: 99;
   }
-  .fa {
-  position: relative;
-  display: table-cell;
-  width: 60px;
-  height: 36px;
-  text-align: center;
-  vertical-align: middle;
-  font-size:20px;
+
+  .sidebar header{
+    font-size: 28px;
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    background: #1b1b1b;
+    user-select: none;
   }
-  
-  
-  .main-menu:hover,nav.main-menu.expanded {
-  width:135px;
-  overflow:hidden;
+
+  .sidebar a{
+    display: block;
+    height: 65px;
+    width: 100%;
+    color: #fff;
+    line-height: 65px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    border-left: 5px solid transparent;
+    transition: all 0.5 ease;
   }
-  
-  .main-menu {
-  background:rgb(33, 37, 41);
-  border-right:1px solid #e5e5e5;
-  position:absolute;
-  top:0;
-  bottom:0;
-  height:100%;
-  left:0;
-  width:60px;
-  overflow:hidden;
-  -webkit-transition:width 0.6s linear;
-  transition:width 0.6s linear;
-  -webkit-transform:translateZ(0) scale(1,1);
-  z-index:1000;
+
+  a.active, a:hover{
+    border-left: 5px solid #b912;
+    color: #b939;
+    z-index: 100;
   }
-  
-  .main-menu>ul {
-  margin:7px 0;
+
+  .sidebar a span{
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
-  
-  .main-menu li {
-  position:relative;
-  display:block;
-  width:350px;
+
+  #check{
+    display: none;
   }
-  
-  .main-menu li>a {
-  position:relative;
-  display:table;
-  border-collapse:collapse;
-  border-spacing:0;
-  color:#999;
-   font-family: arial;
-  font-size: 14px;
-  text-decoration:none;
-  -webkit-transform:translateZ(0) scale(1,1);
-  -webkit-transition:all 0.6s linear;
-  transition:all 0.6s linear;
-    
+
+  label #btn, label #cancel{
+    position: absolute;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
+    border: 1px solid #262626;
+    margin: 15px 30px;
+    font-size: 28px;
+    background: #262626;
+    height: 45px;
+    width: 45px;
+    text-align: center;
+    line-height: 45px;
+    transition: all .5s ease;
   }
-  
-  .main-menu .nav-icon {
-  position:relative;
-  display:table-cell;
-  width:60px;
-  height:36px;
-  text-align:center;
-  vertical-align:middle;
-  font-size:18px;
+
+  label #cancel{
+    visibility: hidden;
   }
-  
-  .main-menu .nav-text {
-  position:relative;
-  display:table-cell;
-  vertical-align:middle;
-  width:190px;
-    font-family: 'Titillium Web', sans-serif;
+
+  #check:checked ~ .sidebar{
+    left: 0;
   }
-  
-  .main-menu>ul.logout {
-  position:absolute;
-  left:0;
-  bottom:0;
+
+  #check:checked ~ label #btn{
+    margin-left: 245px;
+    opacity: 0;
+    visibility: hidden;
   }
-  
-  .no-touch .scrollable.hover {
-  overflow-y:hidden;
+
+  #check:checked ~ label #cancel {
+    margin-left: 245px;
+    visibility: visible;
+    z-index: 98;
   }
   
-  .no-touch .scrollable.hover:hover {
-  overflow-y:auto;
-  overflow:visible;
+  @media(max-width: 860px){
+    .sidebar{
+      top: -80px;
+      height: auto;
+      width: 60px;
+      left: 0;
+      margin: 80px 0;
+    }
+
+    header, #btn, #cancel{
+      display: none;
+    }
+
+    a i{
+      margin: -20px;
+    }
+
+    span{
+      visibility: hidden;
+    }
+
+    .sidebar router-link {
+      height: 60px;
+    }
+
+    .sidebar router-link i{
+      margin-left: 5px;
+    }
+
+    router-link:hover{
+      width: 200px;
+      background: inherit;
+    }
+
+    .sidebar router-link:hover span{
+      opacity: 1;
+      visibility: visible;
+    }
   }
-  
-  a:hover,a:focus {
-  text-decoration:none;
-  }
-  
-  nav {
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  -o-user-select:none;
-  user-select:none;
-  }
-  
-  nav ul,nav li {
-  outline:0;
-  margin:0;
-  padding:0;
-  }
-  .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
-  color:#fff;
-  background-color:#5fa2db;
-  }
-  .area {
-  float: left;
-  background: #e2e2e2;
-  width: 100%;
-  height: 100%;
-  }
-  @font-face {
-    font-family: 'Titillium Web';
-    font-style: normal;
-    font-weight: 300;
-    src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
-  }
+
 </style>
