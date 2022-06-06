@@ -1,10 +1,10 @@
 <template>
-  <div id="index-service" class="container"  v-if="estaLogado()">
+<div class="pagina">
+  <div class="listagem">
+    <div class="lista">
+      <div id="index-service" class="container"  v-if="estaLogado()">
         <h5 class="text-center">Serviços</h5>
         <div class="row">
-          <div class="md-3">
-            <router-link type="button" to="/cadastrar-servico" class="btn btn-success">Cadastrar</router-link>
-          </div>
         </div>
         <table class="table text-center">
           <thead>
@@ -47,15 +47,22 @@
             />
           </div>
         </div>
-        <!--<router-link tag="button" class="botao" :to="`/servico/${servico.id}`">Visualizar</router-link>-->
+      </div>
+      <div class="col-md-12 div-btn-cadastrar">
+        <router-link to="/cadastrar-servico">
+          <button class="btn-cadastrar">Cadastrar</button>
+        </router-link>
+      </div>
+    </div>
   </div>
+</div>
 </template>
 
 <script>
 import CrudService from '@/services/crud';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
-import { isLogged } from '@/services/auth';
+import { getLogado, isLogged } from '@/services/auth';
 
 export default {
   components: {
@@ -67,14 +74,18 @@ export default {
       servicos: [],
       tamanhoPagina: 10,
       paginaDesejada: 1,
+      idInstituicao: '',
       total: 0,
       totalPagina: 0
     }
   },
   mounted() {
     if (this.estaLogado()){
-      this.$crudServico = new CrudService('/servico/')
+      console.log(getLogado());
+      this.$crudServicoInstituicao = new CrudService('/servico/instituicao/'+getLogado())
+      this.$crudServico = new CrudService('/servico/');
       this.carregarServico();
+      this.$emit('logado');
     } else {
       this.$router.push('/');
     }
@@ -82,11 +93,10 @@ export default {
   },
   methods: {
     async carregarServico() {
-      console.log(this.tamanhoPagina);
-      console.log(this.paginaDesejada);
-      const {data} = await this.$crudServico.findAll({
+      const {data} = await this.$crudServicoInstituicao.findAll({
         paginaDesejada: this.paginaDesejada - 1,
-        tamanhoPagina: this.tamanhoPagina
+        tamanhoPagina: this.tamanhoPagina,
+        idInstituicao: 1
       })
       console.log(data)
       this.servicos = data.conteudo;
@@ -107,7 +117,39 @@ export default {
 
 
 <style scoped>
-i {
-  margin: 5px;
+  .pagina {
+      margin: 10px;
+  }
+  .lista {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 1200px;
+    margin: 0 auto 100px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    margin: auto;
+    border-radius: 10px;
+  }
+  .div-btn-cadastrar{
+    text-align: left;
+    margin-left: 40px;
+    width: 50%;
+  }
+  .btn-cadastrar {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 50%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  border-radius: 5px;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
-  <div id="index-service" class="container" >
-    <h5 class="text-center">Serviços</h5>
+<div class="pagina">
+  <div class="listagem">
+    <div class="lista">
+      <div id="index-service" class="container" >
+    <h5 class="text-center">Lista de Categorias</h5>
     <div class="row">
-      <div class="md-3">
-        <router-link type="button" to="/cadastrar-categoria" class="btn btn-success">Cadastrar</router-link>
-      </div>
     </div>
     <table class="table text-center">
       <thead>
@@ -47,13 +47,21 @@
         />
       </div>
     </div>
+         <div class="col-md-12 div-btn-cadastrar">
+        <router-link to="/cadastrar-categoria">
+          <button class="btn-cadastrar">Cadastrar</button>
+        </router-link>
+      </div>
     <!--<router-link tag="button" class="botao" :to="`/categoria/${categoria.id}`">Visualizar</router-link>-->
   </div>
+    </div>
+  </div>
+</div>
 </template>
 <script>
 import CrudService from '@/services/crud'
 import VPagination from "@hennge/vue3-pagination";
-import {isLogged} from "@/services/auth";
+import {getLogado, isLogged} from "@/services/auth";
 
 export default {
   components: {
@@ -71,7 +79,9 @@ export default {
   },
   mounted() {
     if (this.estaLogado()){
+      let idUsuarioLogado = getLogado()
       this.$crudCategoria = new CrudService('/categoria/')
+      this.$crudCategoriaServico = new CrudService('/categoria/instituicao/' + idUsuarioLogado)
       this.carregarCategoria();
       this.$emit('logado');
     } else {
@@ -80,7 +90,7 @@ export default {
   },
   methods: {
     async carregarCategoria() {
-      const {data} = await this.$crudCategoria.findAll({
+      const {data} = await this.$crudCategoriaServico.findAll({
         paginaDesejada: this.paginaDesejada - 1,
         tamanhoPagina: this.tamanhoPagina
       })
@@ -101,18 +111,39 @@ export default {
 </script>
 
 <style scoped>
-form {
-  margin: 0 auto;
-  align-items: center;
-  justify-items: center;
+.pagina {
+      margin: 10px;
+  }
+  .lista {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 1200px;
+    margin: 0 auto 100px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    margin: auto;
+    border-radius: 10px;
+  }
+  .div-btn-cadastrar{
+    text-align: left;
+    margin-left: 40px;
+    width: 50%;
+  }
+  .btn-cadastrar {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 50%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  border-radius: 5px;
 }
-
-ul {
-  margin: 0 auto;
-}
-
-ul button {
-  float: right;
-}
-
 </style>

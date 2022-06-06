@@ -59,7 +59,7 @@
                     </div>
                 </div>
                                 
-                <div class="col-md-12">
+                <div class="col-md-12 btn-cadastrar">
                     <button type="submit" class="btn btn-success" @click="cadastrar(projeto)">
                         Cadastrar
                     </button>
@@ -74,6 +74,7 @@
     import dayjs from 'dayjs';
     import { getLogado, isLogged } from '@/services/auth';
     import axios from 'axios';
+    import { buscarInstituicao } from '@/util/buscaInstituicao';
 
     export default {
         name: "form-projeto",
@@ -90,13 +91,15 @@
                 idInstituicao: '',
             }
         },
-        mounted(){
+        async mounted(){
             if (!this.verificaLogado()){
                 this.$router.push('/projeto');
             } else {
                 this.$crudProjeto = new CrudService('/projeto/');
                 this.$crudInstituicao = new CrudService('/instituicao/');
-                this.buscaUsuario();
+                const dados  = await buscarInstituicao(getLogado());
+                this.idInstituicao  = dados.instituicao.id;
+                this.nomeInstituicao = dados.instituicao.nome;
             }
             this.$emit('logado');
         },
@@ -122,19 +125,6 @@
                     this.projeto.dataFinal = dataFinalFormatada;
                 }
             },
-            buscaUsuario(){           
-                axios
-                .get('http://localhost:8080/instituicao/usuario/'+ getLogado())
-                .then(response => {
-                    this.instituicao = response.data.nome;
-                    this.idInstituicao = response.data.id;
-                    this.nomeInstituicao = this.instituicao;
-                    this.projeto.instituicao = this.idInstituicao;
-                }).catch(error => {
-                    alert('Usuário não está vinculado a uma instituição!');
-                    this.$router.push('/projeto');
-                })
-            },
             verificaLogado(){
                 return isLogged();
             }    
@@ -143,44 +133,67 @@
 </script>
 
 <style>
-    .login-page {
-    margin: 0;
-    }
-    .header{
-    color: black;
-    font-size: 30px;
-    }
-    .form {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 850px;
-    margin: 0 auto 100px;
-    padding: 20px;
+.login-page {
+  padding: 10px;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 800px;
+  margin: 0 auto 100px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  margin: auto;
+}
+.label {
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 50%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.btn-cadastrar{
     text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    margin: auto;
-    border-radius: 10px;
-    }
-    .label {
-    text-align: left;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    margin-top: 10px;
-    }
-    .form button {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    /* background: #4CAF50; */
-    width: 100%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
-    cursor: pointer;
-    margin-top: 30px;    
-    }
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
+}
 </style>
