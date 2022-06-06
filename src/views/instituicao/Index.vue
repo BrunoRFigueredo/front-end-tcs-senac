@@ -31,7 +31,7 @@
               </div>
               <div>
                 <a>Telefone: {{instituicao.telefone}}</a>
-                <span @click="this.chamaWhatsapp(instituicao.telefone)"> - <img src="../../assets/whatsapp.png" width="20" alt=""></span>
+                <span @click="this.enviaMensagem(instituicao.telefone)"> - <img src="../../assets/whatsapp.png" width="20" alt=""></span>
               </div>
               <div>
                 <span>
@@ -69,6 +69,7 @@
 <script>
 import { getLogado, isLogged } from "@/services/auth";
 import CrudService from "@/services/crud"
+import { enviaWhatsapp } from "@/util/enviaWhatsapp";
 import VPagination from "@hennge/vue3-pagination";
 
 export default {
@@ -107,9 +108,6 @@ export default {
       const calculoPaginacao = data.totalRegistros / this.tamanhoPagina;
       this.totalPagina = calculoPaginacao === Math.floor(calculoPaginacao) ? calculoPaginacao : Math.floor(calculoPaginacao) + 1;
     },
-    chamaWhatsapp(telefone){ 
-      window.open('https://api.whatsapp.com/send?phone=55'+ telefone + '&text=Testando%20mensagem', '_blank');
-    },
     verificaLogado(){
       return isLogged();
     },
@@ -122,6 +120,9 @@ export default {
           console.log(erro);
         }
       }
+    },
+    enviaMensagem(telefone, mensagem){
+      enviaWhatsapp(telefone, 'testando envio de mensagem pelo whatsapp');
     },
     verificaBotao(){
       if (this.verificaLogado()){

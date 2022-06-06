@@ -1,4 +1,9 @@
 <template>
+  <div class="btn-cadastro">
+    <router-link :to="`/instituicao`">
+      <button class="btn btn-success">Voltar</button>
+    </router-link>
+  </div>
   <div id="index-instituition" v-if="empty">
     <div class="container w-50 cardCenter">
     <h3 class="text-center pt-2">{{instituicao.nome}}</h3>
@@ -30,12 +35,8 @@
       </div>
       <div class="row mt-2 mb-2">
         <div class="col">
-          <p class="text-success">Whatsapp<p class="fw-bold text-success">{{instituicao.whatsapp}}</p></p>
-          <button class="btn btn-success">Enviar mensagem</button>
-        </div>
-        <div class="col">
-          <p class="text-danger">Deseja ser um <p class="text-danger">voluntário ?</p></p>
-          <router-link class="btn btn-danger" to="">Candidatar-se</router-link>
+          <p class="text-success">Whatsapp<p class="fw-bold text-success">{{instituicao.telefone}}</p></p>
+          <button @click="this.enviaMensagem(instituicao.telefone)" class="btn btn-success">Enviar mensagem</button>
         </div>
       </div>
       <p class="fw-bold pb-4 descricao">{{instituicao.descricao}}</p>
@@ -45,6 +46,7 @@
 
 <script>
 import CrudService from '@/services/crud';
+import { enviaWhatsapp } from '@/util/enviaWhatsapp';
 import VueModal from "@kouts/vue-modal";
 
 export default {
@@ -67,6 +69,9 @@ export default {
       const { data } = await this.$crudInstituicao.findById(id);
       this.instituicao = data;
       this.empty = true; 
+    },
+    enviaMensagem(telefone){
+      enviaWhatsapp(telefone, 'testando envio de mensagem');
     }
   }
 }
@@ -115,4 +120,9 @@ h3, h4, h5{
     object-fit:cover; 
     transition: all .25s ease;
   } 
+  .btn-cadastro{
+    text-align: right;
+    padding: 10px;
+    padding-top: 0px;
+  }
 </style>
