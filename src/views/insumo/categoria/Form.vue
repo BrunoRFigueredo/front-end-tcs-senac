@@ -36,8 +36,7 @@
             </div>
           </div>
         </div>
-        <!--      <span v-if="error" class="alert alert-warning" for="">{{error}}</span>-->
-        <button class="btn btn-success" @click="cadastrar(categoria)">Cadastrar</button>
+        <BotaoSalvar @click="cadastrar(categoria)" />
       </form>
     </div>
   </div>
@@ -47,9 +46,13 @@
 import {getLogado, isLogged} from '@/services/auth';
 import CrudService from "@/services/crud";
 import { buscarInstituicao } from '@/util/buscaInstituicao';
+import BotaoSalvar from '@/components/BotaoSalvar.vue';
 
 export default {
   name: "form-service",
+  components: {
+    BotaoSalvar
+},
   data() {
     return {
       categoria: {
@@ -142,25 +145,8 @@ export default {
   box-sizing: border-box;
   font-size: 14px;
 }
-.form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 50%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
 .btn-cadastrar{
     text-align: center;
-}
-.form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
 }
 .form .message {
   margin: 15px 0 0;

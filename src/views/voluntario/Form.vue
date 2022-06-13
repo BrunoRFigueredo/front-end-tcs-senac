@@ -59,14 +59,18 @@
           <input type="text" class="form-control">
         </div>
       </div>
-      <button class="botao">Cadastrar</button>
+      <BotaoSalvar />
     </form>
   </div>
 </template>
 
 <script>
+import BotaoSalvar from '@/components/BotaoSalvar.vue'
 export default {
   name: "form-voluntary",
+  components: {
+    BotaoSalvar
+},
   data(){
     return{
       voluntary: {

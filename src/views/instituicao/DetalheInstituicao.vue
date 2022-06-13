@@ -1,7 +1,7 @@
 <template>
   <div class="btn-cadastro">
     <router-link :to="`/instituicao`">
-      <button class="btn btn-success">Voltar</button>
+      <BotaoVoltar />
     </router-link>
   </div>
   <div id="index-instituition" v-if="empty">
@@ -48,12 +48,14 @@
 import CrudService from '@/services/crud';
 import { enviaWhatsapp } from '@/util/enviaWhatsapp';
 import VueModal from "@kouts/vue-modal";
+import BotaoVoltar from '@/components/BotaoVoltar.vue';
 
 export default {
   props: ['id'],
   components:{
-    'Modal': VueModal,
-  },
+    "Modal": VueModal,
+    BotaoVoltar
+},
   data(){
     return{
       instituicao:{},
@@ -63,6 +65,7 @@ export default {
   async mounted(){
     this.$crudInstituicao = new CrudService(`/instituicao/`);
     this.carregarInstituicao(this.id);
+    this.$emit('logado');
   },
   methods: {
     async carregarInstituicao(id){

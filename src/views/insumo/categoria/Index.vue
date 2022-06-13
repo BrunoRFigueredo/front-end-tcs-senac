@@ -3,32 +3,37 @@
   <div class="listagem">
     <div class="lista">
       <div id="index-service" class="container" >
-    <h5 class="text-center">Lista de Categorias</h5>
-    <div class="row">
+        <h5 class="text-center">Lista de Categorias</h5>
+      <div class="row">
+                  <div class="col-md-12 div-btn-cadastrar">
+        <router-link to="/cadastrar-categoria">
+        <BotaoCadastrar />
+      </router-link>
+     </div>
     </div>
     <table class="table text-center">
       <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Descrição</th>
-        <th scope="col">Ações</th>
-      </tr>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Ações</th>
+        </tr>
       </thead>
       <tbody>
-      <tr v-for="categoria in categorias" :key="categoria.id">
-        <th scope="row">{{ categoria.id }}</th>
-        <td>{{ categoria.nome }}</td>
-        <td>{{ categoria.descricao }}</td>
-        <td>
-          <router-link :to="{ name: 'form-categoria', params: { id: categoria.id }}" class="text-dark p-0 mx-1">
-            <i class="bi bi-pencil-square"></i>
-          </router-link>
-          <button @click="deletarCategoria(categoria.id)" class="btn">
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
-      </tr>
+        <tr v-for="categoria in categorias" :key="categoria.id">
+          <th scope="row">{{ categoria.id }}</th>
+          <td>{{ categoria.nome }}</td>
+          <td>{{ categoria.descricao }}</td>
+          <td>
+            <router-link :to="{ name: 'form-categoria', params: { id: categoria.id }}" class="text-dark p-0 mx-1">
+              <i class="bi bi-pencil-square"></i>
+            </router-link>
+            <button @click="deletarCategoria(categoria.id)" class="btn">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
       </tbody>
     </table>
     <div class="row">
@@ -46,14 +51,8 @@
             @update:modelValue="carregarcategoria"
         />
       </div>
-    </div>
-         <div class="col-md-12 div-btn-cadastrar">
-        <router-link to="/cadastrar-categoria">
-          <button class="btn-cadastrar">Cadastrar</button>
-        </router-link>
+     </div>
       </div>
-    <!--<router-link tag="button" class="botao" :to="`/categoria/${categoria.id}`">Visualizar</router-link>-->
-  </div>
     </div>
   </div>
 </div>
@@ -62,11 +61,13 @@
 import CrudService from '@/services/crud'
 import VPagination from "@hennge/vue3-pagination";
 import {getLogado, isLogged} from "@/services/auth";
+import BotaoCadastrar from '../../../components/BotaoCadastrar.vue';
 
 export default {
   components: {
-    VPagination
-  },
+    VPagination,
+    BotaoCadastrar
+},
   name: "index-service",
   data() {
     return {
@@ -126,24 +127,9 @@ export default {
     margin: auto;
     border-radius: 10px;
   }
+
   .div-btn-cadastrar{
-    text-align: left;
-    margin-left: 40px;
-    width: 50%;
-  }
-  .btn-cadastrar {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
+  text-align: left;  
   width: 50%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-  border-radius: 5px;
-}
+  } 
 </style>

@@ -34,9 +34,7 @@
             </div>
           </div>
         </div>
-        <!-- <div class="btn-cadastro"> -->
-          <button type="submit" class="btn btn-success" :disabled="this.desabilitar()" @click="cadastrar(servico)">Cadastrar</button>
-        <!-- </div> -->
+          <BotaoSalvar :disabled="this.desabilitar()" @click="cadastrar(servico)" />
       </form>
     </div>
   </div>  
@@ -46,67 +44,71 @@
 import CrudService from '@/services/crud';
 import {getLogado, isLogged} from '@/services/auth';
 import { buscarInstituicao } from '@/util/buscaInstituicao';
+import BotaoSalvar from '@/components/BotaoSalvar.vue';
 
 export default {
-  name: "form-service",
-  data() {
-    return {
-      servico: {
-        nome: '',
-        descricao: '',
-        instituicao: '',
-        status: 1
-      },
-      erro: '',
-      nomeInstituicao: '',
-    }
-  },
-  computed: {
-    title() {
-      return this.$route.params.id
-          ? 'Editar serviço'
-          : 'Novo serviço'
-    }
-  },
-  async mounted() {
-    if (!this.estaLogado()) {
-      this.$router.push('/');
-    } else {
-      let idUsuarioLogado = getLogado();
-      this.$crudServico = new CrudService('/servico/');
-            
-      if (this.$route.params.id) {
-        this.carregaServico(this.$route.params.id);
-      }
-
-      const dados = await buscarInstituicao(idUsuarioLogado);
-      this.servico.instituicao = dados.instituicao.id;
-      this.nomeInstituicao = dados.instituicao.nome;
-    }
-  },
-  methods: {
-    async cadastrar(servico) {
-      try {
-        await this.$crudServico.save(servico);
-        this.$router.push('/servicos');
-      } catch (erro) {
-        alert(erro.response.data.message)
-      }
+    name: "form-service",
+    components: {
+      BotaoSalvar
     },
-    async carregaServico(idServico) {
-      const {data} = await this.$crudServico.findById(idServico);
-      this.servico = data;
+    data() {
+        return {
+            servico: {
+                nome: "",
+                descricao: "",
+                instituicao: "",
+                status: 1
+            },
+            erro: "",
+            nomeInstituicao: "",
+        };
     },
-    desabilitar() {
-      //console.log('teste');
-      
-      // return  (!this.servico.nome || this.servico.nome.length > 45)
-      //         (!this.servico.descricao || this.servico.descricao.length > 255)
+    computed: {
+        title() {
+            return this.$route.params.id
+                ? "Editar serviço"
+                : "Novo serviço";
+        }
     },
-    estaLogado() {
-      return isLogged();
-    }
-  }
+    async mounted() {
+        if (!this.estaLogado()) {
+            this.$router.push("/");
+        }
+        else {
+            let idUsuarioLogado = getLogado();
+            this.$crudServico = new CrudService("/servico/");
+            if (this.$route.params.id) {
+                this.carregaServico(this.$route.params.id);
+            }
+            const dados = await buscarInstituicao(idUsuarioLogado);
+            this.servico.instituicao = dados.instituicao.id;
+            this.nomeInstituicao = dados.instituicao.nome;
+        }
+    },
+    methods: {
+        async cadastrar(servico) {
+            try {
+                await this.$crudServico.save(servico);
+                this.$router.push("/servicos");
+            }
+            catch (erro) {
+                alert(erro.response.data.message);
+            }
+        },
+        async carregaServico(idServico) {
+            const { data } = await this.$crudServico.findById(idServico);
+            this.servico = data;
+        },
+        desabilitar() {
+            //console.log('teste');
+            // return  (!this.servico.nome || this.servico.nome.length > 45)
+            //         (!this.servico.descricao || this.servico.descricao.length > 255)
+        },
+        estaLogado() {
+            return isLogged();
+        }
+    },
+    components: { BotaoSalvar }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div id="index-voluntary" class="container">
     <h2 class="text-center pb-2 fw-bold">Lista de voluntários</h2>
-    <div class="text-center pb-5">
+    <div class="text-center pb-5" v-if="this.verificaLogado()">
       <router-link to="voluntary-register" style="text-decoration:none; color: #77AD78">Deseja ser um voluntário ?</router-link>
     </div>
     <div class="row">
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { isLogged } from "@/services/auth";
+import { permit } from "@/util/permit";
 import api from "../../services/api";
 export default {
   name: "index-voluntary",
@@ -51,11 +53,19 @@ export default {
   methods: {
     cadastrar(){
       api.post("/voluntarios/", this.voluntary);
+    },
+    verificaLogado(){
+    if (isLogged()){
+      if (permit(['INSTITUICAO'])){
+        return false;
+      }
+      return true;
     }
+  },
   },
   mounted(){
     this.$emit('logado');
-  }
+  },
 }
 </script>
 

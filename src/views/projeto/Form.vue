@@ -60,9 +60,7 @@
                 </div>
                                 
                 <div class="col-md-12 btn-cadastrar">
-                    <button type="submit" class="btn btn-success" @click="cadastrar(projeto)">
-                        Cadastrar
-                    </button>
+                    <BotaoSalvar @click="cadastrar(projeto)" />
                 </div>
             </form>
         </div>
@@ -72,64 +70,70 @@
 <script>
     import CrudService from '@/services/crud';
     import dayjs from 'dayjs';
-    import { getLogado, isLogged } from '@/services/auth';
-    import axios from 'axios';
+    import { getLogado, isLogged } from '@/services/auth';    
     import { buscarInstituicao } from '@/util/buscaInstituicao';
+    import BotaoSalvar from '@/components/BotaoSalvar.vue';
 
     export default {
-        name: "form-projeto",
-        data(){
-            return{
-                projeto: {
-                    nome: '',
-                    descricao: '',
-                    dataInicio: '',
-                    dataFinal: '',
-                    instituicao: ''
-                },
-                nomeInstituicao: '',
-                idInstituicao: '',
+    name: "form-projeto",
+    components: {
+        BotaoSalvar
+    },
+    data() {
+        return {
+            projeto: {
+                nome: "",
+                descricao: "",
+                dataInicio: "",
+                dataFinal: "",
+                instituicao: ""
+            },
+            nomeInstituicao: "",
+            idInstituicao: "",
+        };
+    },
+    async mounted() {
+        if (!this.verificaLogado()) {
+            this.$router.push("/projeto");
+        }
+        else {
+            this.$crudProjeto = new CrudService("/projeto/");
+            this.$crudInstituicao = new CrudService("/instituicao/");
+            const dados = await buscarInstituicao(getLogado());
+            this.projeto.instituicao = dados.instituicao.id;
+            this.nomeInstituicao = dados.instituicao.nome;
+        }
+        this.$emit("logado");
+    },
+    methods: {
+        async cadastrar(projeto) {
+            try {
+                await this.$crudProjeto.save(projeto);
+                alert("Projeto criado com sucesso!");
+                this.$router.push("/projeto");
+            }
+            catch (erro) {
+                alert(erro.response.data.message);
             }
         },
-        async mounted(){
-            if (!this.verificaLogado()){
-                this.$router.push('/projeto');
-            } else {
-                this.$crudProjeto = new CrudService('/projeto/');
-                this.$crudInstituicao = new CrudService('/instituicao/');
-                const dados  = await buscarInstituicao(getLogado());
-                this.idInstituicao  = dados.instituicao.id;
-                this.nomeInstituicao = dados.instituicao.nome;
+        formatarData(dataInicio, dataFim) {
+            if (dataInicio.lenght = 8) {
+                const dataIni = dayjs(dataInicio);
+                const dataInicioFormatada = dataF.format("YYYY-MM-DD");
+                this.projeto.dataInicio = dataInicioFormatada;
             }
-            this.$emit('logado');
+            if (dataFim.lenght = 8) {
+                const dataF = dayjs(dataFim);
+                const dataFinalFormatada = dataIni.format("YYYY-MM-DD");
+                this.projeto.dataFinal = dataFinalFormatada;
+            }
         },
-        methods: {
-            async cadastrar(projeto){
-                try {
-                    await this.$crudProjeto.save(projeto)
-                    alert('Projeto criado com sucesso!');
-                    this.$router.push('/projeto');
-                } catch (erro) {
-                    alert(erro.response.data.message);
-                }
-            },
-            formatarData(dataInicio, dataFim){
-                if (dataInicio.lenght = 8) {
-                    const dataIni = dayjs(dataInicio);
-                    const dataInicioFormatada = dataF.format('YYYY-MM-DD');
-                    this.projeto.dataInicio = dataInicioFormatada;
-                }
-                if (dataFim.lenght = 8){
-                    const dataF = dayjs(dataFim);
-                    const dataFinalFormatada = dataIni.format('YYYY-MM-DD');
-                    this.projeto.dataFinal = dataFinalFormatada;
-                }
-            },
-            verificaLogado(){
-                return isLogged();
-            }    
-        },
-    }
+        verificaLogado() {
+            return isLogged();
+        }
+    },
+    components: { BotaoSalvar }
+}
 </script>
 
 <style>

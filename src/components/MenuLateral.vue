@@ -62,7 +62,7 @@
       </label>
   <div class="sidebar">
     <header>Menu</header>
-    <router-link to="/instituicao" class="active" v-if="permissao(['NORMAL', 'ADMIN'])">
+    <router-link to="/instituicao" class="active">
       <i class="fas fa-qrcode p-2"></i>
       <span>Instituição</span>
     </router-link>
@@ -70,7 +70,7 @@
       <i class="fas fa-qrcode p-2"></i>
       <span>Projetos</span>
     </router-link>
-    <router-link to="/servicos" class="active" v-if="permissao(['ADMIN'])">
+    <router-link to="/servicos" class="active" v-if="permissao(['INSTITUICAO'])">
       <i class="fas fa-qrcode p-2"></i>
       <span>Serviços</span>
     </router-link>
@@ -78,9 +78,13 @@
       <i class="fas fa-qrcode p-2"></i>
       <span>Voluntario</span>
     </router-link>
-    <router-link to="/categoria" class="active">
+    <router-link to="/categoria" class="active" v-if="permissao(['INSTITUICAO'])">
       <i class="fas fa-qrcode p-2"></i>
       <span>Categoria</span>
+    </router-link>
+    <router-link to="/insumo" class="active" v-if="permissao(['INSTITUICAO'])">
+      <i class="fas fa-qrcode p-2"></i>
+      <span>Insumo</span>
     </router-link>
     <router-link to="/" class="active" @click="sair()">
       <i class="fa fa-power-off p-2"></i>
@@ -122,6 +126,7 @@ export default {
     background: #1e1e1e;
     transition: all .5s ease;
     z-index: 99;
+    text-decoration: none;
   }
 
   .sidebar header{
@@ -145,6 +150,7 @@ export default {
     border-top: 1px solid rgba(255, 255, 255, .1);
     border-left: 5px solid transparent;
     transition: all 0.5 ease;
+    text-decoration: none;
   }
 
   a.active, a:hover{
@@ -156,6 +162,8 @@ export default {
   .sidebar a span{
     letter-spacing: 1px;
     text-transform: uppercase;
+    color: white;
+    text-decoration: none;
   }
 
   #check{
@@ -198,7 +206,7 @@ export default {
     z-index: 98;
   }
   
-  @media(max-width: 860px){
+  /* @media(max-width: 860px){
     .sidebar{
       top: -80px;
       height: auto;
@@ -236,6 +244,6 @@ export default {
       opacity: 1;
       visibility: visible;
     }
-  }
+  } */
 
 </style>

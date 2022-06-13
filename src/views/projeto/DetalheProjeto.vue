@@ -1,6 +1,10 @@
 <template>
+  <div class="btn-cadastrar">
+      <router-link to="/projeto">
+        <BotaoVoltar />
+      </router-link>
+    </div>
   <div id="detalhe-projeto" class="container">
-    <router-link to="/projeto" class="btn btn-success">Voltar</router-link>
     <div class="w-50 divDados">
       <h4 class="text-center mt-2 mb-5">{{ projeto.nome }}</h4>
       <p>Instituição responsável: {{ projeto.nome }}</p>
@@ -138,17 +142,19 @@
 <script>
 import CrudService from '@/services/crud';
 import VueModal from "@kouts/vue-modal";
-import ServicoSelect from "@/components/ServicoSelect.vue";
+import ServicoSelect from "@/views/servico/ServicoSelect.vue";
 import dayjs from "dayjs";
 import {getLogado, login} from "@/services/auth";
 import axios from "axios";
 import api from "@/services/api";
+import BotaoVoltar from '@/components/BotaoVoltar.vue';
 
 export default {
   components: {
     ServicoSelect,
-    'Modal': VueModal
-  },
+    "Modal": VueModal,
+    BotaoVoltar
+},
   name: 'detalhe-projeto',
   props: ['id'],
   data() {
@@ -229,5 +235,10 @@ export default {
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
+}
+.btn-cadastrar{
+  text-align: right;
+  padding: 10px;
+  padding-top: 0px;  
 }
 </style>

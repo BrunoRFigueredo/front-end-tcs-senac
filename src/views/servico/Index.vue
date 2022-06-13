@@ -6,6 +6,11 @@
         <h5 class="text-center">Serviços</h5>
         <div class="row">
         </div>
+        <div class="col-md-12 btn-cadastrar">
+          <router-link to="/cadastrar-servico">
+            <BotaoCadastrar />
+          </router-link>
+        </div>
         <table class="table text-center">
           <thead>
           <tr>
@@ -30,11 +35,12 @@
             </td>
           </tr>
           </tbody>
-        </table>
-        <div class="row">
           <div class="h5 col-md">
             Página {{paginaDesejada}} de {{totalPagina}}
           </div>
+        </table>
+        <div class="row">
+          
           <div class="col-md">
             <v-pagination
                 v-model="paginaDesejada"
@@ -48,11 +54,6 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12 div-btn-cadastrar">
-        <router-link to="/cadastrar-servico">
-          <button class="btn-cadastrar">Cadastrar</button>
-        </router-link>
-      </div>
     </div>
   </div>
 </div>
@@ -63,11 +64,14 @@ import CrudService from '@/services/crud';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import { getLogado, isLogged } from '@/services/auth';
+import BotaoCadastrar from '@/components/BotaoCadastrar.vue';
+
 
 export default {
   components: {
-    VPagination
-  },
+    VPagination,
+    BotaoCadastrar
+},
   name: "index-service",
   data() {
     return {
@@ -132,24 +136,9 @@ export default {
     margin: auto;
     border-radius: 10px;
   }
-  .div-btn-cadastrar{
+  .btn-cadastrar{
     text-align: left;
     margin-left: 40px;
     width: 50%;
   }
-  .btn-cadastrar {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 50%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-  border-radius: 5px;
-}
 </style>

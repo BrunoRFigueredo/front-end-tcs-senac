@@ -38,9 +38,7 @@
   
   <div v-if="this.verificaLogado()" class="col">
     <router-link to="/cadastrar-projeto">
-      <button class="btn btn-success">
-        Cadastrar Projeto
-      </button>
+      <BotaoCadastrar />
     </router-link>    
   </div>
   </div>
@@ -55,12 +53,15 @@
 import { isLogged } from '@/services/auth';
 import CrudService from '@/services/crud';
 import VPagination from "@hennge/vue3-pagination";
+import BotaoCadastrar from '@/components/BotaoCadastrar.vue';
+import { permit } from '@/util/permit';
 
 export default {
   name: "index-project",
   components: {
-    VPagination
-  },
+    VPagination,
+    BotaoCadastrar
+},
   data() {
     return {
       projetos: [],
@@ -91,7 +92,16 @@ export default {
       this.totalPagina = calculoPaginacao === Math.floor(calculoPaginacao) ? calculoPaginacao : Math.floor(calculoPaginacao) + 1;
     },
     verificaLogado(){
-      return isLogged();
+      //return isLogged();
+      if (isLogged()){
+        if (this.permissao(['INSTITUICAO'])){
+          return true;
+        }
+        false;
+      }
+    },
+    permissao(roles) {
+      return permit(roles);
     },
   }
 }

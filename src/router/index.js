@@ -10,12 +10,13 @@ import InstituicaoForm from "../views/instituicao/Form.vue";
 import IndexProjeto from "../views/projeto/Index.vue";
 import DetalheProjeto from "../views/projeto/DetalheProjeto.vue";
 import indexInsumo from "../views/insumo/Index.vue";
+import formInsumo from "../views/insumo/Form.vue";
 import IndexCategoria from "../views/insumo/categoria/Index.vue";
 import IndexVoluntario from "../views/voluntario/Index.vue";
 import VoluntarioForm from "../views/voluntario/Form.vue";
 import IndexServico from "../views/servico/Index.vue";
 import ServicoForm from "../views/servico/Form.vue";
-import ServicoSelect from "../components/ServicoSelect.vue";
+import ServicoSelect from "../views/servico/ServicoSelect.vue";
 import FormCategoria from "../views/insumo/categoria/Form.vue";
 import ProjetoForm from "../views/projeto/Form.vue";
 
@@ -82,6 +83,11 @@ const routes = [
     path: "/insumo",
     name: 'index-insumo',
     component: indexInsumo
+  },
+  {
+    path: "/cadastrar-insumo",
+    name: 'form-insumo',
+    component: formInsumo
   },
   {
     path: "/categoria",

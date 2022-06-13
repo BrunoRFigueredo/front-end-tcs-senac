@@ -6,6 +6,12 @@
       </div>  
       <form class="login">  
         <div class="row">
+            <span>*Informe <strong>exatamente</strong> os mesmos dados cadastrados na prefeitura.</span>
+        </div>
+        <div class="row">
+            <span>*Após vincular-se a uma instituiçao, é necessário entrar novamente no sistema para liberar acessos as novas funcionalidades.</span>
+        </div>
+        <div class="row">
           <div class="form-group col-md-12 col-sm-12">
             <div class="label">
               <label for="nome" class="form-label">Nome</label>
@@ -40,10 +46,17 @@
             </div>
           </div>
 
-          <div class="form-group col-md-6 col-sm-12">
+          <div class="form-group col-md-3 col-sm-12">
             <div class="label">
-              <label for="senha" class="form-label">PIX</label>
-              <input id="pix" type="text" class="form-control" v-model="instituicao.pix" required>
+              <label for="senha" class="form-label">Conta</label>
+              <input id="pix" type="text" class="form-control" v-model="instituicao.conta" required>
+            </div>
+          </div>
+
+          <div class="form-group col-md-3 col-sm-12">
+            <div class="label">
+              <label for="conta" class="form-label">Agencia</label>
+              <input id="conta" type="text" class="form-control" v-model="instituicao.agencia" required>
             </div>
           </div>
         </div>
@@ -63,7 +76,7 @@
               <label for="pais" class="form-label">Pais</label>
             </div>
             <div class="form-group">
-              <input id="pais" type="text" class="form-control" disabled placeholder="Exemplo: BR" :maxlength="maxEstado" v-model="instituicao.pais" required>
+              <input id="pais" type="text" class="form-control" placeholder="Exemplo: BR" :maxlength="maxEstado" v-model="instituicao.pais" required>
             </div>
           </div>
 
@@ -72,7 +85,7 @@
               <label for="estado" class="form-label">Estado</label>
             </div>
             <div class="form-group">
-              <input id="estado" type="text" class="form-control" disabled placeholder="Exemplo: SC" :maxlength="maxEstado" v-model="instituicao.estado" required>
+              <input id="estado" type="text" class="form-control" placeholder="Exemplo: SC" :maxlength="maxEstado" v-model="instituicao.estado" required>
             </div>
           </div>
         </div>
@@ -83,7 +96,7 @@
               <label for="cidade" class="form-label">Cidade</label>
             </div>
             <div class="form-group">
-              <input id="cidade" type="text" class="form-control" disabled v-model="instituicao.cidade" required>
+              <input id="cidade" type="text" class="form-control" v-model="instituicao.cidade" required>
             </div>
           </div>
 
@@ -93,7 +106,7 @@
                   <label for="bairro" class="form-label">Bairro</label>
                 </div>
                  <div class="form-group">
-                  <input id="bairro" type="text" class="form-control" disabled v-model="instituicao.bairro" required>
+                  <input id="bairro" type="text" class="form-control" v-model="instituicao.bairro" required>
                 </div>
               </div>
             </div>
@@ -105,7 +118,7 @@
               <label for="logradouro" class="form-label">Logradouro</label>
             </div>
             <div class="form-group">
-              <input id="logradouro" type="text" class="form-control" disabled v-model="instituicao.logradouro" required>
+              <input id="logradouro" type="text" class="form-control" v-model="instituicao.logradouro" required>
             </div>
           </div>
 
@@ -128,7 +141,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <button type="submit" class="btn btn-success" @click.prevent="cadastrar(instituicao)">Cadastrar</button>
+          <BotaoSalvar  @click.prevent="cadastrar(instituicao)" />
         </div>
       </form>
     </div>
@@ -136,18 +149,24 @@
 </template>
 
 <script>
-  import { getLogado, isLogged } from "@/services/auth";
+import { getLogado, isLogged } from "@/services/auth";
 import CrudService from "@/services/crud";
 import axios from "axios";
+import BotaoSalvar from "@/components/BotaoSalvar.vue";
+
   export default{
     name: 'instituicao-form',
+    components: {
+    BotaoSalvar,
+},
     data(){
       return{
         instituicao: {
           nome: '',
           descricao: '',
           cnpj: '',
-          pix: '',
+          agencia: '',
+          conta: '',
           email: '',
           telefone: '',
           bairro: '',
@@ -159,6 +178,15 @@ import axios from "axios";
           cep: '',
           usuario: getLogado(),
         },
+        usuarioLogado: {
+          id: '',
+          nome: '',
+          email: '',
+          senha: '',
+          confirmarSenha: '',
+          perfilPermissao: '',
+          imagem: ''
+        },
         maxEstado: 2,
         data: null,
       }
@@ -167,7 +195,9 @@ import axios from "axios";
       if (!this.verificaLogado()){
         this.$router.push('/instituicao');
       } else {
+        this.$emit('logado');
         this.$crudInstituicao = new CrudService('/instituicao/');      
+        this.$crudUsuario = new CrudService('/usuario/');
       }
     },
     methods: {
@@ -176,8 +206,8 @@ import axios from "axios";
           await this.$crudInstituicao.save(instituicao)
           this.$router.push('/instituicao');
           alert('Instituição cadastrada com sucesso!');
-        }catch(erro){
-          this.erro = erro.response.data.message;
+        }catch(error){
+          this.erro = error.response.data.message;
           alert(this.erro);
         }
       },
@@ -188,7 +218,7 @@ import axios from "axios";
             this.instituicao.estado = retorno.data.uf,
             this.instituicao.cidade = retorno.data.localidade,
             this.instituicao.logradouro = retorno.data.logradouro,
-            this.instituicao.pais = 'BRASIL',
+            this.instituicao.pais = 'BR',
             this.instituicao.bairro = retorno.data.bairro
           )})
           .catch(erro => {(
@@ -238,23 +268,6 @@ import axios from "axios";
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;
-  }
-  .form button {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: #4CAF50;
-    width: 100%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
-    cursor: pointer;
-  }
-  .form button:hover,.form button:active,.form button:focus {
-    background: #43A047;
   }
   .form .message {
     margin: 15px 0 0;

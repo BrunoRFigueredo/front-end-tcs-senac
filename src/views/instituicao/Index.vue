@@ -1,7 +1,7 @@
 <template>
 <div class="btn-instituicao" >
   <router-link to="/cadastro-instituicao">
-    <button class="float-end btn btn-success text-white" type="button" v-if="this.verificaBotao()">
+    <button class="btn-vincular" type="button" v-if="this.verificaBotao()">
       Vincular-se a uma Instituição
     </button>
   </router-link>
@@ -33,32 +33,27 @@
                 <a>Telefone: {{instituicao.telefone}}</a>
                 <span @click="this.enviaMensagem(instituicao.telefone)"> - <img src="../../assets/whatsapp.png" width="20" alt=""></span>
               </div>
-              <div>
-                <span>
-                  Pix: {{instituicao.pix}}
-                </span>
-              </div>
             </div>
           </div>
-        </div>
       </div>            
-      <div class="row">
-        <div class="h5 col-md">
-          Página {{ paginaDesejada }} de {{ totalPagina }}
-        </div>
-        <div class="col-md">
-          <v-pagination
-            v-model="paginaDesejada"
-            :pages="totalPagina"
-            :range-size="tamanhoPagina"
-            :hideFirstButton="true"
-            :hideLastButton="true"
-            active-color="#DCEDFF"
-            @update:modelValue="carregarInstituicoes"
-          />
-        </div>
-      </div>
     </div>
+    <div class="row"> 
+        <div class="h5 col-md">
+            Página {{ paginaDesejada }} de {{ totalPagina }}
+          </div>
+          <div class="col-md">
+            <v-pagination
+              v-model="paginaDesejada"
+              :pages="totalPagina"
+              :range-size="tamanhoPagina"
+              :hideFirstButton="true"
+              :hideLastButton="true"
+              active-color="#DCEDFF"
+              @update:modelValue="carregarInstituicoes"
+            />
+          </div>
+        </div>    
+     </div>
   </div>
 </section>
 
@@ -249,5 +244,23 @@ export default {
     margin: 10px;
     font-family: Arial, Helvetica, sans-serif;
   }
+  .btn-vincular {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 20%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    /* -webkit-transition: all 0.3 ease; */
+    transition: all 0.3 ease;
+    cursor: pointer;
+    border-radius: 5px;
+    }
+    .btn-vincular:hover,.btn-vincular:active,.btn-vincular:focus {
+        background: #43A047;
+    }
   
 </style>

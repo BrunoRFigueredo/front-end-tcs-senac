@@ -18,8 +18,9 @@ export default {
     }
   },
   async mounted() {
-    this.$crudServico = new CrudService('/servico/');
+    this.$crudServico = new CrudService('/servico/instituicao/1');
     const {data} = await this.$crudServico.findAll({});
+    console.log(data);
     this.data = data.conteudo;
   }
 }
