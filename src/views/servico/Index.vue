@@ -87,6 +87,7 @@ export default {
     if (this.estaLogado()) {
       let idUsuarioLogado = getLogado();
       let dados = await buscarInstituicao(idUsuarioLogado);
+      this.$crudServico = new CrudService('/servico/');
       this.$crudServicoInstituicao = new CrudService('/servico/instituicao/' + dados.instituicao.id)
       this.carregarServico();
       this.$emit('logado');
@@ -107,7 +108,7 @@ export default {
       this.totalPagina = calculoPaginacao === Math.floor(calculoPaginacao) ? calculoPaginacao : Math.floor(calculoPaginacao) + 1;
     },
     async deletarServico(idServico) {
-      await this.$crudServicoInstituicao.remove(idServico);
+      await this.$crudServico.remove(idServico);
       this.carregarServico();
     },
     estaLogado() {

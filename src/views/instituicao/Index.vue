@@ -254,5 +254,20 @@ h1.heading {
   margin: 10px;
   font-family: Arial, Helvetica, sans-serif;
 }
+.btn-vincular {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 20%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    /* -webkit-transition: all 0.3 ease; */
+    transition: all 0.3 ease;
+    cursor: pointer;
+    border-radius: 5px;
+    }
 
 </style>
