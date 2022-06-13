@@ -3,18 +3,19 @@
     <router-link to="/projeto" class="btn btn-success">Voltar</router-link>
     <div class="w-50 divDados">
       <h4 class="text-center mt-2 mb-5">{{ projeto.nome }}</h4>
-      <p>Instituição responsável: {{ projeto.nome }}</p>
+      <p>Instituição responsável: {{ nomeInstituicao }}</p>
       <p>Descrição: {{ projeto.descricao }}</p>
       <p>Início: {{ projeto.dataInicio }}</p>
       <p>Finaliza: {{ projeto.dataFinal }}</p>
       <p>CNPJ: {{ projeto.cnpj }}</p>
-      <button type="projeto" class="btn btn-success" @click="showModal=true">
+      <button type="projeto" class="btn btn-success" @click="showModal=true" style="margin-right: 60px">
         Cadastrar serviço
       </button>
       <button type="button" class="btn btn-primary" @click="carregarProjetoServicos(this.id)"
               data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
+        Demonstrar serviços
       </button>
+
     </div>
   </div>
 
@@ -69,12 +70,12 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">
+            {{ this.idVoluntarioUsuario ? 'Quais serviços lhe interessam?' : 'Listando serviços do projeto' }} </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div id="index-service" class="container">
-            <h5 class="text-center">Serviços do projeto</h5>
             <table class="table text-center">
               <thead>
               <tr>
@@ -84,7 +85,11 @@
                 <th scope="col">Voluntário</th>
                 <th scope="col">Serviço</th>
                 <th scope="col">Status do serviço</th>
-                <th scope="col">Ações</th>
+                <th v-if="this.idInstituicaoUsuario === this.instituicao.id" scope="col">Ações</th>
+                <th v-if="this.idInstituicaoUsuario === this.instituicao.id" scope="col">
+                  Aprovar/Reprovar
+                </th>
+                <th v-if="this.idVoluntarioUsuario" scope="col">Seja voluntário</th>
               </tr>
               </thead>
               <tbody>
@@ -94,13 +99,30 @@
                 <td>{{ projetoServico.dataFinal }}</td>
                 <td>{{ projetoServico.nomeVoluntario }}</td>
                 <td>{{ projetoServico.nomeServico }}</td>
-                <td>{{ projetoServico.statusServico }}</td>
-                <td>
-<!--                  <router-link :to="{ name: 'form-servico', params: { id: servico.id }}" class="text-dark p-0 mx-1">-->
-<!--                    <i class="bi bi-pencil-square"></i>-->
-<!--                  </router-link>-->
-                  <button @click="deletarServico(servico.id)" class="btn">
+                <td>{{ projetoServico.statusServicoEnum }}</td>
+                <td v-if="this.idInstituicaoUsuario === this.instituicao.id">
+                  <button @click="deletarServico(servico.id)" v-if="this.idInstituicaoUsuario === this.instituicao.id"
+                          class="btn">
                     <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+                <td v-if="this.idInstituicaoUsuario === this.instituicao.id">
+                  <button
+                      :disabled="!projetoServico.idVoluntario"
+                      @click="aprovarReprovarVoluntario(projetoServico.id, true)" class="btn" title="Aprovar">
+                    <i class="bi bi-check2-square"></i>
+                  </button>
+                  <button
+                      :disabled="!projetoServico.idVoluntario"
+                      @click="aprovarReprovarVoluntario(projetoServico.id, false)" class="btn" title="Reprovar">
+                    <i class="bi bi-x-square"></i>
+                  </button>
+                </td>
+                <td v-if="this.idVoluntarioUsuario">
+                  <button v-if="this.idVoluntarioUsuario"
+                          :disabled="projetoServico.idVoluntario"
+                          @click="vincularVoluntario(projetoServico.id)" class="btn" title="Voluntariar-se">
+                    <i class="bi bi-check2-square"></i>
                   </button>
                 </td>
               </tr>
@@ -126,8 +148,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" id="fechar" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>
@@ -140,9 +161,11 @@ import CrudService from '@/services/crud';
 import VueModal from "@kouts/vue-modal";
 import ServicoSelect from "@/components/ServicoSelect.vue";
 import dayjs from "dayjs";
-import {getLogado, login} from "@/services/auth";
-import axios from "axios";
 import api from "@/services/api";
+import {getLogado} from "@/services/auth";
+import {buscarVoluntario} from "@/util/buscaVoluntario";
+import {buscarInstituicao} from "@/util/buscaInstituicao";
+import {getClient} from "@/services/http";
 
 export default {
   components: {
@@ -153,7 +176,11 @@ export default {
   props: ['id'],
   data() {
     return {
+      nomeInstituicao: '',
       projeto: {},
+      instituicao: {id: null},
+      idInstituicaoUsuario: '',
+      idVoluntarioUsuario: '',
       projetoServico: {
         dataInicio: '',
         dataFinal: '',
@@ -173,14 +200,15 @@ export default {
     this.$crudProjetos = new CrudService('/projeto/');
     this.$crudProjetoServico = new CrudService('/projeto-servico/');
     this.carregarProjeto(this.id);
+    this.verificarInstituicaoVoluntario();
     this.$emit('logado');
   },
   methods: {
     async carregarProjeto(id) {
       const {data} = await this.$crudProjetos.findById(id);
       this.projeto = data;
+      this.nomeInstituicao = this.projeto.instituicao.nome;
       this.instituicao = data.instituicao;
-      console.log(data);
     },
     async carregarProjetoServicos(idProjeto) {
       api
@@ -208,16 +236,43 @@ export default {
       }
     },
     formatarData(dataInicio, dataFim) {
-      if (dataInicio.lenght = 8) {
-        const dataIni = dayjs(dataInicio);
-        const dataInicioFormatada = dataF.format('YYYY-MM-DD');
-        this.projeto.dataInicio = dataInicioFormatada;
+      if (dataInicio.lenght === 8) {
+        // const dataIni = dayjs(dataInicio);
+        this.projeto.dataInicio = dataF.format('YYYY-MM-DD');
       }
-      if (dataFim.lenght = 8) {
-        const dataF = dayjs(dataFim);
-        const dataFinalFormatada = dataIni.format('YYYY-MM-DD');
-        this.projeto.dataFinal = dataFinalFormatada;
+      if (dataFim.lenght === 8) {
+        // const dataF = dayjs(dataFim);
+        this.projeto.dataFinal = dataIni.format('YYYY-MM-DD');
       }
+    },
+    async verificarInstituicaoVoluntario() {
+      let idUsuario = getLogado();
+      if (idUsuario) {
+        try {
+          let dadosVoluntario = await buscarVoluntario(idUsuario);
+          let dadosInstituicao = await buscarInstituicao(idUsuario);
+          this.idInstituicaoUsuario = dadosInstituicao.instituicao.id;
+          this.idVoluntarioUsuario = dadosVoluntario.voluntario.id;
+        } catch (erro) {
+          console.log(erro);
+        }
+      }
+    },
+    async vincularVoluntario(idProjetoServico) {
+      if (this.idVoluntarioUsuario) {
+        getClient()
+            .put('http://localhost:8080/projeto-servico/servicos/' + idProjetoServico + "/vincular-voluntario/" + this.idVoluntarioUsuario)
+            .then(response => {
+              this.carregarProjetoServicos(this.id);
+            });
+      }
+    },
+    async aprovarReprovarVoluntario(idProjetoServico, isAprovado) {
+      getClient()
+          .put('http://localhost:8080/projeto-servico/servicos/' + idProjetoServico + "/aprovar-reprovar-voluntario?isAprovado=" + isAprovado)
+          .then(response => {
+            this.carregarProjetoServicos(this.id);
+          });
     },
   }
 }

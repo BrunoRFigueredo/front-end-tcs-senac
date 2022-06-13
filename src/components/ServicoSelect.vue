@@ -8,6 +8,8 @@
 <script>
 
 import CrudService from "@/services/crud";
+import {getLogado} from "@/services/auth";
+import {buscarInstituicao} from "@/util/buscaInstituicao";
 
 export default {
   props: ['value'],
@@ -18,8 +20,10 @@ export default {
     }
   },
   async mounted() {
-    this.$crudServico = new CrudService('/servico/');
-    const {data} = await this.$crudServico.findAll({});
+    let idUsuarioLogado = getLogado();
+    let dados = await buscarInstituicao(idUsuarioLogado);
+    this.$crudServicoInstituicao = new CrudService('/servico/instituicao/' + dados.instituicao.id)
+    const {data} = await this.$crudServicoInstituicao.findAll({});
     this.data = data.conteudo;
   }
 }

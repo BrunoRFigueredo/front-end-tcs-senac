@@ -98,7 +98,7 @@
                 this.$crudProjeto = new CrudService('/projeto/');
                 this.$crudInstituicao = new CrudService('/instituicao/');
                 const dados  = await buscarInstituicao(getLogado());
-                this.idInstituicao  = dados.instituicao.id;
+                this.projeto.instituicao  = dados.instituicao.id;
                 this.nomeInstituicao = dados.instituicao.nome;
             }
             this.$emit('logado');
