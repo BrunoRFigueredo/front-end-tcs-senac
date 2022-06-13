@@ -57,23 +57,22 @@
   </div>
 </section>
 
-    
 
 </template>
 
 <script>
-import { getLogado, isLogged } from "@/services/auth";
+import {getLogado, isLogged} from "@/services/auth";
 import CrudService from "@/services/crud"
-import { enviaWhatsapp } from "@/util/enviaWhatsapp";
+import {enviaWhatsapp} from "@/util/enviaWhatsapp";
 import VPagination from "@hennge/vue3-pagination";
 
 export default {
   name: 'index-instituicao',
-  components:{
+  components: {
     VPagination
   },
-  data(){
-    return{
+  data() {
+    return {
       instituicoes: [],
       imagemBase64: '',
       tamanhoPagina: 6,
@@ -84,16 +83,21 @@ export default {
       idInstituicaoUsuario: 0,
     }
   },
-  async mounted(){
+  async mounted() {
     this.$crudInstituicao = new CrudService('/instituicao/');
     this.$usuarioInstituicao = new CrudService('/instituicao/usuario/');
-    this.$crudImagem = new CrudService('/usuario/')
+    this.$crudImagem = new CrudService('/usuario/');
+    await this.verificaInstituicao(getLogado());
     this.carregarInstituicoes();
-    this.verificaInstituicao(getLogado());
     this.$emit('logado');
   },
   methods: {
-    async carregarInstituicoes(){
+    verificaBotao() {
+      if (this.verificaLogado()) {
+        return this.idInstituicaoUsuario === 0;
+      }
+    },
+    async carregarInstituicoes() {
       const {data} = await this.$crudInstituicao.findAll({
         paginaDesejada: this.paginaDesejada - 1,
         tamanhoPagina: this.tamanhoPagina
@@ -103,164 +107,152 @@ export default {
       const calculoPaginacao = data.totalRegistros / this.tamanhoPagina;
       this.totalPagina = calculoPaginacao === Math.floor(calculoPaginacao) ? calculoPaginacao : Math.floor(calculoPaginacao) + 1;
     },
-    verificaLogado(){
+    verificaLogado() {
       return isLogged();
     },
-    async verificaInstituicao(idUsuario){      
+    async verificaInstituicao(idUsuario) {
       if (getLogado()) {
         try {
           this.instituicaoUsuario = await this.$usuarioInstituicao.findById(idUsuario);
           this.idInstituicaoUsuario = this.instituicaoUsuario.data.id;
-        } catch(erro){
+        } catch (erro) {
           console.log(erro);
         }
       }
     },
-    enviaMensagem(telefone, mensagem){
+    enviaMensagem(telefone, mensagem) {
       enviaWhatsapp(telefone, 'testando envio de mensagem pelo whatsapp');
-    },
-    verificaBotao(){
-      if (this.verificaLogado()){
-        if (this.idInstituicaoUsuario != 0){
-          return false;
-        } else {
-          return true;
-        }
-      }
     },
   }
 }
 </script>
 
 <style scoped>
-  @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
 
-  html,
-  body {
-    -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    height: 100%;
-    width: 100%; 
-    background: #FFF;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-  }
-  
-  .contato{
-    text-align: center;
-  }
+html,
+body {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  background: #FFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
 
-  .wrapper {
-    display: table;
-    height: 100%;
-    width: 100%;
-  }
+.contato {
+  text-align: center;
+}
 
-  .container-fostrap {
-    display: table-cell;
-    padding: 1em;
-    text-align: center;
-    vertical-align: middle;
-  }
-  .fostrap-logo {
-    width: 100px;
-    margin-bottom:15px
-  }
+.wrapper {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.container-fostrap {
+  display: table-cell;
+  padding: 1em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.fostrap-logo {
+  width: 100px;
+  margin-bottom: 15px
+}
+
+h1.heading {
+  color: #fff;
+  font-size: 1.15em;
+  font-weight: 900;
+  margin: 0 0 0.5em;
+  color: #505050;
+}
+
+@media (min-width: 450px) {
   h1.heading {
-    color: #fff;
-    font-size: 1.15em;
-    font-weight: 900;
-    margin: 0 0 0.5em;
-    color: #505050;
+    font-size: 3.55em;
   }
-  @media (min-width: 450px) {
-    h1.heading {
-      font-size: 3.55em;
-    }
+}
+
+@media (min-width: 760px) {
+  h1.heading {
+    font-size: 3.05em;
   }
-  @media (min-width: 760px) {
-    h1.heading {
-      font-size: 3.05em;
-    }
+}
+
+@media (min-width: 900px) {
+  h1.heading {
+    font-size: 3.25em;
+    margin: 0 0 0.3em;
   }
-  @media (min-width: 900px) {
-    h1.heading {
-      font-size: 3.25em;
-      margin: 0 0 0.3em;
-    }
-  } 
-  .card {
-    display: block; 
-      margin-bottom: 20px;
-      line-height: 1.42857143;
-      background-color: #fff;
-      border-radius: 2px;
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); 
-      transition: box-shadow .25s; 
-  }
-  .card:hover {
-    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  }
-  .img-card {
-    width: 100%;
-    height:200px;
-    border-top-left-radius:2px;
-    border-top-right-radius:2px;
-    display:block;
-      overflow: hidden;
-  }
-  .img-card img{
-    width: 100%;
-    height: 200px;
-    object-fit:cover; 
-    transition: all .25s ease;
-  } 
-  .card-content {
-    padding:15px;
-    text-align:left;
-  }
-  .card-title {
-    margin-top:0px;
-    font-weight: 700;
-    font-size: 1.65em;
-  }
-  .card-title a {
-    color: #000;
-    text-decoration: none !important;
-  }
-  .card-read-more {
-    border-top: 1px solid #D4D4D4;
-  }
-  .card-read-more a{
-    text-decoration: none !important;
-    padding:10px;
-    font-weight:600;
-    text-transform: uppercase;
-    align-items: center;
-  }
-  .btn-instituicao {
-    border: none;
-    text-align: right;
-    margin: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  .btn-vincular {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: #4CAF50;
-    width: 20%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    /* -webkit-transition: all 0.3 ease; */
-    transition: all 0.3 ease;
-    cursor: pointer;
-    border-radius: 5px;
-    }
-    .btn-vincular:hover,.btn-vincular:active,.btn-vincular:focus {
-        background: #43A047;
-    }
-  
+}
+
+.card {
+  display: block;
+  margin-bottom: 20px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  transition: box-shadow .25s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img-card {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  display: block;
+  overflow: hidden;
+}
+
+.img-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: all .25s ease;
+}
+
+.card-content {
+  padding: 15px;
+  text-align: left;
+}
+
+.card-title {
+  margin-top: 0px;
+  font-weight: 700;
+  font-size: 1.65em;
+}
+
+.card-title a {
+  color: #000;
+  text-decoration: none !important;
+}
+
+.card-read-more {
+  border-top: 1px solid #D4D4D4;
+}
+
+.card-read-more a {
+  text-decoration: none !important;
+  padding: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  align-items: center;
+}
+
+.btn-instituicao {
+  border: none;
+  text-align: right;
+  margin: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 </style>

@@ -56,16 +56,16 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
 </template>
 
 <script>
 import CrudService from '@/services/crud';
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
-import { getLogado, isLogged } from '@/services/auth';
+import {getLogado, isLogged} from '@/services/auth';
+import { buscarInstituicao } from '@/util/buscaInstituicao';
 import BotaoCadastrar from '@/components/BotaoCadastrar.vue';
-
 
 export default {
   components: {
@@ -83,36 +83,34 @@ export default {
       totalPagina: 0
     }
   },
-  mounted() {
-    if (this.estaLogado()){
-      console.log(getLogado());
-      this.$crudServicoInstituicao = new CrudService('/servico/instituicao/'+getLogado())
-      this.$crudServico = new CrudService('/servico/');
+  async mounted() {
+    if (this.estaLogado()) {
+      let idUsuarioLogado = getLogado();
+      let dados = await buscarInstituicao(idUsuarioLogado);
+      this.$crudServicoInstituicao = new CrudService('/servico/instituicao/' + dados.instituicao.id)
       this.carregarServico();
       this.$emit('logado');
     } else {
       this.$router.push('/');
     }
-    
+
   },
   methods: {
     async carregarServico() {
       const {data} = await this.$crudServicoInstituicao.findAll({
         paginaDesejada: this.paginaDesejada - 1,
-        tamanhoPagina: this.tamanhoPagina,
-        idInstituicao: 1
+        tamanhoPagina: this.tamanhoPagina
       })
-      console.log(data)
       this.servicos = data.conteudo;
       this.total = data.totalRegistros;
       const calculoPaginacao = data.totalRegistros / this.tamanhoPagina;
       this.totalPagina = calculoPaginacao === Math.floor(calculoPaginacao) ? calculoPaginacao : Math.floor(calculoPaginacao) + 1;
     },
     async deletarServico(idServico) {
-      await this.$crudServico.remove(idServico);
+      await this.$crudServicoInstituicao.remove(idServico);
       this.carregarServico();
     },
-    estaLogado(){
+    estaLogado() {
       return isLogged();
     }
   }

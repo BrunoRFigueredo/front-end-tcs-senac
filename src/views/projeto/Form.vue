@@ -116,6 +116,17 @@
                 alert(erro.response.data.message);
             }
         },
+        async mounted(){
+            if (!this.verificaLogado()){
+                this.$router.push('/projeto');
+            } else {
+                this.$crudProjeto = new CrudService('/projeto/');
+                this.$crudInstituicao = new CrudService('/instituicao/');
+                const dados  = await buscarInstituicao(getLogado());
+                this.projeto.instituicao  = dados.instituicao.id;
+                this.nomeInstituicao = dados.instituicao.nome;
+            }
+        },
         formatarData(dataInicio, dataFim) {
             if (dataInicio.lenght = 8) {
                 const dataIni = dayjs(dataInicio);

@@ -96,11 +96,14 @@ export default {
         this.$router.push('/categoria');
       } catch (erro) {
         this.erro = erro.response.data.message;
+        alert(erro);
       }
     },
     async carregaCategoria(idCategoria) {
       const {data} = await this.$crudCategoria.findById(idCategoria);
       this.categoria = data;
+      this.categoria.instituicao = data.instituicao.id;
+      console.log(this.instituicao);
     },
     desabilitar() {
       return ((!this.categoria.nome || this.categoria.nome.length > 45) ||

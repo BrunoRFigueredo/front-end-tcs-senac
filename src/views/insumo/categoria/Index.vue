@@ -48,7 +48,7 @@
             :hideFirstButton="true"
             :hideLastButton="true"
             active-color="#DCEDFF"
-            @update:modelValue="carregarcategoria"
+            @update:modelValue="carregarCategoria"
         />
       </div>
      </div>
@@ -62,6 +62,7 @@ import CrudService from '@/services/crud'
 import VPagination from "@hennge/vue3-pagination";
 import {getLogado, isLogged} from "@/services/auth";
 import BotaoCadastrar from '../../../components/BotaoCadastrar.vue';
+import { buscarInstituicao } from '@/util/buscaInstituicao';
 
 export default {
   components: {
@@ -78,11 +79,12 @@ export default {
       totalPagina: 0
     }
   },
-  mounted() {
+  async mounted() {
     if (this.estaLogado()){
       let idUsuarioLogado = getLogado()
       this.$crudCategoria = new CrudService('/categoria/')
-      this.$crudCategoriaServico = new CrudService('/categoria/instituicao/' + idUsuarioLogado)
+      let dados = await buscarInstituicao(idUsuarioLogado);
+      this.$crudCategoriaServico = new CrudService('/categoria/instituicao/' + dados.instituicao.id)
       this.carregarCategoria();
       this.$emit('logado');
     } else {

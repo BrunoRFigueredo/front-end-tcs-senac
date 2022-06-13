@@ -89,9 +89,9 @@ export default {
     if (this.estaLogado()){
       let idUsuarioLogado = getLogado();
       this.$crudInsumo = new CrudService('/insumo/');
-      this.$crudInsumoInstituicao = new CrudService('/insumo/instituicao/' + idUsuarioLogado);    
       const dados = await buscarInstituicao(idUsuarioLogado);
       this.idInstituicao = dados.instituicao.id;
+      this.$crudInsumoInstituicao = new CrudService('/insumo/instituicao/' + dados.instituicao.id);    
       this.carregarInsumo();
     } else {
       this.$router.push('/instituicao');

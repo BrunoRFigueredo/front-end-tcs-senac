@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f98f80f-1665-47ef-ba22-fc4b236e894f" name="Changes" comment="Realizando implementação do projeto-servico">
+      <change afterPath="$PROJECT_DIR$/src/util/buscaVoluntario.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/projeto/SingleResult.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/projeto/SingleResult.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ServicoSelect.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ServicoSelect.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/buscaInstituicao.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/buscaInstituicao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/instituicao/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/instituicao/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/projeto/DetalheProjeto.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/projeto/DetalheProjeto.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/projeto/Form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/projeto/Form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/servico/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/servico/Index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,13 +47,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views/projeto" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/util" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/util" />
       <recent name="$PROJECT_DIR$/src/views/projeto" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -68,6 +76,8 @@
       <workItem from="1654012145553" duration="1372000" />
       <workItem from="1654041813513" duration="4069000" />
       <workItem from="1654117548793" duration="6179000" />
+      <workItem from="1654812229175" duration="2954000" />
+      <workItem from="1655134836260" duration="2124000" />
     </task>
     <task id="LOCAL-00001" summary="Realizando implementação do projeto-servico">
       <created>1653863091176</created>
@@ -92,11 +102,41 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="713f85f1-bf8a-4fd1-8e37-f0644ca33acc">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
           </value>
         </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="713f85f1-bf8a-4fd1-8e37-f0644ca33acc" value="TOOL_WINDOW" />
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />

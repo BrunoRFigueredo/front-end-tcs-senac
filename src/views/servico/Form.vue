@@ -98,6 +98,7 @@ export default {
         async carregaServico(idServico) {
             const { data } = await this.$crudServico.findById(idServico);
             this.servico = data;
+            this.instituicao = dados.instituicao.id;
         },
         desabilitar() {
             //console.log('teste');

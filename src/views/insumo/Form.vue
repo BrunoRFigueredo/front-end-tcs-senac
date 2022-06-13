@@ -98,15 +98,16 @@ export default {
   },
   async mounted() {
     this.$emit('logado');
-    this.$getCategoriaInstituicao = new CrudService('/categoria/instituicao/1');
     this.$crudInsumo = new CrudService('/insumo/');
-    const {data} = await this.$getCategoriaInstituicao.findAll({});    
-    this.categorias = data.conteudo;
     //
     let idUsuarioLogado = getLogado();
     const dados = await buscarInstituicao(idUsuarioLogado);
+    this.$getCategoriaInstituicao = new CrudService('/categoria/instituicao/' + dados.instituicao.id);
     this.insumo.instituicao = dados.instituicao.id;
     this.nomeInstituicao = dados.instituicao.nome;
+    //
+    const {data} = await this.$getCategoriaInstituicao.findAll({});    
+    this.categorias = data.conteudo;
     //
     if (this.$route.params.id){
       this.carregaInsumo(this.$route.params.id);
