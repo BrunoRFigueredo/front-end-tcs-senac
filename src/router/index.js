@@ -13,6 +13,7 @@ import indexInsumo from "../views/insumo/Index.vue";
 import IndexCategoria from "../views/insumo/categoria/Index.vue";
 import IndexVoluntario from "../views/voluntario/Index.vue";
 import VoluntarioForm from "../views/voluntario/Form.vue";
+import VoluntarioSelect from "../components/VoluntarioSelect.vue";
 import IndexServico from "../views/servico/Index.vue";
 import ServicoForm from "../views/servico/Form.vue";
 import ServicoSelect from "../components/ServicoSelect.vue";
@@ -99,9 +100,15 @@ const routes = [
     component: IndexVoluntario
   },
   {
-    path: "/voluntario-register",
+    path: "/cadastrar-voluntario",
     name: "form-voluntario",
     component: VoluntarioForm
+  },
+  {
+    path: "/voluntario/:id",
+    props: true,
+    name: "voluntario-select",
+    component: VoluntarioSelect
   },
   {
     path: "/servicos",

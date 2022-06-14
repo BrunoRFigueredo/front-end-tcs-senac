@@ -1,94 +1,66 @@
 <template>
-  <div id="form-voluntary" class="container">
-    <form action="">
-      <h3 class="text-center pb-4"><strong>Cadastro Voluntário</strong></h3>
-      <span>*Informe o seguintes campos</span>
-      <div class="row mt-2 mb-4">
-        <div class="col">
-          <label class="form-label">Nome</label>
-          <input type="text" class="form-control">
+  <div id="voluntario-select" class="container">
+    <router-link to="/voluntario" class="btn btn-success">Voltar</router-link>
+    <div class="w-75 bg-white p-2 rounded" style="margin: 0 auto;">
+      <h4 class="text-center mt-2 mb-5 fw-bold">{{voluntario.nome}}</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <p>Email: {{voluntario.email}}</p>
+          <p>CPF: {{voluntario.cpf}}</p>
         </div>
-        <div class="col">
-          <label class="form-label">Telefone</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col">
-          <label class="form-label">Email</label>
-          <input type="text" class="form-control">
+        <div class="col-md-6">
+          <p>Pais: {{voluntario.pais}}</p>
+          <p>Estado: {{voluntario.estado}}</p>
         </div>
       </div>
-      <div class="row mb-4">
-        <div class="col">
-          <label class="form-label">Celular</label>
-          <input type="text" class="form-control">
+      <div class="row">
+        <div class="col-md-6">
+          <p>Cidade: {{voluntario.cidade}}</p>
+          <p>CEP: {{voluntario.cep}}</p>
         </div>
-        <div class="col">
-          <label class="form-label">CPF</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col">
-          <label class="form-label">Pais</label>
-          <input type="text" class="form-control">
+        <div class="col-md-6">
+          <p>Número: {{voluntario.numero}}</p>
+          <p>Cidade: {{voluntario.logradouro}}</p>
         </div>
       </div>
-      <div class="row mb-4">
-        <div class="col">
-          <label class="form-label">Cidade</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col">
-          <label class="form-label">Bairro</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col">
-          <label class="form-label">Logradouro</label>
-          <input type="text" class="form-control">
+      <div class="row">
+        <div class="col-md-6">
+          <p>Cidade: {{voluntario.telefone}}</p>
         </div>
       </div>
-      <div class="row mb-4">
-        <div class="col">
-          <label class="form-label">UF</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col">
-          <label class="form-label">Número</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col">
-          <label class="form-label">CEP</label>
-          <input type="text" class="form-control">
-        </div>
+      <div>
+        <h4 class="text-center fw-bold">Biografia do Voluntário</h4>
+        <p class="text-center fw-bold mt-4">{{voluntario.biografia}}</p>
       </div>
-      <button class="botao">Cadastrar</button>
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
+import CrudService from '@/services/crud';
+
 export default {
-  name: "form-voluntary",
-  props: ["id"],
-  data(){
-    return{
-      voluntary: {}
+    name: "voluntario-select",
+    props: ['id'],
+    data(){
+      return{
+        voluntario: {}
+      }
+    },
+    mounted(){
+      this.$crudVoluntario = new CrudService('/voluntario/');
+      this.$emit('logado');
+      this.carregarVoluntario(this.id);
+    },
+    methods: {
+      async carregarVoluntario(id){
+        const {data} = await this.$crudVoluntario.findById(id);
+        this.voluntario = data;
+      }
     }
   }
-}
 </script>
 
 <style scoped>
-  form{
-    margin: 0 auto;
-  }
 
-  .botao{
-    width: 150px;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: bold;
-    background-color: #504B43;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px;
-  }
 </style>
