@@ -1,9 +1,4 @@
 <template>
-  <div class="btn-cadastro">
-    <router-link :to="`/instituicao`">
-      <BotaoVoltar />
-    </router-link>
-  </div>
   <div id="index-instituition" v-if="empty">
     <div class="container w-50 cardCenter">
     <h3 class="text-center pt-2">{{instituicao.nome}}</h3>
@@ -23,6 +18,7 @@
         <div class="col">
           <p>Estado: {{instituicao.logradouro}}</p>
           <p>Cidade: {{instituicao.numero}}</p>
+           
         </div>
       </div>
       <div class="row">
@@ -48,13 +44,12 @@
 import CrudService from '@/services/crud';
 import { enviaWhatsapp } from '@/util/enviaWhatsapp';
 import VueModal from "@kouts/vue-modal";
-import BotaoVoltar from '@/components/BotaoVoltar.vue';
+import { isLogged } from '@/services/auth';
 
 export default {
   props: ['id'],
   components:{
     "Modal": VueModal,
-    BotaoVoltar
 },
   data(){
     return{
@@ -75,6 +70,9 @@ export default {
     },
     enviaMensagem(telefone){
       enviaWhatsapp(telefone, 'testando envio de mensagem');
+    },
+    verificaLogado(){
+      return isLogged();
     }
   }
 }

@@ -1,10 +1,7 @@
 <template>
     <div class="login-page">
         <div class="form">
-            <div class="header">
-                <p>Cadastro de Projetos</p>
-            </div>
-
+            <h3 class="text-center pb-4"><strong>Cadastrar Projeto</strong></h3>
             <form class="login">
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -175,7 +172,7 @@
   width: 100%;
   border: 0;
   margin: 0 0 15px;
-  padding: 15px;
+  padding: 3px;
   box-sizing: border-box;
   font-size: 14px;
 }

@@ -165,7 +165,7 @@ export default {
   width: 100%;
   border: 0;
   margin: 0 0 15px;
-  padding: 15px;
+  padding: 3px;
   box-sizing: border-box;
   font-size: 14px;
 }

@@ -63,6 +63,8 @@
 <script>
 import {getLogado, isLogged} from "@/services/auth";
 import CrudService from "@/services/crud"
+import { buscarInstituicao } from "@/util/buscaInstituicao";
+import { buscarVoluntario } from "@/util/buscaVoluntario";
 import {enviaWhatsapp} from "@/util/enviaWhatsapp";
 import VPagination from "@hennge/vue3-pagination";
 
@@ -81,6 +83,7 @@ export default {
       totalPagina: 0,
       instituicaoUsuario: '',
       idInstituicaoUsuario: 0,
+      idVoluntarioUsuario: 1
     }
   },
   async mounted() {
@@ -94,7 +97,9 @@ export default {
   methods: {
     verificaBotao() {
       if (this.verificaLogado()) {
-        return this.idInstituicaoUsuario === 0;
+        if (this.idInstituicaoUsuario === 0){
+          return true;
+        };
       }
     },
     async carregarInstituicoes() {
@@ -269,5 +274,8 @@ h1.heading {
     cursor: pointer;
     border-radius: 5px;
     }
+  .card-content a{
+    color: black;
+  }
 
 </style>

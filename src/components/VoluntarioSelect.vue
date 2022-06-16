@@ -1,6 +1,5 @@
 <template>
   <div id="voluntario-select" class="container">
-    <router-link to="/voluntario" class="btn btn-success">Voltar</router-link>
     <div class="w-75 bg-white p-2 rounded" style="margin: 0 auto;">
       <h4 class="text-center mt-2 mb-5 fw-bold">{{voluntario.nome}}</h4>
       <div class="row">
@@ -25,7 +24,7 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <p>Cidade: {{voluntario.telefone}}</p>
+          <p>Cidade: {{voluntario.cidade}}</p>
         </div>
       </div>
       <div>

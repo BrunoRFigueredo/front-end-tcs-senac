@@ -1,15 +1,16 @@
 <template>
   <div class="login-page" id="instituicao-form">
     <div class="form">
-      <div class="header">
-          <p>Cadastro da Instituição</p>
-      </div>  
-      <form class="login">  
+      <!-- <div class="header">
+        <p>Cadastro da Instituição</p>
+      </div> -->
+      <form class="login">
         <div class="row">
-            <span>*Informe <strong>exatamente</strong> os mesmos dados cadastrados na prefeitura.</span>
+          <span>*Informe <strong>exatamente</strong> os mesmos dados cadastrados na prefeitura.</span>
         </div>
         <div class="row">
-            <span>*Após vincular-se a uma instituiçao, é necessário entrar novamente no sistema para liberar acessos as novas funcionalidades.</span>
+          <span>*Após vincular-se a uma instituiçao, é necessário entrar novamente no sistema para liberar acessos as
+            novas funcionalidades.</span>
         </div>
         <div class="row">
           <div class="form-group col-md-12 col-sm-12">
@@ -19,13 +20,13 @@
             </div>
           </div>
         </div>
-  
+
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <div class="label">
               <label for="email" class="form-label">Email</label>
               <input id="email" type="email" class="form-control" v-model="instituicao.email" required>
-            </div>  
+            </div>
           </div>
 
           <div class="form-group col-md-6 col-sm-12">
@@ -37,7 +38,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <div class="label">
@@ -67,16 +68,18 @@
               <label for="cep" class="form-label">Cep</label>
             </div>
             <div class="form-group">
-              <input id="cep" type="number" @keyup="this.buscaEndereco(this.instituicao.cep)" class="form-control" v-model="instituicao.cep" required>
+              <input id="cep" type="number" @keyup="this.buscaEndereco(this.instituicao.cep)" class="form-control"
+                v-model="instituicao.cep" required>
             </div>
           </div>
-          
+
           <div class="form-group col-md-4 col-sm-12">
             <div class="label">
               <label for="pais" class="form-label">Pais</label>
             </div>
             <div class="form-group">
-              <input id="pais" type="text" class="form-control" placeholder="Exemplo: BR" :maxlength="maxEstado" v-model="instituicao.pais" required>
+              <input id="pais" type="text" class="form-control" placeholder="Exemplo: BR" :maxlength="maxEstado"
+                v-model="instituicao.pais" required>
             </div>
           </div>
 
@@ -85,7 +88,8 @@
               <label for="estado" class="form-label">Estado</label>
             </div>
             <div class="form-group">
-              <input id="estado" type="text" class="form-control" placeholder="Exemplo: SC" :maxlength="maxEstado" v-model="instituicao.estado" required>
+              <input id="estado" type="text" class="form-control" placeholder="Exemplo: SC" :maxlength="maxEstado"
+                v-model="instituicao.estado" required>
             </div>
           </div>
         </div>
@@ -100,17 +104,17 @@
             </div>
           </div>
 
-            <div class="form-group col-md-6 col-sm-12">
-              <div class="col">
-                <div class="label">
-                  <label for="bairro" class="form-label">Bairro</label>
-                </div>
-                 <div class="form-group">
-                  <input id="bairro" type="text" class="form-control" v-model="instituicao.bairro" required>
-                </div>
+          <div class="form-group col-md-6 col-sm-12">
+            <div class="col">
+              <div class="label">
+                <label for="bairro" class="form-label">Bairro</label>
+              </div>
+              <div class="form-group">
+                <input id="bairro" type="text" class="form-control" v-model="instituicao.bairro" required>
               </div>
             </div>
           </div>
+        </div>
 
         <div class="row">
           <div class="form-group col-md-10">
@@ -131,7 +135,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="row">
           <div class="col">
             <div class="label">
@@ -141,7 +145,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <BotaoSalvar  @click.prevent="cadastrar(instituicao)" />
+          <BotaoSalvar @click.prevent="cadastrar(instituicao)" />
         </div>
       </form>
     </div>
@@ -154,131 +158,142 @@ import CrudService from "@/services/crud";
 import axios from "axios";
 import BotaoSalvar from "@/components/BotaoSalvar.vue";
 
-  export default{
-    name: 'instituicao-form',
-    components: {
+export default {
+  name: 'instituicao-form',
+  components: {
     BotaoSalvar,
-},
-    data(){
-      return{
-        instituicao: {
-          nome: '',
-          descricao: '',
-          cnpj: '',
-          agencia: '',
-          conta: '',
-          email: '',
-          telefone: '',
-          bairro: '',
-          pais: '',
-          estado: '',
-          cidade: '',
-          logradouro: '',
-          numero: '',
-          cep: '',
-          usuario: getLogado(),
-        },
-        usuarioLogado: {
-          id: '',
-          nome: '',
-          email: '',
-          senha: '',
-          confirmarSenha: '',
-          perfilPermissao: '',
-          imagem: ''
-        },
-        maxEstado: 2,
-        data: null,
-      }
-    },
-    mounted(){
-      if (!this.verificaLogado()){
+  },
+  data() {
+    return {
+      instituicao: {
+        nome: '',
+        descricao: '',
+        cnpj: '',
+        agencia: '',
+        conta: '',
+        email: '',
+        telefone: '',
+        bairro: '',
+        pais: '',
+        estado: '',
+        cidade: '',
+        logradouro: '',
+        numero: '',
+        cep: '',
+        usuario: getLogado(),
+      },
+      usuarioLogado: {
+        id: '',
+        nome: '',
+        email: '',
+        senha: '',
+        confirmarSenha: '',
+        perfilPermissao: '',
+        imagem: ''
+      },
+      maxEstado: 2,
+      data: null,
+    }
+  },
+  mounted() {
+    if (!this.verificaLogado()) {
+      this.$router.push('/instituicao');
+    } else {
+      this.$emit('logado');
+      this.$crudInstituicao = new CrudService('/instituicao/');
+      this.$crudUsuario = new CrudService('/usuario/');
+    }
+  },
+  methods: {
+    async cadastrar(instituicao) {
+      try {
+        await this.$crudInstituicao.save(instituicao)
         this.$router.push('/instituicao');
-      } else {
-        this.$emit('logado');
-        this.$crudInstituicao = new CrudService('/instituicao/');      
-        this.$crudUsuario = new CrudService('/usuario/');
+        alert('Instituição cadastrada com sucesso!');
+      } catch (error) {
+        this.erro = error.response.data.message;
+        alert(this.erro);
       }
     },
-    methods: {
-      async cadastrar(instituicao){
-        try{
-          await this.$crudInstituicao.save(instituicao)
-          this.$router.push('/instituicao');
-          alert('Instituição cadastrada com sucesso!');
-        }catch(error){
-          this.erro = error.response.data.message;
-          alert(this.erro);
-        }
-      },
-      buscaEndereco(cep){
-        if (cep.toString().length >= 8){
-          axios.get('https://viacep.com.br/ws/'+cep+'/json/')
-          .then(retorno =>{(
-            this.instituicao.estado = retorno.data.uf,
-            this.instituicao.cidade = retorno.data.localidade,
-            this.instituicao.logradouro = retorno.data.logradouro,
-            this.instituicao.pais = 'BR',
-            this.instituicao.bairro = retorno.data.bairro
-          )})
-          .catch(erro => {(
-            alert('Erro ao carregar dados do endereço ' + erro.response.data.message)
-          )})
-        }
-      },
-      verificaLogado(){
-        return isLogged();
+    buscaEndereco(cep) {
+      if (cep.toString().length >= 8) {
+        axios.get('https://viacep.com.br/ws/' + cep + '/json/')
+          .then(retorno => {
+            (
+              this.instituicao.estado = retorno.data.uf,
+              this.instituicao.cidade = retorno.data.localidade,
+              this.instituicao.logradouro = retorno.data.logradouro,
+              this.instituicao.pais = 'BR',
+              this.instituicao.bairro = retorno.data.bairro
+            )
+          })
+          .catch(erro => {
+            (
+              alert('Erro ao carregar dados do endereço ' + erro.response.data.message)
+            )
+          })
       }
+    },
+    verificaLogado() {
+      return isLogged();
     }
   }
+}
 </script>
 
 <style scoped>
-  .login-page {
-    margin: 20px;
-  }
-  .header{
-    color: black;
-    font-size: 30px;
-  }
-  .form {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 850px;
-    margin: 0 auto 100px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    margin: auto;
-    border-radius: 10px;
-  }
-  .label {
-    text-align: left;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-  }
-  .form input {
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
-    width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-  }
-  .form .message {
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 12px;
-  }
-  .form .message a {
-    color: #4CAF50;
-    text-decoration: none;
-  }
-  .form .register-form {
-    display: none;
-  }
+.login-page {
+  margin: 10px;
+}
+
+.header {
+  color: black;
+  font-size: 30px;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 850px;
+  margin: 0 auto 100px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  margin: auto;
+  border-radius: 10px;
+}
+
+.label {
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+}
+
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.form .register-form {
+  display: none;
+}
 </style>

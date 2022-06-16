@@ -1,6 +1,7 @@
 <template>
   <div class="servico-page" v-if="estaLogado()">
     <div class="form">
+      <h3 class="text-center pb-4"><strong>Cadastrar Serviço</strong></h3>
       <form class="cadastro">
         <div class="row">
           <div class="form-group col-md-12 col-sm-12">
@@ -140,7 +141,7 @@ export default {
   width: 100%;
   border: 0;
   margin: 0 0 15px;
-  padding: 15px;
+  padding: 3px;
   box-sizing: border-box;
   font-size: 14px;
 }

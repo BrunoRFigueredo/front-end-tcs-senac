@@ -32,7 +32,7 @@ export default {
         email: '',
         senha: ''
       },
-      error: ''
+      erro: ''
     }
   },
   methods:{
@@ -55,8 +55,8 @@ export default {
         this.$emit('logado');
         this.$router.push('/index');
       }catch(error){
-        this.error = error.response.data.message;
-        alert(this.error);
+        this.erro = error.response.data.message;
+        alert(this.erro);
         window.location.reload();
       }
     },
@@ -86,6 +86,7 @@ export default {
   text-align: left;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
+  color: black;
 }
 .form input {
   font-family: "Roboto", sans-serif;
@@ -117,7 +118,7 @@ export default {
 }
 .form .message {
   margin: 15px 0 0;
-  color: #b3b3b3;
+  color: black;
   font-size: 12px;
 }
 .form .message a {

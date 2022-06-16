@@ -1,8 +1,8 @@
 <template>
-<div id="app">
-  <MenuSuperior v-if="this.superiorVisivel"/>
-  <MenuLateral  v-if="this.lateralVisivel" @deslogado="this.verificaVisibilidade(this.estaLogado())"/>
-  <router-view class="mt-5" @logado="this.verificaVisibilidade(this.estaLogado())"/>
+  <div id="app">
+    <MenuSuperior v-if="this.superiorVisivel"/>
+    <MenuLateral  v-if="this.lateralVisivel" @deslogado="this.verificaVisibilidade(this.estaLogado())"/>
+    <router-view class="mt-5" @logado="this.verificaVisibilidade(this.estaLogado())"/>
   </div>
 </template>
 
@@ -17,12 +17,13 @@ export default {
   components: {
     MenuLateral,
     VPagination,
-    MenuSuperior
+    MenuSuperior,
 },
     data(){
       return{
         superiorVisivel: true,
-        lateralVisivel: false
+        lateralVisivel: false,
+        headerVisivel: false,
       }
     },
     mounted(){
@@ -39,9 +40,11 @@ export default {
         if (logado){
           this.superiorVisivel = false;
           this.lateralVisivel = true;
+          this.headerVisivel = true
         } else {
           this.superiorVisivel = true;
           this.lateralVisivel = false;
+          this.headerVisivel = false
         }
       }
     },
@@ -49,5 +52,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .header{
+    background-color: gray;
+  }
 </style>

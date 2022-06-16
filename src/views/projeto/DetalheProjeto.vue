@@ -1,9 +1,4 @@
 <template>
-  <div class="btn-cadastrar">
-      <router-link to="/projeto">
-        <BotaoVoltar />
-      </router-link>
-    </div>
   <div id="detalhe-projeto" class="container">
     <div class="w-50 divDados">
       <h4 class="text-center mt-2 mb-5">{{ projeto.nome }}</h4>
@@ -11,13 +6,13 @@
       <p>Descrição: {{ projeto.descricao }}</p>
       <p>Início: {{ projeto.dataInicio }}</p>
       <p>Finaliza: {{ projeto.dataFinal }}</p>
-      <p>CNPJ: {{ projeto.cnpj }}</p>
-      <button type="projeto" class="btn btn-success" @click="showModal=true" style="margin-right: 60px">
+      <p>CNPJ: {{ projeto.instituicao?.cnpj }}</p>
+      <button type="projeto" class="btn btn-success" @click="showModal=true" style="margin-right: 60px" v-if="this.verificaLogado()">
         Cadastrar serviço
       </button>
       <button type="button" class="btn btn-primary" @click="carregarProjetoServicos(this.id)"
               data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Demonstrar serviços
+        Serviços
       </button>
 
     </div>
@@ -164,19 +159,17 @@
 import CrudService from '@/services/crud';
 import VueModal from "@kouts/vue-modal";
 import ServicoSelect from "@/views/servico/ServicoSelect.vue";
-import dayjs from "dayjs";
 import api from "@/services/api";
-import {getLogado} from "@/services/auth";
+import {getLogado, isLogged} from "@/services/auth";
 import {buscarVoluntario} from "@/util/buscaVoluntario";
 import {buscarInstituicao} from "@/util/buscaInstituicao";
 import {getClient} from "@/services/http";
-import BotaoVoltar from '@/components/BotaoVoltar.vue';
+import { permit } from '@/util/permit';
 
 export default {
   components: {
     ServicoSelect,
     "Modal": VueModal,
-    BotaoVoltar
 },
   name: 'detalhe-projeto',
   props: ['id'],
@@ -279,6 +272,18 @@ export default {
           .then(response => {
             this.carregarProjetoServicos(this.id);
           });
+    },
+     verificaLogado(){
+      //return isLogged();
+      if (isLogged()){
+        if (this.permissao(['INSTITUICAO'])){
+          return true;
+        }
+        false;
+      }
+    },
+    permissao(roles) {
+      return permit(roles);
     },
   }
 }
