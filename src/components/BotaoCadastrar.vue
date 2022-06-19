@@ -1,5 +1,5 @@
 <template>
-    <button class="shiny-button">Cadastrar</button>
+    <button class="shiny-button">Novo</button>
 </template>
 
 <style>
@@ -40,7 +40,7 @@
 
     .shiny-button:hover {
     color: #FFFFFF;
-    background-color: #3f3a28;
+    background-color: black;
     background-image: -webkit-linear-gradient(top, #423d2a 0%, #4a4946 48%, #3f3a28 49%, #3f3a28 82%, #504a33 100%);
     background-image: -moz-linear-gradient(top, #423d2a 0%, #4a4946 48%, #3f3a28 49%, #3f3a28 82%, #504a33 100%);
     background-image: -o-linear-gradient(top, #423d2a 0%, #4a4946 48%, #3f3a28 49%, #3f3a28 82%, #504a33 100%);
@@ -57,7 +57,7 @@
 
     .shiny-button:active {
     color: #FFFFFF;
-    background-color: #2d281c;
+    background-color: black;
     background-image: -webkit-linear-gradient(top, #272218 0%, #363122 100%);
     background-image: -moz-linear-gradient(top, #272218 0%, #363122 100%);
     background-image: -o-linear-gradient(top, #272218 0%, #363122 100%);

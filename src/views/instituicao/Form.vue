@@ -254,7 +254,7 @@ export default {
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #ADD8E6;
   max-width: 850px;
   margin: 0 auto 100px;
   padding: 20px;

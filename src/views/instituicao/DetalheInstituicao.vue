@@ -81,11 +81,10 @@ export default {
 <style scoped>
 p{
   font-size: 14px;
-  color: #8391a2
 }
 
 h3, h4, h5{
-  color: #535961
+  color: black;
 }
 
 ::-webkit-scrollbar-track {
@@ -104,7 +103,7 @@ h3, h4, h5{
 }
 
 .cardCenter{
-  background-color: #f4f4f4; text-align: center; border-radius: 10px;
+  background-color: #ADD8E6; text-align: center; border-radius: 10px;
 }
   .img-card {
     width: 400px;

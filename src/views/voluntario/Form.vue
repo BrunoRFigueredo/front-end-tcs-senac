@@ -255,7 +255,7 @@ export default {
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #ADD8E6;
   max-width: 850px;
   margin: 0 auto 100px;
   padding: 20px;
@@ -269,6 +269,11 @@ export default {
   text-align: left;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
+  color: black;
+}
+
+label{
+    color: black;
 }
 
 .form input {
