@@ -33,10 +33,6 @@
     </div>
     <div class="row mt-4">
       <div v-if="this.verificaLogado()" class="col">
-        <button class="btn btn-danger">Meus Projetos - Teste</button>
-      </div>
-      
-      <div v-if="this.verificaLogado()" class="col">
         <router-link to="/cadastrar-projeto">
           <BotaoCadastrar />
         </router-link>    

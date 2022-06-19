@@ -2,7 +2,7 @@
   <div id="menu-superior">
     <nav class="mb-5 mt-2">
       <ul class="text-center">
-        <router-link to="/" class="m-4">Página Inicial</router-link>
+        <router-link to="/sobre" class="m-4">Quem somos</router-link>
         <router-link to="/instituicao" class="m-4">Instituições</router-link>
         <router-link to="/projeto" class="m-4">Projetos Sociais</router-link>
         <router-link to="/usuario-login" class="float-end btn btn-success text-white" style="margin-right: 20px;">Login</router-link>
