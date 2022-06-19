@@ -165,7 +165,7 @@ div.col{
   text-align:center;
   margin:.6rem auto;
   font-size:1.1rem;
-  color:rgb(156, 156, 156);
+  color:#fff;
   text-decoration:none;
   background-color: #198754;
   border-radius:10px;

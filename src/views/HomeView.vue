@@ -47,6 +47,9 @@ export default {
 </script>
 
 <style scoped>
+*{
+  color: #000;
+}
   img{
     width: 70%;
     max-width: 70%;

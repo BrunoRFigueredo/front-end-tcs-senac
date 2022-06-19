@@ -472,9 +472,11 @@ export default {
 }
 </script>
 
+
+
 <style scoped>
 *{
-  color: #fff;
+  color: #000;
 }
 .divDados {
   margin: 0 auto;
@@ -494,8 +496,12 @@ export default {
 }
 
 button{
-  background-color:#3777A0
+  background-color:#3777A0;
+  color: #fff;
+}
 
-;
+button:hover{
+  background-color:#78b0d3;
+  transition: 1s;
 }
 </style>
