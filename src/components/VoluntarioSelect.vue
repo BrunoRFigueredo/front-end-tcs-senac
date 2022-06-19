@@ -1,7 +1,7 @@
 <template>
   <div id="voluntario-select" class="container">
-    <div class="w-75 bg-white p-2 rounded" style="margin: 0 auto;">
-      <h4 class="text-center mt-2 mb-5 fw-bold">{{voluntario.nome}}</h4>
+    <div class="bg-dark w-75 rounded" style="margin: 0 auto;">
+      <h3 class="text-center mt-2 mb-5 fw-bold">{{voluntario.nome}}</h3>
       <div class="row">
         <div class="col-md-6">
           <p>Email: {{voluntario.email}}</p>
@@ -29,7 +29,7 @@
       </div>
       <div>
         <h4 class="text-center fw-bold">Biografia do Voluntário</h4>
-        <p class="text-center fw-bold mt-4">{{voluntario.biografia}}</p>
+        <pre class="p-4 text-center">{{voluntario.biografia}}</pre>
       </div>
     </div>
   </div>
@@ -60,4 +60,15 @@ export default {
 </script>
 
 <style scoped>
+h3, h4, p{
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+p{
+  background-color: rgba(255, 255, 255, 0.015);
+  margin: 15px;
+  border-radius: 10px;
+}
 </style>
