@@ -129,7 +129,7 @@ div.col{
   width:260px;
   margin: 10px;
   padding:1rem;
-  background-color:#fff;
+  background-color:#4992C1;
   float: right;
 }
 .card img{
@@ -189,5 +189,9 @@ div.col{
   .container{
     flex-wrap:wrap;
   }
+}
+
+h4{
+  color: #000;
 }
 </style>

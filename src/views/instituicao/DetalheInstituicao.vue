@@ -83,10 +83,6 @@ p{
   font-size: 14px;
 }
 
-h3, h4, h5{
-  color: black;
-}
-
 ::-webkit-scrollbar-track {
     background-color: #F4F4F4;
 }
@@ -103,7 +99,7 @@ h3, h4, h5{
 }
 
 .cardCenter{
-  background-color: #ADD8E6; text-align: center; border-radius: 10px;
+  background-color: #4992C1; text-align: center; border-radius: 10px;
 }
   .img-card {
     width: 400px;

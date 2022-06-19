@@ -7,22 +7,24 @@
       <p>Início: {{ projeto.dataInicio }}</p>
       <p>Finaliza: {{ projeto.dataFinal }}</p>
       <p>CNPJ: {{ projeto.instituicao?.cnpj }}</p>
-      <button type="projeto" class="btn btn-success" @click="showModal = true" style="margin-right: 60px"
+      <div class="row m-1">
+        <button type="projeto" class="btn col m-2" @click="showModal = true"
         v-if="this.verificaLogado()">
         Cadastrar serviço
       </button>
-      <button type="projeto" class="btn btn-success" @click="showModalInsumo = true" style="margin-right: 60px"
+      <button type="projeto" class="btn col m-2" @click="showModalInsumo = true"
         v-if="this.verificaLogado()">
         Cadastrar Insumo
       </button>
-      <button type="button" class="btn btn-primary" @click="carregarProjetoServicos(this.id)" data-bs-toggle="modal"
+      <button type="button" class="btn col m-2" @click="carregarProjetoServicos(this.id)" data-bs-toggle="modal"
         data-bs-target="#exampleModal">
         Serviços
       </button>
-       <button type="button" class="btn btn-primary" @click="carregarProjetoInsumos(this.id)" data-bs-toggle="modal"
+       <button type="button" class="btn col m-2" @click="carregarProjetoInsumos(this.id)" data-bs-toggle="modal"
         data-bs-target="#modalInsumos">
         Insumos
       </button>
+      </div>
     </div>
   </div>
 
@@ -471,10 +473,13 @@ export default {
 </script>
 
 <style scoped>
+*{
+  color: #fff;
+}
 .divDados {
   margin: 0 auto;
   padding: 20px;
-  background-color: #ADD8E6;
+  background-color: #4992C1;
   border-radius: 10px;
   width: 800px;
 }
@@ -486,5 +491,11 @@ export default {
 }
 .btn-whatsapp{
   padding-top: 30px;
+}
+
+button{
+  background-color:#3777A0
+
+;
 }
 </style>

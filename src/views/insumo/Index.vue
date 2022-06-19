@@ -127,7 +127,7 @@ export default {
   .lista {
     position: relative;
     z-index: 1;
-    background: #FFFFFF;
+    background: #4992C1;
     max-width: 1200px;
     margin: 0 auto 100px;
     padding: 20px;
