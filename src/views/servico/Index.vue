@@ -35,12 +35,11 @@
             </td>
           </tr>
           </tbody>
+        </table>
+        <div class="row">
           <div class="h5 col-md">
             Página {{paginaDesejada}} de {{totalPagina}}
           </div>
-        </table>
-        <div class="row">
-          
           <div class="col-md">
             <v-pagination
                 v-model="paginaDesejada"

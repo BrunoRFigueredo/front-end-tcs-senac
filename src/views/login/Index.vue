@@ -53,7 +53,7 @@ export default {
       try{
         await login(this.usuario.email, this.usuario.senha);
         this.$emit('logado');
-        this.$router.push('/index');
+        this.$router.push('/instituicao');
       }catch(error){
         this.erro = error.response.data.message;
         alert(this.erro);

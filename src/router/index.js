@@ -25,6 +25,11 @@ const routes = [
   {
     path: '/',
     name: 'index',
+    component: IndexInstituicao
+  },
+  {
+    path: '/sobre',
+    name: 'index-sobre',
     component: HomeView
   },
   {

@@ -18,23 +18,18 @@
         <div class="col">
           <p>Estado: {{instituicao.logradouro}}</p>
           <p>Cidade: {{instituicao.numero}}</p>
-           
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <p>PIX: {{instituicao.pix}}</p>
-        </div>
-        <div class="col">
-          <p>Telefone: {{instituicao.telefone}}</p>
         </div>
       </div>
       <div class="row mt-2 mb-2">
         <div class="col">
-          <p class="text-success">Whatsapp<p class="fw-bold text-success">{{instituicao.telefone}}</p></p>
+          <span class="text-success">Whatsapp<p class="fw-bold text-success">{{instituicao.telefone}}</p></span>
           <button @click="this.enviaMensagem(instituicao.telefone)" class="btn btn-success">Enviar mensagem</button>
         </div>
       </div>
+      <br>
+      <h4>
+        Biografia da instituição
+      </h4>
       <p class="fw-bold pb-4 descricao">{{instituicao.descricao}}</p>
     </div>
   </div>

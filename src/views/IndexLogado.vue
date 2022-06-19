@@ -4,7 +4,8 @@
     
     <div class="row">
       <div class="col">
-        UMA IMAGEM
+        UMA IMAGEMwe
+
       </div>
       <div class="col">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit debitis voluptate placeat ex autem odit, natus veritatis praesentium similique consequuntur nesciunt laborum eligendi ratione labore nulla suscipit corrupti accusantium corporis?

@@ -14,7 +14,6 @@
             alt="Logo" class="card__image">
           <p class="card__name">{{ volun.usuario.nome }}</p>
           <p>Cidade: {{ volun.cidade }}</p>
-          <p>Sexo: {{ volun.sexo }}</p>
           <router-link :to="`/voluntario/${volun.id}`" class="btn draw-border">Visualizar</router-link>
         </div>
       </div>

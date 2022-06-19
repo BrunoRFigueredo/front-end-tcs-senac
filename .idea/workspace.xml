@@ -2,15 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f98f80f-1665-47ef-ba22-fc4b236e894f" name="Changes" comment="Realizando implementação do projeto-servico">
-      <change afterPath="$PROJECT_DIR$/src/util/buscaVoluntario.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ServicoSelect.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ServicoSelect.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/buscaInstituicao.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/buscaInstituicao.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/instituicao/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/instituicao/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MenuSuperior.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MenuSuperior.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VoluntarioSelect.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VoluntarioSelect.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/IndexLogado.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/IndexLogado.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/instituicao/DetalheInstituicao.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/instituicao/DetalheInstituicao.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/login/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/login/Index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/projeto/DetalheProjeto.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/projeto/DetalheProjeto.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/projeto/Form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/projeto/Form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/projeto/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/projeto/Index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/servico/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/servico/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/voluntario/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/voluntario/Index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
