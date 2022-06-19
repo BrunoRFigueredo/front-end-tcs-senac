@@ -478,6 +478,10 @@ export default {
 *{
   color: #000;
 }
+
+p, h4{
+  color: #fff;
+}
 .divDados {
   margin: 0 auto;
   padding: 20px;
