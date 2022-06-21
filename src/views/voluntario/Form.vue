@@ -2,10 +2,13 @@
     <div id="form-voluntario" class="container">
         <div class="login-page">
             <div class="form">
+                <div class="alert alert-danger" role="alert" v-if="this.erro">
+                    {{ this.erro }}
+                </div>                
                 <div class="header">
                     <p>Cadastro de Voluntário</p>
                 </div>
-                <form class="login">
+                <form class="login" @keyup="this.limpaErro()">
                     <div class="row">
                         <div class="form-group col-md-12">
                             <div class="label">
@@ -23,7 +26,7 @@
                                 <label for="cpf" class="form-label">CPF</label>
                             </div>
                             <div>
-                                <input id="cpf" type="number"  class="form-control" v-model="voluntario.cpf">
+                                <input id="cpf" type="number" class="form-control" v-model="voluntario.cpf">
                             </div>
                         </div>
                         <div class="form-group col-md-3 col-sm-12">
@@ -31,10 +34,11 @@
                                 <label for="dataNascimento" class="form-label">Data Nascimento</label>
                             </div>
                             <div class="form-group">
-                                <input id="dataNascimento" type="date" class="form-control" v-model="voluntario.dataNascimento">
+                                <input id="dataNascimento" type="date" class="form-control"
+                                    v-model="voluntario.dataNascimento">
                             </div>
                         </div>
-                         <div class="form-group col-md-3 col-sm-12">
+                        <div class="form-group col-md-3 col-sm-12">
                             <div class="label">
                                 <label for="sexo" class="form-label">Sexo</label>
                             </div>
@@ -73,7 +77,7 @@
                             </div>
                             <div class="form-group">
                                 <input id="pais" type="text" class="form-control" placeholder="Exemplo: BR"
-                                     v-model="voluntario.pais" required>
+                                    v-model="voluntario.pais" required>
                             </div>
                         </div>
 
@@ -83,7 +87,7 @@
                             </div>
                             <div class="form-group">
                                 <input id="estado" type="text" class="form-control" placeholder="Exemplo: SC"
-                                     v-model="voluntario.estado" required>
+                                    v-model="voluntario.estado" required>
                             </div>
                         </div>
                     </div>
@@ -181,6 +185,7 @@ export default {
                 usuario: getLogado()
             },
             usuarioLogado: '',
+            erro: '',
         }
     },
     async mounted() {
@@ -199,14 +204,16 @@ export default {
         async cadastrar(voluntario) {
             try {
                 await this.$crudVoluntario.save(voluntario);
-                alert('Voluntário cadastrado com sucesso!');
                 this.$router.push('/voluntario');
             } catch (erro) {
-                alert(erro.response.data.message);
+                this.erro = erro.response.data.message;
             }
         },
         verificaLogado() {
             return isLogged();
+        },
+        limpaErro(){
+            this.erro = '';
         },
         buscaEndereco(cep) {
             if (cep.toString().length == 8) {
@@ -222,7 +229,7 @@ export default {
                     })
                     .catch(erro => {
                         (
-                            alert('Erro ao carregar dados do endereço ' + erro.response.data.message)
+                            console.log('Erro ao carregar dados do endereço ' + erro.response.data.message)
                         )
                     })
             } else {
@@ -233,7 +240,7 @@ export default {
                     this.voluntario.bairro = null
             }
         },
-        async buscaNomeUsuario(){
+        async buscaNomeUsuario() {
             let idUsuarioLogado = getLogado();
             const dados = await this.$crudUsuario.findById(idUsuarioLogado);
             this.usuarioLogado = dados.data.nome;
@@ -244,62 +251,62 @@ export default {
 
 <style scoped>
 .login-page {
-  margin: 10px;
+    margin: 10px;
 }
 
 .header {
-  color: black;
-  font-size: 30px;
+    color: black;
+    font-size: 30px;
 }
 
 .form {
-  position: relative;
-  z-index: 1;
-  background: #ADD8E6;
-  max-width: 850px;
-  margin: 0 auto 100px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  margin: auto;
-  border-radius: 10px;
+    position: relative;
+    z-index: 1;
+    background: #ADD8E6;
+    max-width: 850px;
+    margin: 0 auto 100px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    margin: auto;
+    border-radius: 10px;
 }
 
 .label {
-  text-align: left;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  color: black;
+    text-align: left;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    color: black;
 }
 
-label{
+label {
     color: black;
 }
 
 .form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 3px;
-  box-sizing: border-box;
-  font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 3px;
+    box-sizing: border-box;
+    font-size: 14px;
 }
 
 .form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
 }
 
 .form .message a {
-  color: #4CAF50;
-  text-decoration: none;
+    color: #4CAF50;
+    text-decoration: none;
 }
 
 .form .register-form {
-  display: none;
+    display: none;
 }
 </style>

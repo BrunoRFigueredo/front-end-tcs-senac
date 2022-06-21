@@ -1,7 +1,10 @@
 <template>
   <div class="login-page">
     <div class="form">
-      <form class="login">
+      <div class="alert alert-danger" role="alert" v-if="this.erro">
+        {{this.erro}}
+      </div>
+      <form class="login" @keyup="this.limpaErro()">
         <h3 class="text-center pb-4" v-if="!this.$route.params.id"><strong>Cadastrar Insumo</strong></h3>
         <h3 class="text-center pb-4" v-if="this.$route.params.id"><strong>Editar Insumo</strong></h3>
 
@@ -94,6 +97,7 @@ export default {
       },
       nomeInstituicao: '',
       categorias: [],
+      erro: '',
     }
   },
   async mounted() {
@@ -120,10 +124,9 @@ export default {
     async cadastrar(insumo){
       try {        
         await this.$crudInsumo.save(insumo);
-        alert('Insumo cadastrado com sucesso!');
         this.$router.push('/insumo');
       } catch (erro) {
-        alert(erro.response.data.message);
+        this.erro = erro.response.data.message;
       }
     },
     async carregaInsumo(idInsumo){
@@ -132,6 +135,9 @@ export default {
       this.insumo.categoria = data.categoria.id
       this.insumo.instituicao = data.instituicao.id;
       console.log(data);
+    },
+    limpaErro(){
+      this.erro = '';
     }
   }
 }

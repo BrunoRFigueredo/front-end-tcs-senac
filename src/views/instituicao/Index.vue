@@ -31,7 +31,7 @@
               </div>
               <div>
                 <a>Telefone: {{instituicao.telefone}}</a>
-                <span @click="this.enviaMensagem(instituicao.telefone)"> - <img src="../../assets/whatsapp.png" width="20" alt=""></span>
+                <span @click="this.enviaMensagem(instituicao.telefone, 'Olá!')"> - <img src="../../assets/whatsapp.png" width="20" alt=""></span>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default {
       }
     },
     enviaMensagem(telefone, mensagem) {
-      enviaWhatsapp(telefone, 'testando envio de mensagem pelo whatsapp');
+      enviaWhatsapp(telefone, mensagem);
     },
   }
 }

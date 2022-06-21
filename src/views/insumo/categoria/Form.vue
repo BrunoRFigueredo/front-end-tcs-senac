@@ -1,9 +1,11 @@
 <template>
   <div class="login-page" v-if="this.estaLogado()">
     <div class="form">
-      <form class="login">
+      <form class="login" @keyup="this.limpaErro()">
+        <div class="alert alert-danger" role="alert" v-if="this.erro">
+          {{this.erro}}
+        </div>
         <h3 class="text-center pb-4"><strong>Cadastrar Categoria</strong></h3>
-
         <div class="row">
           <div class="form-group col-md-12">
             <div class="label">
@@ -62,7 +64,8 @@ export default {
         status: 1
       },
       erro: '',
-      nomeInstituicao: ''
+      nomeInstituicao: '',
+      erro: '',
     }
   },
   computed: {
@@ -96,7 +99,6 @@ export default {
         this.$router.push('/categoria');
       } catch (erro) {
         this.erro = erro.response.data.message;
-        alert(erro);
       }
     },
     async carregaCategoria(idCategoria) {
@@ -111,6 +113,9 @@ export default {
     },
     estaLogado() {
       return isLogged();
+    },
+    limpaErro(){
+      this.erro = '';
     }
   }
 }

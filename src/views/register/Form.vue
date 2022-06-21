@@ -1,11 +1,14 @@
 <template>
   <div class="login-page">
     <div class="form">
+      <div class="alert alert-danger" role="alert" v-if="this.erro">
+        {{this.erro}}
+      </div>
       <div class="header">
           <p>Cadastro de Usuário</p>
       </div>        <img id="blah" :src="url" alt="Sua imagem de perfil" width="200" height="200" style="align-content: center" />
 
-      <form class="login">
+      <form class="login" @keyup="this.limpaErro()">
         <div class="label">
           <label for="imagem" class="form-label">Imagem de perfil</label>
         </div>
@@ -65,7 +68,7 @@ export default {
                 status: 1,
                 perfilPermissao: 1
             },
-            erro: ""
+            erro: '',
         };
     },
     mounted() {
@@ -76,7 +79,7 @@ export default {
         async cadastrar(usuario) {
             this.erro = "";
             if (this.usuario.senha != this.usuario.confirmarSenha) {
-                alert("A senha não confere com a confirmaçao");
+                this.erro = "A senha não confere com a confirmaçao";
             }
             else {
                 try {
@@ -85,12 +88,10 @@ export default {
                         this.usuario.imagem = imagem.data.idImagem;
                     }
                     await this.$crudUsuario.save(usuario);
-                    alert("Usuário criado com sucesso, redirecionando...");
                     this.$router.push("/usuario-login");
                 }
                 catch (erro) {
                     this.erro = erro.response.data.message;
-                    alert(this.erro);
                 }
             }
         },
@@ -111,6 +112,9 @@ export default {
                 return;
             }
             this.files = files[0];
+        },
+        limpaErro(){
+          this.erro = '';
         }
     },
     components: { BotaoSalvar }

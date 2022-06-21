@@ -1,8 +1,11 @@
 <template>
     <div class="login-page">
         <div class="form">
+            <div class="alert alert-danger" role="alert" v-if="this.erro">
+                {{this.erro}}
+            </div>
             <h3 class="text-center pb-4"><strong>Cadastrar Projeto</strong></h3>
-            <form class="login">
+            <form class="login" @keyup="this.limpaErro()">
                 <div class="row">
                     <div class="form-group col-md-12">
                         <div class="label">
@@ -58,7 +61,7 @@
                                 
                 <div class="col-md-12 btn-cadastrar">
                     <BotaoSalvar @click="cadastrar(projeto)" />
-                </div>
+                </div>     
             </form>
         </div>
     </div>
@@ -70,6 +73,7 @@
     import { getLogado, isLogged } from '@/services/auth';    
     import { buscarInstituicao } from '@/util/buscaInstituicao';
     import BotaoSalvar from '@/components/BotaoSalvar.vue';
+
 
     export default {
     name: "form-projeto",
@@ -87,9 +91,12 @@
             },
             nomeInstituicao: "",
             idInstituicao: "",
+            erro: '',
         };
     },
     async mounted() {
+        this.erro= '';
+        this.showSuccess = false;
         if (!this.verificaLogado()) {
             this.$router.push("/projeto");
         }
@@ -106,12 +113,15 @@
         async cadastrar(projeto) {
             try {
                 await this.$crudProjeto.save(projeto);
-                alert("Projeto criado com sucesso!");
-                this.$router.push("/projeto");
+                this.$router.push("/projeto");      
             }
             catch (erro) {
-                alert(erro.response.data.message);
+                this.erro = erro.response.data.message
             }
+        },
+        limpaErro(){
+            console.log('asdad');
+            this.erro = '';
         },
         async mounted(){
             if (!this.verificaLogado()){

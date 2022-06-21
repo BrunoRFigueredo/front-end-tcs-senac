@@ -23,7 +23,7 @@
       <div class="row mt-2 mb-2">
         <div class="col">
           <span class="text-success">Whatsapp<p class="fw-bold text-success">{{instituicao.telefone}}</p></span>
-          <button @click="this.enviaMensagem(instituicao.telefone)" class="btn btn-success">Enviar mensagem</button>
+          <button @click="this.enviaMensagem(instituicao.telefone, 'Olá')" class="btn btn-success">Enviar mensagem</button>
         </div>
       </div>
       <br>
@@ -63,8 +63,8 @@ export default {
       this.instituicao = data;
       this.empty = true; 
     },
-    enviaMensagem(telefone){
-      enviaWhatsapp(telefone, 'testando envio de mensagem');
+    enviaMensagem(telefone, mensagem){
+      enviaWhatsapp(telefone, mensagem);
     },
     verificaLogado(){
       return isLogged();

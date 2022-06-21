@@ -1,10 +1,10 @@
 <template>
   <div class="login-page" id="instituicao-form">
     <div class="form">
-      <!-- <div class="header">
-        <p>Cadastro da Instituição</p>
-      </div> -->
-      <form class="login">
+      <form class="login" @keyup="this.limpaErro()">
+        <div class="alert alert-danger" role="alert" v-if="this.erro">
+          {{this.erro}}
+        </div>
         <div class="row">
           <span>*Informe <strong>exatamente</strong> os mesmos dados cadastrados na prefeitura.</span>
         </div>
@@ -193,6 +193,7 @@ export default {
       },
       maxEstado: 2,
       data: null,
+      erro: '',
     }
   },
   mounted() {
@@ -209,10 +210,8 @@ export default {
       try {
         await this.$crudInstituicao.save(instituicao)
         this.$router.push('/instituicao');
-        alert('Instituição cadastrada com sucesso!');
       } catch (error) {
         this.erro = error.response.data.message;
-        alert(this.erro);
       }
     },
     buscaEndereco(cep) {
@@ -229,13 +228,16 @@ export default {
           })
           .catch(erro => {
             (
-              alert('Erro ao carregar dados do endereço ' + erro.response.data.message)
+              console.log('Erro ao carregar dados do endereço ' + erro.response.data.message)
             )
           })
       }
     },
     verificaLogado() {
       return isLogged();
+    },
+    limpaErro(){
+      this.erro = '';
     }
   }
 }

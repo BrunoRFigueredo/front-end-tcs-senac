@@ -1,7 +1,10 @@
 <template>
   <div class="login-page">
     <div class="form">
-      <form class="login">
+      <div class="alert alert-danger" role="alert" v-if="this.erro">
+        {{this.erro}}
+      </div>
+      <form class="login" @keyup="this.limpaErro()">
         <div class="form-group">
           <div class="label">
             <label for="email">Email</label>
@@ -39,15 +42,15 @@ export default {
     async logar(){
       this.error = '';
       if (!this.usuario.email){
-        alert('Informe o email para logar');
+        this.erro = 'Informe o seu email!';
         return;
       }
       if (!this.usuario.senha){
-        alert('Informe a senha do usuário');
+        this.erro = 'Informe a sua senha!';
         return;
       }
       if (this.usuario.senha.length < 6){
-        alert('A senha deve conter 6 caracteres');
+        this.erro = 'A senha deve conter 6 caracteres!';
         return;
       }
       try{
@@ -56,10 +59,11 @@ export default {
         this.$router.push('/instituicao');
       }catch(error){
         this.erro = error.response.data.message;
-        alert(this.erro);
-        window.location.reload();
       }
     },
+    limpaErro(){
+      this.erro = '';
+    }
   }
 }
 </script>
