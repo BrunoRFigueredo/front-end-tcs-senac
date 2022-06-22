@@ -379,7 +379,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -539,6 +538,7 @@ export default {
     deletarInsumo(idInsumo) {
       try {
         this.$crudProjetoInsumo.remove(idInsumo);
+        this.carregarProjetoInsumos(idInsumo)
       } catch (erro) {
         this.erro = erro.response.data.message;
       }
