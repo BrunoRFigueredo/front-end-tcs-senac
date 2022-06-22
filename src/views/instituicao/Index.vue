@@ -82,8 +82,8 @@ export default {
       total: 0,
       totalPagina: 0,
       instituicaoUsuario: '',
-      idInstituicaoUsuario: 0,
-      idVoluntarioUsuario: 1
+      idInstituicaoUsuario: '',
+      idVoluntarioUsuario: ''
     }
   },
   async mounted() {
@@ -92,14 +92,15 @@ export default {
     this.$crudImagem = new CrudService('/usuario/');
     await this.verificaInstituicao(getLogado());
     this.carregarInstituicoes();
+    this.verificaInstituicaoVoluntario();
     this.$emit('logado');
   },
   methods: {
     verificaBotao() {
       if (this.verificaLogado()) {
-        if (this.idInstituicaoUsuario === 0){
+        if (!this.idInstituicaoUsuario && !this.idVoluntarioUsuario){
           return true;
-        };
+        } 
       }
     },
     async carregarInstituicoes() {
@@ -128,6 +129,17 @@ export default {
     enviaMensagem(telefone, mensagem) {
       enviaWhatsapp(telefone, mensagem);
     },
+    async verificaInstituicaoVoluntario(){
+      let idUsuario = getLogado();
+      try {
+        let dadosVoluntario = await buscarVoluntario(idUsuario);
+        this.idVoluntarioUsuario = dadosVoluntario.voluntario.id;
+        console.log(idVoluntarioUsuario);
+      } catch(erro){
+        console.log(erro.response.data.message);
+      }
+      
+    }
   }
 }
 </script>
