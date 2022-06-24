@@ -87,9 +87,9 @@ export default {
     }
   },
   async mounted() {
-    this.$crudInstituicao = new CrudService('/instituicao/');
-    this.$usuarioInstituicao = new CrudService('/instituicao/usuario/');
-    this.$crudImagem = new CrudService('/usuario/');
+    this.$crudInstituicao = new CrudService('https://gestao-projetos-sociais.herokuapp.com/instituicao/');
+    this.$usuarioInstituicao = new CrudService('https://gestao-projetos-sociais.herokuapp.com/instituicao/usuario/');
+    this.$crudImagem = new CrudService('https://gestao-projetos-sociais.herokuapp.com/usuario/');
     await this.verificaInstituicao(getLogado());
     this.carregarInstituicoes();
     this.verificaInstituicaoVoluntario();

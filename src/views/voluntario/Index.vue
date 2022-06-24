@@ -52,9 +52,9 @@ export default {
     }
   },
   async mounted() {
-    this.$crudVoluntario = new CrudService('/voluntario/');
-    this.$crudUsuario = new CrudService('/usuario/');
-    this.$usuarioVoluntario = new CrudService('/voluntario/usuario/');
+    this.$crudVoluntario = new CrudService('https://gestao-projetos-sociais.herokuapp.com/voluntario/');
+    this.$crudUsuario = new CrudService('https://gestao-projetos-sociais.herokuapp.com/usuario/');
+    this.$usuarioVoluntario = new CrudService('https://gestao-projetos-sociais.herokuapp.com/voluntario/usuario/');
     this.$emit('logado');
     await this.listarVoluntarios();
     await this.verificaVoluntario(getLogado());

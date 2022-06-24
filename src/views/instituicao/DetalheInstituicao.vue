@@ -53,7 +53,7 @@ export default {
     }
   },
   async mounted(){
-    this.$crudInstituicao = new CrudService(`/instituicao/`);
+    this.$crudInstituicao = new CrudService(`https://gestao-projetos-sociais.herokuapp.com/instituicao/`);
     this.carregarInstituicao(this.id);
     this.$emit('logado');
   },

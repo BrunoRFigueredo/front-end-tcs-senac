@@ -80,7 +80,7 @@ export default {
     }
     else {
       let idUsuarioLogado = getLogado();
-      this.$crudServico = new CrudService("/servico/");
+      this.$crudServico = new CrudService("https://gestao-projetos-sociais.herokuapp.com/servico/");
       if (this.$route.params.id) {
         this.carregaServico(this.$route.params.id);
       }

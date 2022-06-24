@@ -22,7 +22,7 @@ export default {
   async mounted() {
     let idUsuarioLogado = getLogado();
     let dados = await buscarInstituicao(idUsuarioLogado);
-    this.$crudServicoInstituicao = new CrudService('/servico/instituicao/' + dados.instituicao.id)
+    this.$crudServicoInstituicao = new CrudService('https://gestao-projetos-sociais.herokuapp.com/servico/instituicao/' + dados.instituicao.id)
     const {data} = await this.$crudServicoInstituicao.findAll({});
     this.data = data.conteudo;
   }

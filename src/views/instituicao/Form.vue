@@ -198,11 +198,11 @@ export default {
   },
   mounted() {
     if (!this.verificaLogado()) {
-      this.$router.push('/instituicao');
+      this.$router.push('https://gestao-projetos-sociais.herokuapp.com/instituicao');
     } else {
       this.$emit('logado');
-      this.$crudInstituicao = new CrudService('/instituicao/');
-      this.$crudUsuario = new CrudService('/usuario/');
+      this.$crudInstituicao = new CrudService('https://gestao-projetos-sociais.herokuapp.com/instituicao/');
+      this.$crudUsuario = new CrudService('https://gestao-projetos-sociais.herokuapp.com/usuario/');
     }
   },
   methods: {
