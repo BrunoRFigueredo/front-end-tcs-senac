@@ -22,7 +22,7 @@ import { buscarInstituicao } from '@/util/buscaInstituicao';
         async mounted(){
             let idUsuarioLogado = getLogado();
             let dados = await buscarInstituicao(idUsuarioLogado);
-            this.$crudInsumoInstituicao = new CrudService('https://gestao-projetos-sociais.herokuapp.com/insumo/instituicao/' + dados.instituicao.id)
+            this.$crudInsumoInstituicao = new CrudService('http://34.151.224.90:8080/insumo/instituicao/' + dados.instituicao.id)
             const {data} = await this.$crudInsumoInstituicao.findAll({});
             this.data = data.conteudo;
         }

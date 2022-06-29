@@ -86,8 +86,8 @@ export default {
     if (this.estaLogado()) {
       let idUsuarioLogado = getLogado();
       let dados = await buscarInstituicao(idUsuarioLogado);
-      this.$crudServico = new CrudService('https://gestao-projetos-sociais.herokuapp.com/servico/');
-      this.$crudServicoInstituicao = new CrudService('https://gestao-projetos-sociais.herokuapp.com/servico/instituicao/' + dados.instituicao.id)
+      this.$crudServico = new CrudService('http://34.151.224.90:8080/servico/');
+      this.$crudServicoInstituicao = new CrudService('http://34.151.224.90:8080/servico/instituicao/' + dados.instituicao.id)
       this.carregarServico();
       this.$emit('logado');
     } else {

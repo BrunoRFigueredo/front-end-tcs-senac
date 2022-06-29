@@ -31,7 +31,7 @@ export async function updatePassword (passwords) {
 }
 
 export async function getProfile() {
-  const { data } = await getClient().get('https://gestao-projetos-sociais.herokuapp.com/usuario/')
+  const { data } = await getClient().get('http://34.151.224.90:8080/usuario/')
   return data
 }
 

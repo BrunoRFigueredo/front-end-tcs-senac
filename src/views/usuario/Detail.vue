@@ -42,7 +42,7 @@ export default {
   },
   async created(){
     if (this.estaLogado()) {
-      await api.get(`https://gestao-projetos-sociais.herokuapp.com/usuario/${this.id}`).then(r => {
+      await api.get(`http://34.151.224.90:8080/usuario/${this.id}`).then(r => {
       this.usuario = r.data;
       })
     } else {
@@ -52,7 +52,7 @@ export default {
   },
   methods:{
     atualizar(id){
-      api.put(`https://gestao-projetos-sociais.herokuapp.com/usuario/${id}`, this.usuario);
+      api.put(`http://34.151.224.90:8080/usuario/${id}`, this.usuario);
     },
     estaLogado(){
       return isLogged();

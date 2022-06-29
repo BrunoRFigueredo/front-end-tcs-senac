@@ -4,7 +4,7 @@ import router from '@/router'
 export async function buscarVoluntario(idUsuario) {
     let voluntario = {};
 
-    await api.get('https://gestao-projetos-sociais.herokuapp.com/voluntario/usuario/' + idUsuario)
+    await api.get('http://34.151.224.90:8080/voluntario/usuario/' + idUsuario)
         .then(response => {
             voluntario = {id: response.data.id, nome: response.data.nome};
         }).catch(error => {

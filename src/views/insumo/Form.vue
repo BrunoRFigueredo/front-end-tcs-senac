@@ -102,11 +102,11 @@ export default {
   },
   async mounted() {
     this.$emit('logado');
-    this.$crudInsumo = new CrudService('https://gestao-projetos-sociais.herokuapp.com/insumo/');
+    this.$crudInsumo = new CrudService('http://34.151.224.90:8080/insumo/');
     //
     let idUsuarioLogado = getLogado();
     const dados = await buscarInstituicao(idUsuarioLogado);
-    this.$getCategoriaInstituicao = new CrudService('https://gestao-projetos-sociais.herokuapp.com/categoria/instituicao/' + dados.instituicao.id);
+    this.$getCategoriaInstituicao = new CrudService('http://34.151.224.90:8080/categoria/instituicao/' + dados.instituicao.id);
     this.insumo.instituicao = dados.instituicao.id;
     this.nomeInstituicao = dados.instituicao.nome;
     //

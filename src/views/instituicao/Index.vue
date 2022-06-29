@@ -87,9 +87,9 @@ export default {
     }
   },
   async mounted() {
-    this.$crudInstituicao = new CrudService('https://gestao-projetos-sociais.herokuapp.com/instituicao/');
-    this.$usuarioInstituicao = new CrudService('https://gestao-projetos-sociais.herokuapp.com/instituicao/usuario/');
-    this.$crudImagem = new CrudService('https://gestao-projetos-sociais.herokuapp.com/usuario/');
+    this.$crudInstituicao = new CrudService('http://34.151.224.90:8080/instituicao/');
+    this.$usuarioInstituicao = new CrudService('http://34.151.224.90:8080/instituicao/usuario/');
+    this.$crudImagem = new CrudService('http://34.151.224.90:8080/usuario/');
     await this.verificaInstituicao(getLogado());
     this.carregarInstituicoes();
     this.verificaInstituicaoVoluntario();
