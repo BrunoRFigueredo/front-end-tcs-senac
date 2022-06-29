@@ -72,8 +72,8 @@ export default {
         };
     },
     mounted() {
-        this.$crudUsuario = new CrudService("https://gestao-projetos-sociais.herokuapp.com/usuario/");
-        this.$crudImagem = new CrudService("https://gestao-projetos-sociais.herokuapp.com/imagem/");
+        this.$crudUsuario = new CrudService("http://34.95.198.36:3333/usuario/");
+        this.$crudImagem = new CrudService("http://34.95.198.36:3333/imagem/");
     },
     methods: {
         async cadastrar(usuario) {

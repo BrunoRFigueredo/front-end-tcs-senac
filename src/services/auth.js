@@ -2,7 +2,7 @@ import { getClient } from './http'
 
 export async function login (email, password) {
   const client = getClient()
-  const { data } = await client.post('https://gestao-projetos-sociais.herokuapp.com/login/', {
+  const { data } = await client.post('http://34.95.198.36:3333/login/', {
     email,
     password
   })
@@ -22,11 +22,11 @@ export function getLogado(){
 }
 
 export async function saveProfile (profile) {
-  const { data } = await getClient().post('https://gestao-projetos-sociais.herokuapp.com/usuario/criar-usuario', profile)
+  const { data } = await getClient().post('http://34.95.198.36:3333/criar-usuario', profile)
   return data
 }
 export async function updatePassword (passwords) {
-  const { data } = await getClient().put('https://gestao-projetos-sociais.herokuapp.com/@me/password', passwords)
+  const { data } = await getClient().put('http://34.95.198.36:3333/@me/password', passwords)
   return data
 }
 

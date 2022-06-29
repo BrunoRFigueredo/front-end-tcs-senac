@@ -6,7 +6,7 @@ export function getClient(auxHeaders = {}) {
   headers = { ...headers, ...auxHeaders }
 
   const client = axios.create({
-    baseURL: 'https://gestao-projetos-sociais.herokuapp.com',
+    baseURL: 'http://34.95.198.36:3333',
     headers
   })
 
