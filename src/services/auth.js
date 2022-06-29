@@ -2,7 +2,7 @@ import { getClient } from './http'
 
 export async function login (email, password) {
   const client = getClient()
-  const { data } = await client.post('http://34.95.198.36:3333/login/', {
+  const { data } = await client.post('http://34.151.224.90:8080/login/', {
     email,
     password
   })
@@ -22,11 +22,11 @@ export function getLogado(){
 }
 
 export async function saveProfile (profile) {
-  const { data } = await getClient().post('http://34.95.198.36:3333/criar-usuario', profile)
+  const { data } = await getClient().post('http://34.151.224.90:8080/criar-usuario', profile)
   return data
 }
 export async function updatePassword (passwords) {
-  const { data } = await getClient().put('http://34.95.198.36:3333/@me/password', passwords)
+  const { data } = await getClient().put('http://34.151.224.90:8080/@me/password', passwords)
   return data
 }
 
