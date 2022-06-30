@@ -6,7 +6,7 @@ export function getClient(auxHeaders = {}) {
   headers = { ...headers, ...auxHeaders }
 
   const client = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://34.151.224.90:8080',
     headers
   })
 

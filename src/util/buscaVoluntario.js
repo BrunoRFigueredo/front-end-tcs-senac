@@ -1,10 +1,10 @@
-import api from "axios";
+import api from "@/services/api";
 import router from '@/router'
 
 export async function buscarVoluntario(idUsuario) {
     let voluntario = {};
 
-    await api.get('http://localhost:8080/voluntario/usuario/' + idUsuario)
+    await api.get('/voluntario/usuario/' + idUsuario)
         .then(response => {
             voluntario = {id: response.data.id, nome: response.data.nome};
         }).catch(error => {
