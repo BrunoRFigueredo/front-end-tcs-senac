@@ -52,9 +52,9 @@ export default {
     }
   },
   async mounted() {
-    this.$crudVoluntario = new CrudService('http://34.151.224.90:8080voluntario/');
-    this.$crudUsuario = new CrudService('http://34.151.224.90:8080usuario/');
-    this.$usuarioVoluntario = new CrudService('http://34.151.224.90:8080voluntario/usuario/');
+    this.$crudVoluntario = new CrudService('http://34.151.224.90:8080/voluntario/');
+    this.$crudUsuario = new CrudService('http://34.151.224.90:8080/usuario/');
+    this.$usuarioVoluntario = new CrudService('http://34.151.224.90:8080/voluntario/usuario/');
     this.$emit('logado');
     await this.listarVoluntarios();
     await this.verificaVoluntario(getLogado());
