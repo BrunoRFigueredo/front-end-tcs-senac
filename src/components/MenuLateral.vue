@@ -1,93 +1,40 @@
 <template >
-  <!--<div class="area">
-    <nav class="main-menu">
-        <ul>
-            <li class="" v-if="permissao(['NORMAL', 'ADMIN'])">
-                <router-link to="/instituicao">
-                    <i class="fa fa-home fa-2x bg-dark text-white"></i>
-                    <span class="nav-text bg-dark text-white">
-                        Instituições
-                    </span>
-                </router-link>
-            </li>
-            <li class="has-subnav ">
-                <router-link to="/projeto">
-                    <i class="fa fa-laptop fa-2x bg-dark text-white"></i>
-                    <span class="nav-text bg-dark text-white">
-                        Projetos
-                    </span>
-                </router-link>
-            </li>
-            <li class="has-subnav " v-if="permissao(['ADMIN'])">
-                <router-link to="/servicos">
-                <i class="fa fa-list fa-2x bg-dark text-white"></i>
-                    <span class="nav-text bg-dark text-white">
-                        Serviços
-                    </span>
-                </router-link>
-            </li>
-            <li class="has-subnav ">
-                <router-link to="/voluntario">
-                <i class="fa fa-list fa-2x bg-dark text-white"></i>
-                    <span class="nav-text bg-dark text-white">
-                        Voluntários
-                    </span>
-                </router-link>
-            </li>
-            <li class="has-subnav ">
-                <router-link to="/categoria">
-                <i class="fa fa-list fa-2x bg-dark text-white"></i>
-                    <span class="nav-text bg-dark text-white">
-                        Categoria
-                    </span>
-                </router-link>
-            </li>
-        </ul>
-        <ul class="logout">
-            <li>
-              <router-link to="/">
-                <i class="fa fa-power-off fa-2x bg-dark text-white"></i>
-                <span class="nav-text bg-dark text-white" @click="sair()">
-                  Logout
-                </span>
-              </router-link>
-            </li>  
-        </ul>
-    </nav>
-  </div>-->
   <input type="checkbox" id="check">
       <label for="check">
         <i class="fas fa-bars" id="btn"></i>
         <i class="fas fa-times" id="cancel"></i>
       </label>
   <div class="sidebar">
-    <header>Menu</header>
+    <header>
+      <span class="sidebar-icon"><i class="fas fa-hands-helping"></i></span>
+      Menu
+    </header>
     <router-link to="/instituicao" class="active">
-      <i class="fas fa-qrcode p-2"></i>
-      <span>Instituição</span>
+      <i class="fas fa-building p-2"></i>
+      <span>Instituicao</span>
     </router-link>
     <router-link to="/projeto" class="active">
-      <i class="fas fa-qrcode p-2"></i>
+      <i class="fas fa-project-diagram p-2"></i>
       <span>Projetos</span>
     </router-link>
     <router-link to="/servicos" class="active" v-if="permissao(['INSTITUICAO'])">
-      <i class="fas fa-qrcode p-2"></i>
-      <span>Serviços</span>
+      <i class="fas fa-concierge-bell p-2"></i>
+      <span>Servicos</span>
     </router-link>
     <router-link to="/voluntario" class="active">
-      <i class="fas fa-qrcode p-2"></i>
-      <span>Voluntario</span>
+      <i class="fas fa-users p-2"></i>
+      <span>Voluntarios</span>
     </router-link>
     <router-link to="/categoria" class="active" v-if="permissao(['INSTITUICAO'])">
-      <i class="fas fa-qrcode p-2"></i>
-      <span>Categoria</span>
+      <i class="fas fa-tags p-2"></i>
+      <span>Categorias</span>
     </router-link>
     <router-link to="/insumo" class="active" v-if="permissao(['INSTITUICAO'])">
-      <i class="fas fa-qrcode p-2"></i>
-      <span>Insumo</span>
+      <i class="fas fa-box-open p-2"></i>
+      <span>Insumos</span>
     </router-link>
-    <router-link to="/" class="active" @click="sair()">
-      <i class="fa fa-power-off p-2"></i>
+    <router-link to="/" class="active logout-link" @click="sair()">
+      <i class="fas fa-sign-out-alt p-2"></i>
       <span>Logout</span>
     </router-link>
   </div>
@@ -99,7 +46,7 @@ import { isLogged, logout } from "@/services/auth";
 
 export default {
   name: "index-logado",
-  
+
   methods: {
     permissao(roles) {
       return permit(roles);
@@ -120,50 +67,94 @@ export default {
   .sidebar{
     top: 0;
     position: fixed;
-    width: 240px;
-    left: -240px;
+    width: 260px;
+    left: -260px;
     height: 100%;
-    background: #1e1e1e;
-    transition: all .5s ease;
+    background: var(--gray-900);
+    transition: all .35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 99;
     text-decoration: none;
+    box-shadow: var(--shadow-xl);
+    overflow-y: auto;
   }
 
   .sidebar header{
-    font-size: 28px;
-    color: #fff;
-    line-height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 64px;
     text-align: center;
-    background: #1b1b1b;
+    background: var(--gray-800);
     user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .sidebar-icon {
+    background: var(--primary);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
   }
 
   .sidebar a{
-    display: block;
-    height: 65px;
+    display: flex;
+    align-items: center;
+    height: 52px;
     width: 100%;
-    color: #fff;
-    line-height: 65px;
-    padding-left: 30px;
+    color: var(--gray-300);
+    padding-left: 24px;
     box-sizing: border-box;
-    border-bottom: 1px solid #000;
-    border-top: 1px solid rgba(255, 255, 255, .1);
-    border-left: 5px solid transparent;
-    transition: all 0.5 ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease;
     text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
   }
 
-  a.active, a:hover{
-    border-left: 5px solid #b912;
-    color: #b939;
-    z-index: 100;
+  .sidebar a:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+    border-left: 3px solid var(--primary);
+  }
+
+  .sidebar a i {
+    width: 24px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--gray-400);
+    transition: var(--transition);
+  }
+
+  .sidebar a:hover i {
+    color: var(--primary);
   }
 
   .sidebar a span{
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: white;
+    letter-spacing: 0.3px;
+    color: inherit;
     text-decoration: none;
+  }
+
+  .logout-link {
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .logout-link:hover {
+    border-left-color: var(--danger) !important;
+  }
+
+  .logout-link:hover i {
+    color: var(--danger) !important;
   }
 
   #check{
@@ -173,17 +164,24 @@ export default {
   label #btn, label #cancel{
     position: absolute;
     cursor: pointer;
-    color: #fff;
-    border-radius: 5px;
-    border: 1px solid #262626;
-    margin: 15px 30px;
-    font-size: 28px;
-    background: #262626;
-    height: 45px;
-    width: 45px;
+    color: var(--white);
+    border-radius: var(--radius);
+    border: none;
+    margin: 14px 20px;
+    font-size: 20px;
+    background: var(--gray-800);
+    height: 40px;
+    width: 40px;
     text-align: center;
-    line-height: 45px;
-    transition: all .5s ease;
+    line-height: 40px;
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+    z-index: 100;
+  }
+
+  label #btn:hover, label #cancel:hover {
+    background: var(--primary);
+    transform: scale(1.05);
   }
 
   label #cancel{
@@ -195,55 +193,14 @@ export default {
   }
 
   #check:checked ~ label #btn{
-    margin-left: 245px;
+    margin-left: 265px;
     opacity: 0;
     visibility: hidden;
   }
 
   #check:checked ~ label #cancel {
-    margin-left: 245px;
+    margin-left: 265px;
     visibility: visible;
-    z-index: 98;
+    z-index: 100;
   }
-  
-  /* @media(max-width: 860px){
-    .sidebar{
-      top: -80px;
-      height: auto;
-      width: 60px;
-      left: 0;
-      margin: 80px 0;
-    }
-
-    header, #btn, #cancel{
-      display: none;
-    }
-
-    a i{
-      margin: -20px;
-    }
-
-    span{
-      visibility: hidden;
-    }
-
-    .sidebar router-link {
-      height: 60px;
-    }
-
-    .sidebar router-link i{
-      margin-left: 5px;
-    }
-
-    router-link:hover{
-      width: 200px;
-      background: inherit;
-    }
-
-    .sidebar router-link:hover span{
-      opacity: 1;
-      visibility: visible;
-    }
-  } */
-
 </style>

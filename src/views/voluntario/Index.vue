@@ -1,31 +1,40 @@
 <template>
-  <div class="btn-voluntario" v-if="this.verificaBotao()">
-    <router-link to="/cadastrar-voluntario">
-      <button class="btn-vincular">
-        Tornar-se voluntário
-      </button>
-    </router-link>
-  </div>
-  <div class="container">
-    <div class="containerCardTotal">
-      <div id="index-voluntary" class="w-25 containerCards mt-4" v-for="volun in voluntarios" :key="volun.id">
-        <div class="card">
+  <div class="page-container">
+    <div class="page-header">
+      <div>
+        <h2 class="page-title">Voluntarios</h2>
+        <p class="page-subtitle">Pessoas que dedicam seu tempo para transformar vidas</p>
+      </div>
+      <router-link to="/cadastrar-voluntario" v-if="this.verificaBotao()">
+        <button class="btn-vincular">
+          <i class="fas fa-hand-holding-heart"></i>
+          Tornar-se voluntario
+        </button>
+      </router-link>
+    </div>
+
+    <div class="volunteers-grid">
+      <div class="volunteer-card" v-for="volun in voluntarios" :key="volun.id">
+        <div class="volunteer-avatar">
           <img :src="'data:image.' + volun.usuario.imagem.fileType.split('/')[1] + ';base64,' + volun.usuario.imagem.file"
-            alt="Logo" class="card__image">
-          <p class="card__name">{{ volun.usuario.nome }}</p>
-          <p>Cidade: {{ volun.cidade }}</p>
-          <router-link :to="`/voluntario/${volun.id}`" class="btn draw-border">Visualizar</router-link>
+            alt="Logo">
         </div>
+        <h3 class="volunteer-name">{{ volun.usuario.nome }}</h3>
+        <div class="volunteer-info">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>{{ volun.cidade }}</span>
+        </div>
+        <router-link :to="`/voluntario/${volun.id}`" class="volunteer-link">
+          Visualizar
+          <i class="fas fa-arrow-right"></i>
+        </router-link>
       </div>
     </div>
-    <div class="row">
-      <div class="h5 col-md">
-        Página {{ paginaDesejada }} de {{ totalPagina }}
-      </div>
-      <div class="col-md">
-        <v-pagination v-model="paginaDesejada" :pages="totalPagina" :range-size="tamanhoPagina" :hideFirstButton="true"
-          :hideLastButton="true" active-color="#DCEDFF" @update:modelValue="listarVoluntarios" />
-      </div>
+
+    <div class="pagination-container">
+      <span class="pagination-info">Pagina {{ paginaDesejada }} de {{ totalPagina }}</span>
+      <v-pagination v-model="paginaDesejada" :pages="totalPagina" :range-size="tamanhoPagina" :hideFirstButton="true"
+        :hideLastButton="true" active-color="#dbeafe" @update:modelValue="listarVoluntarios" />
     </div>
   </div>
 </template>
@@ -103,195 +112,157 @@ export default {
 </script>
 
 <style scoped>
-.containerCardTotal {
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
 }
 
-.containerCards {
-  justify-content: center;
-  align-items: center;
-  display: inline-flex;
+.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gray-900);
+  margin: 0 0 4px;
 }
 
-.card {
-  background-color: #222831;
-  height: 410px;
-  border-radius: 5px;
-  align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.7);
-  color: white;
-  margin-bottom: 30%;
-
-}
-
-.card__name {
-  margin-top: 15px;
-  font-size: 1.5em;
-  color: #fff;
-}
-
-.card__image {
-  height: 160px;
-  width: 160px;
-  border-radius: 50%;
-  border: 1px solid #272133;
-  margin-top: 20px;
-  box-shadow: 0 0 20px rgb(252, 252, 252, 1);
-}
-
-.draw-border {
-  box-shadow: inset 0 0 0 4px #58cdd1;
-  color: #58afd1;
-  -webkit-transition: color 0.25s 0.0833333333s;
-  transition: color 0.25s 0.0833333333s;
-  position: relative;
-}
-
-.draw-border::before,
-.draw-border::after {
-  border: 0 solid transparent;
-  box-sizing: border-box;
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  width: 0rem;
-  height: 0;
-  bottom: 0;
-  right: 0;
-}
-
-.draw-border::before {
-  border-bottom-width: 4px;
-  border-left-width: 4px;
-}
-
-.draw-border::after {
-  border-top-width: 4px;
-  border-right-width: 4px;
-}
-
-.draw-border:hover {
-  color: #fff;
-}
-
-.draw-border:hover::before,
-.draw-border:hover::after {
-  border-color: #fff;
-  -webkit-transition: border-color 0s, width 0.25s, height 0.25s;
-  transition: border-color 0s, width 0.25s, height 0.25s;
-  width: 100%;
-  height: 100%;
-}
-
-.draw-border:hover::before {
-  -webkit-transition-delay: 0s, 0s, 0.25s;
-  transition-delay: 0s, 0s, 0.25s;
-}
-
-.draw-border:hover::after {
-  -webkit-transition-delay: 0s, 0.25s, 0s;
-  transition-delay: 0s, 0.25s, 0s;
-}
-
-.btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  line-height: 1.5;
-  font: 700 1.2rem 'Roboto Slab', sans-serif;
-  padding: 0.75em 2em;
-  letter-spacing: 0.05rem;
-  margin: 1em;
-  width: 13rem;
-}
-
-.btn:focus {
-  outline: 2px dotted #55d7dc;
-}
-
-.social-icons {
-  padding: 0;
-  list-style: none;
-  margin: 1em;
-}
-
-.social-icons li {
-  display: inline-block;
-  margin: 0.15em;
-  position: relative;
-  font-size: 1em;
-}
-
-.social-icons i {
-  color: #fff;
-  position: absolute;
-  top: 0.95em;
-  left: 0.96em;
-  transition: all 265ms ease-out;
-}
-
-.social-icons a {
-  display: inline-block;
-}
-
-.social-icons a:before {
-  transform: scale(1);
-  -ms-transform: scale(1);
-  -webkit-transform: scale(1);
-  content: " ";
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
-  display: block;
-  background: linear-gradient(45deg, #ff003c, #c648c8);
-  transition: all 265ms ease-out;
-}
-
-.social-icons a:hover:before {
-  transform: scale(0);
-  transition: all 265ms ease-in;
-}
-
-.social-icons a:hover i {
-  transform: scale(2.2);
-  -ms-transform: scale(2.2);
-  -webkit-transform: scale(2.2);
-  color: #ff003c;
-  background: -webkit-linear-gradient(45deg, #ff003c, #c648c8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: all 265ms ease-in;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-  font-size: 1.2em;
+.page-subtitle {
+  color: var(--gray-500);
+  font-size: 15px;
+  margin: 0;
 }
 
 .btn-vincular {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 13%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--secondary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
   font-size: 14px;
-  /* -webkit-transition: all 0.3 ease; */
-  transition: all 0.3 ease;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 5px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 
-.btn-voluntario {
-  border: none;
-  text-align: right;
-  margin: 10px;
-  font-family: Arial, Helvetica, sans-serif;
+.btn-vincular:hover {
+  background: var(--secondary-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.volunteers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.volunteer-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 32px 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-100);
+  text-align: center;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.volunteer-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.volunteer-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 16px;
+  border: 3px solid var(--primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.volunteer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.volunteer-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0 0 8px;
+}
+
+.volunteer-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--gray-500);
+  margin-bottom: 20px;
+}
+
+.volunteer-info i {
+  color: var(--gray-400);
+  font-size: 13px;
+}
+
+.volunteer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: var(--primary);
+  color: var(--white) !important;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.volunteer-link:hover {
+  background: var(--primary-dark);
+  box-shadow: var(--shadow-md);
+  color: var(--white) !important;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 20px 0;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .volunteers-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

@@ -1,63 +1,63 @@
 <template>
-<div class="btn-instituicao" >
-  <router-link to="/cadastro-instituicao">
-    <button class="btn-vincular" type="button" v-if="this.verificaBotao()">
-      Vincular-se a uma Instituição
-    </button>
-  </router-link>
-</div>
-<section class="wrapper">
-  <div class="content">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-4" v-for="instituicao in instituicoes.conteudo" :key="instituicao.id">
-          <div class="card">
-            <router-link :to="`/instituicao/${instituicao.id}`">
-              <a class="img-card">
-                <img :src="'data:image.'+ instituicao.usuario.imagem.fileType.split('/')[1] +';base64,' + instituicao.usuario.imagem.file" alt="Logo">
-              </a>
-            </router-link>
-            <div class="card-content">
-              <h4 class="card-title">
-                <router-link :to="`/instituicao/${instituicao.id}`">
-                  <a>{{instituicao.nome}}</a>
-                </router-link> 
-              </h4>
-              <div>
-                <a>Email: {{instituicao.email}}</a>
-              </div>
-              <div>
-                <a>CNPJ: {{instituicao.cnpj}}</a>
-              </div>
-              <div>
-                <a>Telefone: {{instituicao.telefone}}</a>
-                <span @click="this.enviaMensagem(instituicao.telefone, 'Olá!')"> - <img src="../../assets/whatsapp.png" width="20" alt=""></span>
-              </div>
-            </div>
-          </div>
-      </div>            
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Instituicoes</h2>
+      <p class="page-subtitle">Conheca as organizacoes que fazem a diferenca</p>
     </div>
-    <div class="row"> 
-        <div class="h5 col-md">
-            Página {{ paginaDesejada }} de {{ totalPagina }}
-          </div>
-          <div class="col-md">
-            <v-pagination
-              v-model="paginaDesejada"
-              :pages="totalPagina"
-              :range-size="tamanhoPagina"
-              :hideFirstButton="true"
-              :hideLastButton="true"
-              active-color="#DCEDFF"
-              @update:modelValue="carregarInstituicoes"
-            />
-          </div>
-        </div>    
-     </div>
+    <router-link to="/cadastro-instituicao" v-if="this.verificaBotao()">
+      <button class="btn-vincular" type="button">
+        <i class="fas fa-plus"></i>
+        Vincular-se a uma Instituicao
+      </button>
+    </router-link>
   </div>
-</section>
 
+  <div class="cards-grid">
+    <div class="inst-card" v-for="instituicao in instituicoes.conteudo" :key="instituicao.id">
+      <router-link :to="`/instituicao/${instituicao.id}`" class="card-image-link">
+        <div class="card-image">
+          <img :src="'data:image.'+ instituicao.usuario.imagem.fileType.split('/')[1] +';base64,' + instituicao.usuario.imagem.file" alt="Logo">
+        </div>
+      </router-link>
+      <div class="card-body">
+        <router-link :to="`/instituicao/${instituicao.id}`">
+          <h3 class="card-name">{{instituicao.nome}}</h3>
+        </router-link>
+        <div class="card-info">
+          <div class="info-row">
+            <i class="fas fa-envelope"></i>
+            <span>{{instituicao.email}}</span>
+          </div>
+          <div class="info-row">
+            <i class="fas fa-id-card"></i>
+            <span>{{instituicao.cnpj}}</span>
+          </div>
+          <div class="info-row">
+            <i class="fas fa-phone"></i>
+            <span>{{instituicao.telefone}}</span>
+            <span class="whatsapp-btn" @click="this.enviaMensagem(instituicao.telefone, 'Ola!')">
+              <img src="../../assets/whatsapp.png" width="18" alt="WhatsApp">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="pagination-container">
+    <span class="pagination-info">Pagina {{ paginaDesejada }} de {{ totalPagina }}</span>
+    <v-pagination
+      v-model="paginaDesejada"
+      :pages="totalPagina"
+      :range-size="tamanhoPagina"
+      :hideFirstButton="true"
+      :hideLastButton="true"
+      active-color="#dbeafe"
+      @update:modelValue="carregarInstituicoes"
+    />
+  </div>
+</div>
 </template>
 
 <script>
@@ -100,7 +100,7 @@ export default {
       if (this.verificaLogado()) {
         if (!this.idInstituicaoUsuario && !this.idVoluntarioUsuario){
           return true;
-        } 
+        }
       }
     },
     async carregarInstituicoes() {
@@ -138,156 +138,174 @@ export default {
       } catch(erro){
         console.log(erro.response.data.message);
       }
-      
     }
   }
 }
 </script>
 
 <style scoped>
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
-
-html,
-body {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  background: #FFF;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.contato {
-  text-align: center;
-}
-
-.wrapper {
-  display: table;
-  height: 100%;
-  width: 100%;
-}
-
-.container-fostrap {
-  display: table-cell;
-  padding: 1em;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.fostrap-logo {
-  width: 100px;
-  margin-bottom: 15px
-}
-
-h1.heading {
-  color: #fff;
-  font-size: 1.15em;
-  font-weight: 900;
-  margin: 0 0 0.5em;
-  color: #505050;
-}
-
-@media (min-width: 450px) {
-  h1.heading {
-    font-size: 3.55em;
-  }
-}
-
-@media (min-width: 760px) {
-  h1.heading {
-    font-size: 3.05em;
-  }
-}
-
-@media (min-width: 900px) {
-  h1.heading {
-    font-size: 3.25em;
-    margin: 0 0 0.3em;
-  }
-}
-
-.card {
-  display: block;
-  margin-bottom: 20px;
-  line-height: 1.42857143;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  transition: box-shadow .25s;
-}
-
-.card:hover {
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.img-card {
-  width: 100%;
-  height: 200px;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  display: block;
-  overflow: hidden;
-}
-
-.img-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: all .25s ease;
-}
-
-.card-content {
-  padding: 15px;
-  text-align: left;
-}
-
-.card-title {
-  margin-top: 0px;
-  font-weight: 700;
-  font-size: 1.65em;
-}
-
-.card-title a {
-  color: #000;
-  text-decoration: none !important;
-}
-
-.card-read-more {
-  border-top: 1px solid #D4D4D4;
-}
-
-.card-read-more a {
-  text-decoration: none !important;
-  padding: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
+.page-header {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
 }
 
-.btn-instituicao {
-  border: none;
-  text-align: right;
-  margin: 10px;
-  font-family: Arial, Helvetica, sans-serif;
+.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gray-900);
+  margin: 0 0 4px;
 }
+
+.page-subtitle {
+  color: var(--gray-500);
+  font-size: 15px;
+  margin: 0;
+}
+
 .btn-vincular {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: #4CAF50;
-    width: 20%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    /* -webkit-transition: all 0.3 ease; */
-    transition: all 0.3 ease;
-    cursor: pointer;
-    border-radius: 5px;
-    }
-  .card-content a{
-    color: black;
-  }
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--secondary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
 
+.btn-vincular:hover {
+  background: var(--secondary-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.inst-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-100);
+  transition: var(--transition);
+}
+
+.inst-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.card-image-link {
+  text-decoration: none;
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--gray-100);
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.inst-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0 0 12px;
+}
+
+.card-name:hover {
+  color: var(--primary);
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--gray-600);
+}
+
+.info-row i {
+  color: var(--gray-400);
+  width: 16px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.info-row span {
+  color: var(--gray-600);
+}
+
+.whatsapp-btn {
+  cursor: pointer;
+  margin-left: 4px;
+  transition: var(--transition);
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.2);
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 20px 0;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
