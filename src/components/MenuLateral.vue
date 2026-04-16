@@ -11,7 +11,7 @@
     </header>
     <router-link to="/instituicao" class="active">
       <i class="fas fa-building p-2"></i>
-      <span>Instituicao</span>
+      <span>Instituição</span>
     </router-link>
     <router-link to="/projeto" class="active">
       <i class="fas fa-project-diagram p-2"></i>
@@ -19,11 +19,11 @@
     </router-link>
     <router-link to="/servicos" class="active" v-if="permissao(['INSTITUICAO'])">
       <i class="fas fa-concierge-bell p-2"></i>
-      <span>Servicos</span>
+      <span>Serviços</span>
     </router-link>
     <router-link to="/voluntario" class="active">
       <i class="fas fa-users p-2"></i>
-      <span>Voluntarios</span>
+      <span>Voluntários</span>
     </router-link>
     <router-link to="/categoria" class="active" v-if="permissao(['INSTITUICAO'])">
       <i class="fas fa-tags p-2"></i>

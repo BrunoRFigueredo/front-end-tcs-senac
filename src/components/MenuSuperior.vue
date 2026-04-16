@@ -12,7 +12,7 @@
         </div>
         <ul class="nav-links">
           <li><router-link to="/sobre">Quem somos</router-link></li>
-          <li><router-link to="/instituicao">Instituicoes</router-link></li>
+          <li><router-link to="/instituicao">Instituições</router-link></li>
           <li><router-link to="/projeto">Projetos</router-link></li>
         </ul>
         <div class="nav-actions">

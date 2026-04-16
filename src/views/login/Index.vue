@@ -22,7 +22,7 @@
         </div>
         <button @click="logar()" type="submit" class="btn-submit">Entrar</button>
         <router-link to="/usuario-register">
-          <p class="message">Ainda nao esta registrado? <span class="link-accent">Criar conta</span></p>
+          <p class="message">Ainda não está registrado? <span class="link-accent">Criar conta</span></p>
         </router-link>
       </form>
     </div>

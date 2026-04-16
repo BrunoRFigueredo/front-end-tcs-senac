@@ -4,11 +4,11 @@
       <div class="hero-content">
         <div class="hero-text">
           <span class="hero-badge">Transformando vidas</span>
-          <h1>Conectando pessoas a projetos que fazem a diferenca</h1>
-          <p>Somos uma plataforma que une instituicoes, voluntarios e projetos sociais em uma rede de solidariedade e transformacao social.</p>
+          <h1>Conectando pessoas a projetos que fazem a diferença</h1>
+          <p>Somos uma plataforma que une instituições, voluntários e projetos sociais em uma rede de solidariedade e transformação social.</p>
           <div class="hero-actions">
             <router-link to="/instituicao" class="btn-hero-primary">
-              Ver Instituicoes
+              Ver Instituições
             </router-link>
             <router-link to="/projeto" class="btn-hero-secondary">
               Explorar Projetos
@@ -36,8 +36,8 @@
     <section class="stats-section">
       <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-building"></i></div>
-        <h3>Instituicoes</h3>
-        <p>Organizacoes comprometidas com a mudanca social</p>
+        <h3>Instituições</h3>
+        <p>Organizações comprometidas com a mudança social</p>
       </div>
       <div class="stat-card">
         <div class="stat-icon secondary"><i class="fas fa-project-diagram"></i></div>
@@ -46,8 +46,8 @@
       </div>
       <div class="stat-card">
         <div class="stat-icon accent"><i class="fas fa-users"></i></div>
-        <h3>Voluntarios</h3>
-        <p>Pessoas dispostas a fazer a diferenca</p>
+        <h3>Voluntários</h3>
+        <p>Pessoas dispostas a fazer a diferença</p>
       </div>
     </section>
 

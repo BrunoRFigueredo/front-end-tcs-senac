@@ -2,13 +2,13 @@
 <div class="page-container">
   <div class="page-header">
     <div>
-      <h2 class="page-title">Instituicoes</h2>
-      <p class="page-subtitle">Conheca as organizacoes que fazem a diferenca</p>
+      <h2 class="page-title">Instituições</h2>
+      <p class="page-subtitle">Conheça as organizações que fazem a diferença</p>
     </div>
     <router-link to="/cadastro-instituicao" v-if="this.verificaBotao()">
       <button class="btn-vincular" type="button">
         <i class="fas fa-plus"></i>
-        Vincular-se a uma Instituicao
+        Vincular-se a uma Instituição
       </button>
     </router-link>
   </div>

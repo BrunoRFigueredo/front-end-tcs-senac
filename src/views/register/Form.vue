@@ -7,6 +7,7 @@
         </div>
         <h2>Criar conta</h2>
         <p class="register-subtitle">Cadastre-se para participar de projetos sociais</p>
+
       </div>
       <div class="alert alert-danger" role="alert" v-if="this.erro">
         {{this.erro}}

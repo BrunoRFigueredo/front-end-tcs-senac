@@ -3,7 +3,7 @@
     <div class="dashboard-hero">
       <div class="hero-content">
         <h1>Bem-vindo ao Projetos Sociais</h1>
-        <p>Gerencie instituicoes, projetos e voluntarios em um so lugar</p>
+        <p>Gerencie instituições, projetos e voluntários em um só lugar</p>
       </div>
     </div>
 
@@ -12,8 +12,8 @@
         <div class="dash-icon blue">
           <i class="fas fa-building"></i>
         </div>
-        <h3>Instituicoes</h3>
-        <p>Visualize e gerencie as instituicoes cadastradas</p>
+        <h3>Instituições</h3>
+        <p>Visualize e gerencie as instituições cadastradas</p>
         <span class="dash-link">Acessar <i class="fas fa-arrow-right"></i></span>
       </router-link>
 
@@ -30,8 +30,8 @@
         <div class="dash-icon amber">
           <i class="fas fa-users"></i>
         </div>
-        <h3>Voluntarios</h3>
-        <p>Encontre e conecte-se com voluntarios</p>
+        <h3>Voluntários</h3>
+        <p>Encontre e conecte-se com voluntários</p>
         <span class="dash-link">Acessar <i class="fas fa-arrow-right"></i></span>
       </router-link>
     </div>
@@ -39,7 +39,7 @@
     <div class="info-section">
       <div class="info-card">
         <h3>Sobre a plataforma</h3>
-        <p>Esta plataforma foi criada para facilitar a conexao entre instituicoes, projetos sociais e voluntarios. Nosso objetivo e tornar o trabalho social mais organizado, transparente e acessivel a todos.</p>
+        <p>Esta plataforma foi criada para facilitar a conexão entre instituições, projetos sociais e voluntários. Nosso objetivo é tornar o trabalho social mais organizado, transparente e acessível a todos.</p>
       </div>
     </div>
   </div>

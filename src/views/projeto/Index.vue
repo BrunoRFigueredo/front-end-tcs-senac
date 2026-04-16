@@ -3,7 +3,7 @@
     <div class="page-header">
       <div>
         <h2 class="page-title">Projetos Sociais</h2>
-        <p class="page-subtitle">Descubra projetos que estao transformando comunidades</p>
+        <p class="page-subtitle">Descubra projetos que estão transformando comunidades</p>
       </div>
       <div v-if="this.verificaLogado()">
         <router-link to="/cadastrar-projeto">

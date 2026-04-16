@@ -2,13 +2,13 @@
   <div class="page-container">
     <div class="page-header">
       <div>
-        <h2 class="page-title">Voluntarios</h2>
+        <h2 class="page-title">Voluntários</h2>
         <p class="page-subtitle">Pessoas que dedicam seu tempo para transformar vidas</p>
       </div>
       <router-link to="/cadastrar-voluntario" v-if="this.verificaBotao()">
         <button class="btn-vincular">
           <i class="fas fa-hand-holding-heart"></i>
-          Tornar-se voluntario
+          Tornar-se voluntário
         </button>
       </router-link>
     </div>
