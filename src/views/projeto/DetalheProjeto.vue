@@ -1,43 +1,82 @@
 <template>
-  <div id="detalhe-projeto" class="container">
-    <div class="divDados">
-      <h4 class="text-center mt-2 mb-5">{{ projeto.nome }}</h4>
-      <p>Instituição responsável: {{ nomeInstituicao }}</p>
-      <p>Descrição: {{ projeto.descricao }}</p>
-      <p>Início: {{ projeto.dataInicio }}</p>
-      <p>Finaliza: {{ projeto.dataFinal }}</p>
-      <p>CNPJ: {{ projeto.instituicao?.cnpj }}</p>
-      <div class="row">
-        <button class="btn btn-success col m-1" @click="showModal = true" v-if="this.verificaLogado()">
-          Cadastrar serviço
+  <div class="detail-page">
+    <div class="detail-card">
+      <div class="detail-header">
+        <div class="project-badge">
+          <i class="fas fa-project-diagram"></i>
+        </div>
+        <h2>{{ projeto.nome }}</h2>
+        <p class="detail-subtitle">Instituicao: {{ nomeInstituicao }}</p>
+      </div>
+
+      <div class="detail-info-grid">
+        <div class="info-item">
+          <i class="fas fa-align-left"></i>
+          <div>
+            <span class="info-label">Descricao</span>
+            <span class="info-value">{{ projeto.descricao }}</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-calendar-alt"></i>
+          <div>
+            <span class="info-label">Inicio</span>
+            <span class="info-value">{{ projeto.dataInicio }}</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-calendar-check"></i>
+          <div>
+            <span class="info-label">Finaliza</span>
+            <span class="info-value">{{ projeto.dataFinal }}</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-id-card"></i>
+          <div>
+            <span class="info-label">CNPJ</span>
+            <span class="info-value">{{ projeto.instituicao?.cnpj }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions-grid" v-if="this.verificaLogado()">
+        <button class="action-btn-card green" @click="showModal = true">
+          <i class="fas fa-concierge-bell"></i>
+          Cadastrar servico
         </button>
-        <button class="btn btn-success col m-1" @click="showModalInsumo = true" v-if="this.verificaLogado()">
+        <button class="action-btn-card green" @click="showModalInsumo = true">
+          <i class="fas fa-box-open"></i>
           Cadastrar Insumo
         </button>
-        <button class="btn btn-success col m-1" @click="showModalPrestacao = true" v-if="this.verificaLogado()">
-          Cadastrar prestação de contas
+        <button class="action-btn-card green" @click="showModalPrestacao = true">
+          <i class="fas fa-file-invoice-dollar"></i>
+          Prestacao de contas
         </button>
       </div>
-      <br>
-      <div class="row">
-        <button type="button" class="btn btn-primary col m-1" @click="carregarProjetoServicos(this.id)"
+
+      <div class="actions-grid">
+        <button type="button" class="action-btn-card blue" @click="carregarProjetoServicos(this.id)"
           data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Serviços
+          <i class="fas fa-list"></i>
+          Servicos
         </button>
-        <button type="button" class="btn btn-primary col m-1" @click="carregarProjetoInsumos(this.id)"
+        <button type="button" class="action-btn-card blue" @click="carregarProjetoInsumos(this.id)"
           data-bs-toggle="modal" data-bs-target="#modalInsumos">
+          <i class="fas fa-boxes"></i>
           Insumos
         </button>
-        <button type="button" class="btn btn-primary col m-1" @click="carregarPrestacaoContas(this.id)"
+        <button type="button" class="action-btn-card blue" @click="carregarPrestacaoContas(this.id)"
           data-bs-toggle="modal" data-bs-target="#modalPrestacao">
-          Prestação de contas
+          <i class="fas fa-chart-bar"></i>
+          Prestacao de contas
         </button>
       </div>
     </div>
   </div>
 
   <!-- Modal Integração Projeto x Serviço -->
-  <Modal :model-value="showModal" title="Cadastro de serviço" id="modalServico"
+  <Modal :model-value="showModal" title="Cadastro de servico" id="modalServico"
     @update:modelValue="showModal = false, this.limpaErro()">
     <div class="alert alert-danger" role="alert" v-if="this.erro">
       {{ this.erro }}
@@ -46,7 +85,7 @@
       <div class="row">
         <div class="form-group col-md-6">
           <div class="label">
-            <label for="datainicio" class="form-label">Data Início</label>
+            <label for="datainicio" class="form-label">Data Inicio</label>
           </div>
           <div>
             <input @keyup="formatarData(projetoServico.dataInicio)" id="datainicio" type="date" class="form-control"
@@ -68,7 +107,7 @@
       <div class="row">
         <div class="form-group col-md-12">
           <div class="label">
-            <label class="form-label">Serviço</label>
+            <label class="form-label">Servico</label>
           </div>
           <div>
             <ServicoSelect @change="this.limpaErro()" v-model="projetoServico.servico" required />
@@ -132,7 +171,7 @@
           {{this.erro}}
         </div>
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Prestação de contas</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Prestacao de contas</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -144,7 +183,7 @@
                   <th scope="col">Quantidade</th>
                   <th scope="col">Valor (R$)</th>
                   <th scope="col">Data</th>
-                  <th v-if="this.idInstituicaoUsuario === this.instituicao.id" scope="col">Ações</th>
+                  <th v-if="this.idInstituicaoUsuario === this.instituicao.id" scope="col">Acoes</th>
                 </tr>
               </thead>
               <tbody>
@@ -171,7 +210,7 @@
     </div>
   </div>
 
-  <Modal :model-value="showModalPrestacao" title="Cadastro de serviço" id="modalPrestacao"
+  <Modal :model-value="showModalPrestacao" title="Cadastro de servico" id="modalPrestacao"
     @update:modelValue="showModalPrestacao = false, this.limpaErro()">
     <div class="alert alert-danger" role="alert" v-if="this.erro">
       {{ this.erro }}
@@ -236,7 +275,7 @@
                   <th scope="col">Quantidade</th>
                   <th scope="col">Status</th>
                   <th v-if="this.idVoluntarioUsuario" scope="col">Deseja Doar?</th>
-                  <th v-if="this.idInstituicaoUsuario === this.instituicao.id"  scope="col">Ações</th>
+                  <th v-if="this.idInstituicaoUsuario === this.instituicao.id"  scope="col">Acoes</th>
                 </tr>
               </thead>
               <tbody>
@@ -246,10 +285,10 @@
                   <td>{{ projetoInsumo.quantidade }}</td>
                   <td>
                     <span v-if="projetoInsumo.status === 'EM_ANDAMENTO'" class="badge bg-primary">Em andamento</span>
-                    <span v-if="projetoInsumo.status === 'CONCLUIDO'" class="badge bg-success">Concluído</span>
+                    <span v-if="projetoInsumo.status === 'CONCLUIDO'" class="badge bg-success">Concluido</span>
                   </td>
-                  <span v-if="this.idVoluntarioUsuario" class="btn-whatsapp"
-                    @click="this.enviaMensagem(this.telefoneInstituicao, 'Olá! Gostaria de realizar doação do insumo ' + projetoInsumo.nomeInsumo + ' !')"><img
+                  <span v-if="this.idVoluntarioUsuario" class="btn-whatsapp-inline"
+                    @click="this.enviaMensagem(this.telefoneInstituicao, 'Ola! Gostaria de realizar doacao do insumo ' + projetoInsumo.nomeInsumo + ' !')"><img
                       src="../../assets/whatsapp1.png" height="20" width="20" alt=""></span>
                   <td v-if="this.idInstituicaoUsuario === this.instituicao.id">
                     <button @click="concluirInsumo(projetoInsumo.id)" class="btn">
@@ -265,7 +304,7 @@
             </table>
             <div class="row">
               <div class="h5 col-md">
-                Página {{ paginaDesejadaInsumos }} de {{ totalPaginaInsumos }}
+                Pagina {{ paginaDesejadaInsumos }} de {{ totalPaginaInsumos }}
               </div>
               <div class="col-md">
                 <v-pagination v-model="paginaDesejadaInsumos" :pages="totalPaginaInsumos"
@@ -273,7 +312,6 @@
                   active-color="#DCEDFF" @update:modelValue="carregarProjetoInsumos" />
               </div>
             </div>
-            <!--<router-link tag="button" class="botao" :to="`/servico/${servico.id}`">Visualizar</router-link>-->
           </div>
         </div>
         <div class="modal-footer">
@@ -285,7 +323,6 @@
 
   <!-- Modal Integração Projeto x Serviço -->
 
-
   <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -295,7 +332,7 @@
         </div>
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">
-            {{ this.idVoluntarioUsuario ? 'Quais serviços lhe interessam?' : 'Listando serviços do projeto' }} </h5>
+            {{ this.idVoluntarioUsuario ? 'Quais servicos lhe interessam?' : 'Listando servicos do projeto' }} </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -304,16 +341,16 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Data de ínicio</th>
+                  <th scope="col">Data inicio</th>
                   <th scope="col">Data final</th>
-                  <th scope="col">Voluntário</th>
-                  <th scope="col">Serviço</th>
-                  <th scope="col">Status do serviço</th>
-                  <th v-if="this.idInstituicaoUsuario === this.instituicao.id" scope="col">Ações</th>
+                  <th scope="col">Voluntario</th>
+                  <th scope="col">Servico</th>
+                  <th scope="col">Status</th>
+                  <th v-if="this.idInstituicaoUsuario === this.instituicao.id" scope="col">Acoes</th>
                   <th v-if="this.idInstituicaoUsuario === this.instituicao.id" scope="col">
                     Aprovar/Reprovar
                   </th>
-                  <th v-if="this.idVoluntarioUsuario" scope="col">Seja voluntário</th>
+                  <th v-if="this.idVoluntarioUsuario" scope="col">Seja voluntario</th>
                 </tr>
               </thead>
               <tbody>
@@ -324,12 +361,9 @@
                   <td>{{ projetoServico.nomeVoluntario }}</td>
                   <td>{{ projetoServico.nomeServico }}</td>
                   <td>
-                    <span v-if="projetoServico.statusServicoEnum === 'EM_ANDAMENTO'" class="badge bg-primary">Em
-                      andamento</span>
-                    <span v-if="projetoServico.statusServicoEnum === 'CONCLUIDO'"
-                      class="badge bg-success">Concluído</span>
-                    <span v-if="projetoServico.statusServicoEnum === 'PENDENTE'"
-                      class="badge bg-warning">Pendente</span>
+                    <span v-if="projetoServico.statusServicoEnum === 'EM_ANDAMENTO'" class="badge bg-primary">Em andamento</span>
+                    <span v-if="projetoServico.statusServicoEnum === 'CONCLUIDO'" class="badge bg-success">Concluido</span>
+                    <span v-if="projetoServico.statusServicoEnum === 'PENDENTE'" class="badge bg-warning">Pendente</span>
                   </td>
                   <td v-if="this.idInstituicaoUsuario === this.instituicao.id">
                     <button @click="concluirServico(projetoServico.id)"
@@ -362,7 +396,7 @@
             </table>
             <div class="row">
               <div class="h5 col-md">
-                Página {{ paginaDesejada }} de {{ totalPagina }}
+                Pagina {{ paginaDesejada }} de {{ totalPagina }}
               </div>
               <div class="col-md">
                 <v-pagination v-model="paginaDesejada" :pages="totalPagina" :range-size="tamanhoPagina"
@@ -370,7 +404,6 @@
                   @update:modelValue="carregarServico" />
               </div>
             </div>
-            <!--<router-link tag="button" class="botao" :to="`/servico/${servico.id}`">Visualizar</router-link>-->
           </div>
         </div>
         <div class="modal-footer">
@@ -557,11 +590,9 @@ export default {
     },
     formatarData(dataInicio, dataFim) {
       if (dataInicio.lenght === 8) {
-        // const dataIni = dayjs(dataInicio);
         this.projeto.dataInicio = dataF.format('YYYY-MM-DD');
       }
       if (dataFim.lenght === 8) {
-        // const dataF = dayjs(dataFim);
         this.projeto.dataFinal = dataIni.format('YYYY-MM-DD');
       }
     },
@@ -606,7 +637,6 @@ export default {
         });
     },
     verificaLogado() {
-      //return isLogged();
       if (isLogged()) {
         if (this.permissao(['INSTITUICAO'])) {
           return true;
@@ -628,21 +658,142 @@ export default {
 </script>
 
 <style scoped>
-.divDados {
+.detail-page {
+  max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #ADD8E6;
-  border-radius: 10px;
-  width: 800px;
+}
+
+.detail-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-100);
+  padding: 40px;
+}
+
+.detail-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.project-badge {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 28px;
+  color: var(--white);
+}
+
+.detail-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.detail-subtitle {
+  color: var(--gray-500);
+  font-size: 15px;
+  margin: 0;
+}
+
+.detail-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.detail-info-grid .info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-100);
+}
+
+.detail-info-grid .info-item i {
+  color: var(--primary);
+  margin-top: 2px;
+  font-size: 14px;
+}
+
+.detail-info-grid .info-label {
+  display: block;
+  font-size: 12px;
+  color: var(--gray-500);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-info-grid .info-value {
+  display: block;
+  font-size: 14px;
+  color: var(--gray-800);
+  font-weight: 600;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.action-btn-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.action-btn-card.green {
+  background: var(--secondary);
+  color: var(--white);
+}
+
+.action-btn-card.green:hover {
+  background: var(--secondary-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.action-btn-card.blue {
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid #bfdbfe;
+}
+
+.action-btn-card.blue:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.btn-whatsapp-inline {
+  cursor: pointer;
+  padding-top: 10px;
 }
 
 .btn-cadastrar {
   text-align: right;
   padding: 10px;
-  padding-top: 0px;
 }
 
-.btn-whatsapp {
-  padding-top: 30px;
+@media (max-width: 640px) {
+  .detail-card { padding: 24px; }
+  .detail-info-grid, .actions-grid { grid-template-columns: 1fr; }
 }
 </style>

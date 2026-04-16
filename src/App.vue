@@ -2,7 +2,9 @@
   <div id="app">
     <MenuSuperior v-if="this.superiorVisivel"/>
     <MenuLateral  v-if="this.lateralVisivel" @deslogado="this.verificaVisibilidade(this.estaLogado())"/>
-    <router-view class="mt-5" @logado="this.verificaVisibilidade(this.estaLogado())"/>
+    <div class="app-content" :class="{ 'with-navbar': superiorVisivel }">
+      <router-view @logado="this.verificaVisibilidade(this.estaLogado())"/>
+    </div>
   </div>
 </template>
 
@@ -28,12 +30,12 @@ export default {
     },
     mounted(){
       if(!this.estaLogado()){
-        
+
       }
     },
     methods: {
       estaLogado(){
-        
+
         return isLogged();
       },
       verificaVisibilidade(logado){
@@ -52,7 +54,12 @@ export default {
 </script>
 
 <style scoped>
-  .header{
-    background-color: gray;
+  .app-content {
+    padding: 24px;
+    min-height: 100vh;
+  }
+
+  .app-content.with-navbar {
+    padding-top: 88px;
   }
 </style>

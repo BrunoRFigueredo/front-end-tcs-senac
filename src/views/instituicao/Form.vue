@@ -1,152 +1,97 @@
 <template>
-  <div class="login-page" id="instituicao-form">
-    <div class="form">
-      <form class="login" @keyup="this.limpaErro()">
+  <div class="form-page">
+    <div class="form-card">
+      <div class="form-header">
+        <h2>Vincular Instituicao</h2>
+        <p>Preencha os dados para vincular-se a uma instituicao</p>
+      </div>
+      <form class="modern-form" @keyup="this.limpaErro()">
         <div class="alert alert-danger" role="alert" v-if="this.erro">
           {{this.erro}}
         </div>
-        <div class="row">
-          <span>*Informe <strong>exatamente</strong> os mesmos dados cadastrados na prefeitura.</span>
-        </div>
-        <div class="row">
-          <span>*Após vincular-se a uma instituiçao, é necessário entrar novamente no sistema para liberar acessos as
-            novas funcionalidades.</span>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-12 col-sm-12">
-            <div class="label">
-              <label for="nome" class="form-label">Nome</label>
-              <input id="nome" type="text" class="form-control" v-model="instituicao.nome" required>
-            </div>
-          </div>
+        <div class="form-notice">
+          <i class="fas fa-info-circle"></i>
+          <span>Informe <strong>exatamente</strong> os mesmos dados cadastrados na prefeitura. Apos vincular-se, entre novamente no sistema para liberar os novos acessos.</span>
         </div>
 
-        <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
-            <div class="label">
+        <div class="form-section">
+          <h3 class="section-title">Dados da Instituicao</h3>
+          <div class="form-group">
+            <label for="nome" class="form-label">Nome</label>
+            <input id="nome" type="text" class="form-control" v-model="instituicao.nome" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
               <label for="email" class="form-label">Email</label>
               <input id="email" type="email" class="form-control" v-model="instituicao.email" required>
             </div>
-          </div>
-
-          <div class="form-group col-md-6 col-sm-12">
-            <div class="label">
-              <label for="telefone" class="form-label">Telefone</label>
-            </div>
             <div class="form-group">
+              <label for="telefone" class="form-label">Telefone</label>
               <input id="telefone" type="number" class="form-control" v-model="instituicao.telefone" required>
             </div>
           </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
-            <div class="label">
+          <div class="form-row three-cols">
+            <div class="form-group">
               <label for="cnpj" class="form-label">CNPJ</label>
               <input id="cnpj" type="text" class="form-control" v-model="instituicao.cnpj" required>
             </div>
-          </div>
-
-          <div class="form-group col-md-3 col-sm-12">
-            <div class="label">
-              <label for="senha" class="form-label">Conta</label>
+            <div class="form-group">
+              <label for="pix" class="form-label">Conta</label>
               <input id="pix" type="text" class="form-control" v-model="instituicao.conta" required>
             </div>
-          </div>
-
-          <div class="form-group col-md-3 col-sm-12">
-            <div class="label">
+            <div class="form-group">
               <label for="conta" class="form-label">Agencia</label>
               <input id="conta" type="text" class="form-control" v-model="instituicao.agencia" required>
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="form-group col-md-4 col-sm-12">
-            <div class="label">
-              <label for="cep" class="form-label">Cep</label>
+        <div class="form-section">
+          <h3 class="section-title">Endereco</h3>
+          <div class="form-row three-cols">
+            <div class="form-group">
+              <label for="cep" class="form-label">CEP</label>
+              <input id="cep" type="number" @keyup="this.buscaEndereco(this.instituicao.cep)" class="form-control" v-model="instituicao.cep" required>
             </div>
             <div class="form-group">
-              <input id="cep" type="number" @keyup="this.buscaEndereco(this.instituicao.cep)" class="form-control"
-                v-model="instituicao.cep" required>
-            </div>
-          </div>
-
-          <div class="form-group col-md-4 col-sm-12">
-            <div class="label">
               <label for="pais" class="form-label">Pais</label>
+              <input id="pais" type="text" class="form-control" placeholder="BR" :maxlength="maxEstado" v-model="instituicao.pais" required>
             </div>
             <div class="form-group">
-              <input id="pais" type="text" class="form-control" placeholder="Exemplo: BR" :maxlength="maxEstado"
-                v-model="instituicao.pais" required>
-            </div>
-          </div>
-
-          <div class="form-group col-md-4 col-sm-12">
-            <div class="label">
               <label for="estado" class="form-label">Estado</label>
-            </div>
-            <div class="form-group">
-              <input id="estado" type="text" class="form-control" placeholder="Exemplo: SC" :maxlength="maxEstado"
-                v-model="instituicao.estado" required>
+              <input id="estado" type="text" class="form-control" placeholder="SC" :maxlength="maxEstado" v-model="instituicao.estado" required>
             </div>
           </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
-            <div class="label">
-              <label for="cidade" class="form-label">Cidade</label>
-            </div>
+          <div class="form-row">
             <div class="form-group">
+              <label for="cidade" class="form-label">Cidade</label>
               <input id="cidade" type="text" class="form-control" v-model="instituicao.cidade" required>
             </div>
-          </div>
-
-          <div class="form-group col-md-6 col-sm-12">
-            <div class="col">
-              <div class="label">
-                <label for="bairro" class="form-label">Bairro</label>
-              </div>
-              <div class="form-group">
-                <input id="bairro" type="text" class="form-control" v-model="instituicao.bairro" required>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group col-md-10">
-            <div class="label">
-              <label for="logradouro" class="form-label">Logradouro</label>
-            </div>
             <div class="form-group">
+              <label for="bairro" class="form-label">Bairro</label>
+              <input id="bairro" type="text" class="form-control" v-model="instituicao.bairro" required>
+            </div>
+          </div>
+          <div class="form-row address-row">
+            <div class="form-group flex-grow">
+              <label for="logradouro" class="form-label">Logradouro</label>
               <input id="logradouro" type="text" class="form-control" v-model="instituicao.logradouro" required>
             </div>
-          </div>
-
-          <div class="form-group col-md-2">
-            <div class="label">
-              <label for="numero" class="form-label">Número</label>
-            </div>
-            <div class="form-group">
+            <div class="form-group flex-small">
+              <label for="numero" class="form-label">Numero</label>
               <input id="numero" type="number" class="form-control" v-model="instituicao.numero" required>
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col">
-            <div class="label">
-              <label for="cep" class="form-label">Descrição</label>
-            </div>
-            <textarea name="descricao" id="descricao" class="w-100" v-model="instituicao.descricao"></textarea>
+        <div class="form-section">
+          <div class="form-group">
+            <label for="descricao" class="form-label">Descricao</label>
+            <textarea name="descricao" id="descricao" class="form-control textarea" v-model="instituicao.descricao"></textarea>
           </div>
         </div>
-        <div class="col-md-12">
-          <BotaoSalvar @click.prevent="cadastrar(instituicao)" />
-        </div>
+
+        <BotaoSalvar @click.prevent="cadastrar(instituicao)" />
       </form>
     </div>
   </div>
@@ -228,7 +173,7 @@ export default {
           })
           .catch(erro => {
             (
-              console.log('Erro ao carregar dados do endereço ' + erro.response.data.message)
+              console.log('Erro ao carregar dados do endereco ' + erro.response.data.message)
             )
           })
       }
@@ -244,58 +189,93 @@ export default {
 </script>
 
 <style scoped>
-.login-page {
-  margin: 10px;
+.form-page {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.header {
-  color: black;
-  font-size: 30px;
+.form-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-100);
+  padding: 40px;
 }
 
-.form {
-  position: relative;
-  z-index: 1;
-  background: #ADD8E6;
-  max-width: 850px;
-  margin: 0 auto 100px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  margin: auto;
-  border-radius: 10px;
+.form-header {
+  margin-bottom: 28px;
 }
 
-.label {
-  text-align: left;
-  font-family: "Roboto", sans-serif;
+.form-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.form-header p {
+  color: var(--gray-500);
   font-size: 14px;
+  margin: 0;
 }
 
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 3px;
-  box-sizing: border-box;
-  font-size: 14px;
+.form-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--accent-light);
+  border: 1px solid #fde68a;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #92400e;
+  margin-bottom: 28px;
+  line-height: 1.5;
 }
 
-.form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
+.form-notice i {
+  color: var(--accent);
+  margin-top: 2px;
+  flex-shrink: 0;
 }
 
-.form .message a {
-  color: #4CAF50;
-  text-decoration: none;
+.form-section {
+  margin-bottom: 28px;
 }
 
-.form .register-form {
-  display: none;
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-row.three-cols {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.form-row.address-row {
+  grid-template-columns: 3fr 1fr;
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+@media (max-width: 640px) {
+  .form-card { padding: 24px; }
+  .form-row, .form-row.three-cols, .form-row.address-row { grid-template-columns: 1fr; }
 }
 </style>

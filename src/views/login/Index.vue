@@ -1,24 +1,29 @@
 <template>
   <div class="login-page">
-    <div class="form">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-icon">
+          <i class="fas fa-hands-helping"></i>
+        </div>
+        <h2>Bem-vindo de volta</h2>
+        <p class="login-subtitle">Entre na sua conta para continuar</p>
+      </div>
       <div class="alert alert-danger" role="alert" v-if="this.erro">
         {{this.erro}}
       </div>
-      <form class="login" @keyup="this.limpaErro()">
+      <form class="login-form" @keyup="this.limpaErro()">
         <div class="form-group">
-          <div class="label">
-            <label for="email">Email</label>
-          </div>
+          <label for="email" class="form-label">Email</label>
           <input id="email" type="email" class="form-control" placeholder="exemplo@exemplo.com" v-model="usuario.email" required>
         </div>
         <div class="form-group">
-          <div class="label">
-            <label for="senha">Senha</label>  
-          </div>
+          <label for="senha" class="form-label">Senha</label>
           <input id="senha" type="password" class="form-control" placeholder="********" v-model="usuario.senha" required>
         </div>
-        <button @click="logar()" type="submit" class="btn btn-primary">Login</button>
-        <router-link to="/usuario-register"><p class="message">Ainda não está registrado? <a>Criar conta</a></p></router-link>
+        <button @click="logar()" type="submit" class="btn-submit">Entrar</button>
+        <router-link to="/usuario-register">
+          <p class="message">Ainda não está registrado? <span class="link-accent">Criar conta</span></p>
+        </router-link>
       </form>
     </div>
   </div>
@@ -69,108 +74,122 @@ export default {
 </script>
 
 <style scoped>
-  @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
 .login-page {
-  padding: 8% 0 0;
-  margin: auto;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  margin: -24px;
 }
-.form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 460px;
-  margin: 0 auto 100px;
-  padding: 30px;
+
+.login-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-header {
   text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  margin: auto;
+  margin-bottom: 32px;
 }
-.label {
-  text-align: left;
-  font-family: "Roboto", sans-serif;
+
+.login-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 24px;
+  color: var(--white);
+}
+
+.login-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0 0 8px;
+}
+
+.login-subtitle {
+  color: var(--gray-500);
   font-size: 14px;
-  color: black;
+  margin: 0;
 }
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
+
+.form-group {
+  margin-bottom: 20px;
 }
-.form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-.form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
-}
-.form .message {
-  margin: 15px 0 0;
-  color: black;
-  font-size: 12px;
-}
-.form .message a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-.form .register-form {
-  display: none;
-}
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 300px;
-  margin: 0 auto;
-}
-.container:before, .container:after {
-  content: "";
+
+.form-group .form-label {
   display: block;
-  clear: both;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--gray-700);
 }
-.container .info {
-  margin: 50px auto;
+
+.login-form .form-control {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-size: 14px;
+  transition: var(--transition);
+  background: var(--gray-50);
+}
+
+.login-form .form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: var(--white);
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 8px;
+}
+
+.btn-submit:hover {
+  background: var(--primary-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.message {
   text-align: center;
+  margin-top: 20px;
+  color: var(--gray-500);
+  font-size: 13px;
 }
-.container .info h1 {
-  margin: 0 0 15px;
-  padding: 0;
-  font-size: 36px;
-  font-weight: 300;
-  color: #1a1a1a;
+
+.link-accent {
+  color: var(--primary);
+  font-weight: 600;
 }
-.container .info span {
-  color: #4d4d4d;
-  font-size: 12px;
+
+.link-accent:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
 }
-.container .info span a {
-  color: #000000;
-  text-decoration: none;
-}
-.container .info span .fa {
-  color: #EF3B3A;
-}
-body {
-  background: #76b852; /* fallback for old browsers */
-  background: rgb(141,194,111);
-  background: linear-gradient(90deg, rgba(141,194,111,1) 0%, rgba(118,184,82,1) 50%);
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
+
+.alert-danger {
+  margin-bottom: 20px;
 }
 </style>

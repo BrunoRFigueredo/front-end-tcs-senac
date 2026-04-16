@@ -1,24 +1,43 @@
 <template>
-    <button class="btn-salvar">Salvar</button>
+    <button class="btn-salvar">
+      <i class="fas fa-check"></i>
+      Salvar
+    </button>
 </template>
 
 <style>
     .btn-salvar {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: #4CAF50;
-    width: 50%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
-    cursor: pointer;
-    border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px 24px;
+      background: var(--secondary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
     }
-    .btn-salvar:hover,.btn-salvar:active,.btn-salvar:focus {
-        background: #43A047;
+
+    .btn-salvar:hover {
+      background: var(--secondary-dark);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .btn-salvar:active {
+      transform: translateY(0);
+    }
+
+    .btn-salvar:disabled {
+      background: var(--gray-300);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
     }
 </style>

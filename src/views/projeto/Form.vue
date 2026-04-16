@@ -1,67 +1,41 @@
 <template>
-    <div class="login-page">
-        <div class="form">
+    <div class="form-page">
+        <div class="form-card">
+            <div class="form-header">
+                <h2>Cadastrar Projeto</h2>
+                <p>Crie um novo projeto social para sua instituicao</p>
+            </div>
             <div class="alert alert-danger" role="alert" v-if="this.erro">
                 {{this.erro}}
             </div>
-            <h3 class="text-center pb-4"><strong>Cadastrar Projeto</strong></h3>
-            <form class="login" @keyup="this.limpaErro()">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <div class="label">
-                            <label for="nome" class="form-label">Nome</label>
-                        </div>
-                        <div>
-                            <input id="nome" type="text" class="form-control" v-model="projeto.nome">
-                        </div>
+            <form class="modern-form" @keyup="this.limpaErro()">
+                <div class="form-group">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input id="nome" type="text" class="form-control" v-model="projeto.nome">
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao" class="form-label">Descricao</label>
+                    <input id="descricao" type="textarea" class="form-control" v-model="projeto.descricao" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="datainicio" class="form-label">Data Inicio</label>
+                        <input @keyup="formatarData(projeto.dataInicio)" id="datainicio" type="date" class="form-control" v-model="projeto.dataInicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="datafim" class="form-label">Data Final</label>
+                        <input @keyup="formatarData(projeto.dataInicio)" id="datafim" type="date" class="form-control" v-model="projeto.dataFinal">
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <div class="label">
-                            <label for="descricao" class="form-label">Descricao</label>
-                        </div>
-                        <div>
-                            <input id="descricao" type="textarea" class="form-control" v-model="projeto.descricao" required>
-                        </div>
-                    </div>
-                </div>
-                    
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <div class="label">
-                            <label for="datainicio" class="form-label">Data Início</label>
-                        </div>
-                        <div>
-                            <input @keyup="formatarData(projeto.dataInicio)" id="datainicio" type="date" class="form-control" v-model="projeto.dataInicio" required>
-                        </div>
-                    </div>
-                
-                    <div class="form-group col-md-6">
-                        <div class="label">
-                            <label for="datainicio" class="form-label">Data Final</label>
-                        </div>
-                        <div>
-                            <input @keyup="formatarData(projeto.dataInicio)" id="datafim" type="date" class="form-control"  v-model="projeto.dataFinal">
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="instituicao" class="form-label">Instituicao</label>
+                    <input id="instituicao" type="text" disabled class="form-control" v-model="this.nomeInstituicao">
                 </div>
 
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <div class="label">
-                            <label for="instituicao" class="form-label">Instituição</label>
-                        </div>
-                        <div>
-                            <input id="instituicao" type="text" disabled class="form-control" v-model="this.nomeInstituicao">
-                        </div>
-                    </div>
-                </div>
-                                
-                <div class="col-md-12 btn-cadastrar">
-                    <BotaoSalvar @click="cadastrar(projeto)" />
-                </div>     
+                <BotaoSalvar @click="cadastrar(projeto)" />
             </form>
         </div>
     </div>
@@ -70,7 +44,7 @@
 <script>
     import CrudService from '@/services/crud';
     import dayjs from 'dayjs';
-    import { getLogado, isLogged } from '@/services/auth';    
+    import { getLogado, isLogged } from '@/services/auth';
     import { buscarInstituicao } from '@/util/buscaInstituicao';
     import BotaoSalvar from '@/components/BotaoSalvar.vue';
 
@@ -113,7 +87,7 @@
         async cadastrar(projeto) {
             try {
                 await this.$crudProjeto.save(projeto);
-                this.$router.push("/projeto");      
+                this.$router.push("/projeto");
             }
             catch (erro) {
                 this.erro = erro.response.data.message
@@ -154,68 +128,48 @@
 }
 </script>
 
-<style>
-.login-page {
-  padding: 10px;
-  margin: auto;
+<style scoped>
+.form-page {
+  max-width: 700px;
+  margin: 0 auto;
 }
-.form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 800px;
-  margin: 0 auto 100px;
-  padding: 30px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  margin: auto;
+
+.form-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-100);
+  padding: 40px;
 }
-.label {
-  text-align: left;
-  font-family: "Roboto", sans-serif;
+
+.form-header {
+  margin-bottom: 28px;
+}
+
+.form-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.form-header p {
+  color: var(--gray-500);
   font-size: 14px;
+  margin: 0;
 }
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 3px;
-  box-sizing: border-box;
-  font-size: 14px;
+
+.form-group {
+  margin-bottom: 16px;
 }
-.form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 50%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
-.btn-cadastrar{
-    text-align: center;
-}
-.form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
-}
-.form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-.form .message a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-.form .register-form {
-  display: none;
+
+@media (max-width: 640px) {
+  .form-card { padding: 24px; }
+  .form-row { grid-template-columns: 1fr; }
 }
 </style>

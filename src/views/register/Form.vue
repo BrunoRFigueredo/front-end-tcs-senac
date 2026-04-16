@@ -1,45 +1,47 @@
 <template>
-  <div class="login-page">
-    <div class="form">
+  <div class="register-page">
+    <div class="register-card">
+      <div class="register-header">
+        <div class="register-icon">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <h2>Criar conta</h2>
+        <p class="register-subtitle">Cadastre-se para participar de projetos sociais</p>
+
+      </div>
       <div class="alert alert-danger" role="alert" v-if="this.erro">
         {{this.erro}}
       </div>
-      <div class="header">
-          <p>Cadastro de Usuário</p>
-      </div>        <img id="blah" :src="url" alt="Sua imagem de perfil" width="200" height="200" style="align-content: center" />
-
-      <form class="login" @keyup="this.limpaErro()">
-        <div class="label">
-          <label for="imagem" class="form-label">Imagem de perfil</label>
+      <div class="avatar-section">
+        <img id="blah" :src="url" alt="Sua imagem de perfil" class="avatar-preview" v-if="url" />
+        <div class="avatar-placeholder" v-else>
+          <i class="fas fa-camera"></i>
         </div>
+      </div>
+      <form class="register-form" @keyup="this.limpaErro()">
         <div class="form-group">
+          <label for="imagem" class="form-label">Imagem de perfil</label>
           <input accept="image/*" type="file" class="form-control" @change="onFileChange" id="imagem"/>
         </div>
-        <div class="label">
+        <div class="form-group">
           <label for="nome" class="form-label">Nome</label>
+          <input id="nome" type="text" class="form-control" placeholder="Seu nome completo" v-model="usuario.nome" required>
         </div>
         <div class="form-group">
-          <input id="nome" type="text" class="form-control" v-model="usuario.nome" required>
-        </div>
-        <div class="label">
           <label for="email" class="form-label">Email</label>
+          <input id="email" type="email" class="form-control" placeholder="exemplo@exemplo.com" v-model="usuario.email" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="senha" class="form-label">Senha</label>
+            <input id="senha" type="password" class="form-control" placeholder="Min. 6 caracteres" v-model="usuario.senha" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmarSenha" class="form-label">Confirmar senha</label>
+            <input id="confirmarSenha" type="password" class="form-control" placeholder="Confirme a senha" v-model="usuario.confirmarSenha" required>
+          </div>
         </div>
         <div class="form-group">
-          <input id="email" type="email" class="form-control" v-model="usuario.email" required>
-        </div>
-        <div class="label">
-          <label for="senha" class="form-label">Senha</label>
-        </div>
-        <div class="form-group">
-          <input id="senha" type="password" class="form-control" v-model="usuario.senha" required>
-        </div>
-        <div class="label">
-          <label for="exampleInputEmail1" class="form-label">Confirmar senha</label>
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" v-model="usuario.confirmarSenha" required>
-        </div>
-        <div class="col-md-12">
           <BotaoSalvar :disabled="desabilitar()" @click="cadastrar(usuario)"/>
         </div>
       </form>
@@ -79,7 +81,7 @@ export default {
         async cadastrar(usuario) {
             this.erro = "";
             if (this.usuario.senha != this.usuario.confirmarSenha) {
-                this.erro = "A senha não confere com a confirmaçao";
+                this.erro = "A senha nao confere com a confirmacao";
             }
             else {
                 try {
@@ -122,52 +124,113 @@ export default {
 </script>
 
 <style scoped>
-.login-page {
-  margin: 0;
-}
-.header{
-  color: black;
-  font-size: 30px;
-}
-.form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 850px;
-  margin: 0 auto 100px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  margin: auto;
-  border-radius: 10px;
-}
-.label {
-  text-align: left;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-}
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 3px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-.form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-.form .message a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-.form .register-form {
-  display: none;
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  margin: -24px;
 }
 
+.register-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: 40px;
+  width: 100%;
+  max-width: 520px;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.register-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--secondary) 0%, #10b981 100%);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 24px;
+  color: var(--white);
+}
+
+.register-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0 0 8px;
+}
+
+.register-subtitle {
+  color: var(--gray-500);
+  font-size: 14px;
+  margin: 0;
+}
+
+.avatar-section {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.avatar-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 28px;
+  color: var(--gray-400);
+  border: 2px dashed var(--gray-300);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.register-form .form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-size: 14px;
+  transition: var(--transition);
+  background: var(--gray-50);
+}
+
+.register-form .form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: var(--white);
+}
+
+@media (max-width: 580px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

@@ -1,23 +1,23 @@
 <template>
-<div class="pagina">
-  <div class="listagem">
-    <div class="lista">
-      <div id="index-service" class="container" >
-        <h5 class="text-center">Lista de Categorias</h5>
-      <div class="row">
-                  <div class="col-md-12 div-btn-cadastrar">
-        <router-link to="/cadastrar-categoria">
-        <BotaoCadastrar />
-      </router-link>
-     </div>
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Categorias</h2>
+      <p class="page-subtitle">Gerencie as categorias de servicos</p>
     </div>
+    <router-link to="/cadastrar-categoria">
+      <BotaoCadastrar />
+    </router-link>
+  </div>
+
+  <div class="table-card">
     <table class="table text-center">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Nome</th>
-          <th scope="col">Descrição</th>
-          <th scope="col">Ações</th>
+          <th scope="col">Descricao</th>
+          <th scope="col">Acoes</th>
         </tr>
       </thead>
       <tbody>
@@ -26,37 +26,34 @@
           <td>{{ categoria.nome }}</td>
           <td>{{ categoria.descricao }}</td>
           <td>
-            <router-link :to="{ name: 'form-categoria', params: { id: categoria.id }}" class="text-dark p-0 mx-1">
-              <i class="bi bi-pencil-square"></i>
-            </router-link>
-            <button @click="deletarCategoria(categoria.id)" class="btn">
-              <i class="bi bi-trash"></i>
-            </button>
+            <div class="action-btns">
+              <router-link :to="{ name: 'form-categoria', params: { id: categoria.id }}" class="action-btn edit">
+                <i class="bi bi-pencil-square"></i>
+              </router-link>
+              <button @click="deletarCategoria(categoria.id)" class="action-btn delete">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
-    <div class="row">
-      <div class="h5 col-md">
-        Página {{paginaDesejada}} de {{totalPagina}}
-      </div>
-      <div class="col-md">
-        <v-pagination
-            v-model="paginaDesejada"
-            :pages="totalPagina"
-            :range-size="tamanhoPagina"
-            :hideFirstButton="true"
-            :hideLastButton="true"
-            active-color="#DCEDFF"
-            @update:modelValue="carregarCategoria"
-        />
-      </div>
-     </div>
-      </div>
+    <div class="pagination-container">
+      <span class="pagination-info">Pagina {{paginaDesejada}} de {{totalPagina}}</span>
+      <v-pagination
+          v-model="paginaDesejada"
+          :pages="totalPagina"
+          :range-size="tamanhoPagina"
+          :hideFirstButton="true"
+          :hideLastButton="true"
+          active-color="#dbeafe"
+          @update:modelValue="carregarCategoria"
+      />
     </div>
   </div>
 </div>
 </template>
+
 <script>
 import CrudService from '@/services/crud'
 import VPagination from "@hennge/vue3-pagination";
@@ -114,24 +111,92 @@ export default {
 </script>
 
 <style scoped>
-.pagina {
-      margin: 10px;
-  }
-  .lista {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 1200px;
-    margin: 0 auto 100px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    margin: auto;
-    border-radius: 10px;
-  }
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
 
-  .div-btn-cadastrar{
-  text-align: left;  
-  width: 50%;
-  } 
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gray-900);
+  margin: 0 0 4px;
+}
+
+.page-subtitle {
+  color: var(--gray-500);
+  font-size: 15px;
+  margin: 0;
+}
+
+.table-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-100);
+  overflow: hidden;
+  padding: 0 0 20px;
+}
+
+.action-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.action-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.action-btn.edit {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.action-btn.edit:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.action-btn.delete {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+
+.action-btn.delete:hover {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px 20px 0;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
 </style>
